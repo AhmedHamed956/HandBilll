@@ -1,0 +1,151 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hand_bill/src/blocs/global_bloc/global_bloc.dart';
+import 'package:hand_bill/src/blocs/patents/patents_bloc.dart';
+import 'package:hand_bill/src/blocs/patents/patents_event.dart';
+import 'package:hand_bill/src/blocs/patents/patents_state.dart';
+import 'package:hand_bill/src/data/model/services/patented_model.dart';
+import 'package:hand_bill/src/data/model/user.dart';
+import 'package:hand_bill/src/ui/component/custom/login_first_widget_sliver.dart';
+import 'package:hand_bill/src/ui/component/custom/regular_app_bar.dart';
+import 'package:hand_bill/src/ui/component/widgets.dart';
+import 'package:hand_bill/src/ui/screens/services_package/patented/my_patents_screen.dart';
+
+import 'component/patented_widget.dart';
+
+class PatentsScreen extends StatefulWidget {
+  static const routeName = "/PatentsScreen";
+
+  @override
+  _PatentsScreenState createState() => _PatentsScreenState();
+}
+
+class _PatentsScreenState extends State<PatentsScreen> {
+  List<PatentedModel>? _items;
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  late PatentsBloc _patentsBloc;
+  ScrollController? _scrollController;
+  static const offsetVisibleThreshold = 50.0;
+  bool loading = false;
+  User? _user;
+
+  @override
+  void initState() {
+    _patentsBloc = BlocProvider.of<PatentsBloc>(context);
+    _scrollController = ScrollController()..addListener(_onScroll);
+    _patentsBloc.allPage = 1;
+    _patentsBloc..add(FetchPatentsEvent());
+    _user = BlocProvider.of<GlobalBloc>(context).user;
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController!.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    final max = _scrollController!.position.maxScrollExtent;
+    final offset = _scrollController!.offset;
+
+    if (offset + offsetVisibleThreshold >= max && !_patentsBloc.isFetching) {
+      setState(() {
+        _patentsBloc.isFetching = true;
+      });
+      _patentsBloc.add(FetchPatentsEvent());
+    }
+  }
+
+  double iconSize = 24;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        key: _scaffoldKey,
+        appBar: RegularAppBar(
+            label: "categories.patented",
+            widget: InkWell(
+                onTap: () {
+                  if (_user == null) {
+                    displaySnackBar(
+                        title: "login first", scaffoldKey: _scaffoldKey);
+                  } else {
+                    Navigator.pushNamed(context, MyPatentsScreen.routeName);
+                  }
+                },
+                child: Icon(Icons.add))),
+        // backgroundColor: Color(0xffeeeeee),
+        body: BlocListener<PatentsBloc, PatentsState>(
+            listener: (context, state) {
+              if (state is PatentsErrorState) {
+                setState(() {
+                  _items = [];
+                });
+
+                displaySnackBar(title: state.error!, scaffoldKey: _scaffoldKey);
+              }
+              if (state is PatentsSuccessState) {
+                setState(() {
+                  if (_items == null) {
+                    _items = [];
+                  }
+                  _items!.addAll(state.items!);
+                });
+              }
+            },
+            child: RefreshIndicator(
+                onRefresh: () async {
+                  if (_items != null) {
+                    _items!.clear();
+                    _items = null;
+                  }
+
+                  _patentsBloc.allPage = 1;
+                  _patentsBloc.add(FetchPatentsEvent());
+                },
+                child: CustomScrollView(
+                    physics: BouncingScrollPhysics(),
+                    controller: _scrollController,
+                    slivers: [
+                      _items == null
+                          ? LoadingSliver()
+                          : _items!.length == 0
+                              ? CenterWidgetListSliver(
+                                  label: "Patents is empty")
+                              : SliverToBoxAdapter(
+                                  child: ListView.separated(
+                                      physics: BouncingScrollPhysics(),
+                                      // padding: EdgeInsets.symmetric(vertical: 16),
+                                      primary: false,
+                                      shrinkWrap: true,
+                                      itemCount: _items!.length,
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder: (context, index) {
+                                        return PatentedWidget(
+                                            model: _items![index]);
+                                      },
+                                      separatorBuilder:
+                                          (BuildContext context, int index) =>
+                                              Container(
+                                                  height: 10,
+                                                  color: Color(0xffeeeeee)))),
+                      SliverToBoxAdapter(child: SizedBox(height: 100)),
+
+                    ]))));
+  }
+}
+
+class LoadingSliver extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SliverFillRemaining(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [CircularProgressIndicator(strokeWidth: 2)]));
+  }
+}
