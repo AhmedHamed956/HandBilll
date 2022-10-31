@@ -70,9 +70,10 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
     if (_user != null) {
       _userNameController.text = _user!.name!;
       _phoneController.text = _user!.phone ?? "";
-      _addressController.text = _user!.address ?? "";
-      // _phoneController.text = "12345678";
-      // _addressController.text = "cairo";
+      _addressController.text = _user!.country ?? "";
+      print(_addressController.text);
+      print(_phoneController.text);
+    //
     }
   }
 

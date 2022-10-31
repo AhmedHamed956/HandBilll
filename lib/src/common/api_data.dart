@@ -18,7 +18,7 @@ class APIData {
   static const getPopular = domainLinkApi + 'user/top-products';
 
   static const userProfile = domainLinkApi + 'users/';
-  static const editProfile = domainLinkApi + 'user/edit';
+  static const editProfile = domainLinkApi + 'user/profile';
   static const changePassword = domainLinkApi + 'user/change-password';
 
   // categories

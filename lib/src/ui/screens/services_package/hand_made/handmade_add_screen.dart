@@ -95,7 +95,7 @@ class _HandmadeAddScreenState extends State<HandmadeAddScreen> {
   @override
   Widget build(BuildContext context) {
     _onAddButtonPressed() {
-      if (!_user!.profileCompleted()) {
+      if (_user!.profileCompleted()) {
         displaySnackBar(
             title: "Complete your profile", scaffoldKey: _scaffoldKey);
       } else if (_formKey!.currentState!.validate()) {
@@ -293,7 +293,7 @@ class _HandmadeAddScreenState extends State<HandmadeAddScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomButton(
-                                title: _model.id == null ? "Add" : "Edit",
+                                title: _model.title == null ? "Add" : "Edit",
                                 width: size.width * 0.7,
                                 radius: 900,
                                 onPress: () {

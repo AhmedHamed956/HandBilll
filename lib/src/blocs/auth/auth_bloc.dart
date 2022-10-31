@@ -91,11 +91,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> _mapRegisterToState(RegisterButtonPressed event) async* {
     yield AuthLoading();
     _user!.name = event.name;
+    _user!.namear = event.namear;
     _user!.email = event.email;
     _user!.password = event.password;
     // _user!.password = event.password;
     _user!.confirmpassword = event.confirimpassword;
     _user!.country = event.country;
+    print(_user!.country);
+    print('111111111111111111111111');
     _user!.phone = event.phone;
     RegisterResponse? response;
     try {

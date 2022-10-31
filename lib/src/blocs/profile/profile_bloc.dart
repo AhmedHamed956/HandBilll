@@ -6,6 +6,7 @@ import 'package:hand_bill/src/blocs/global_bloc/global_bloc.dart';
 import 'package:hand_bill/src/blocs/profile/profile_event.dart';
 import 'package:hand_bill/src/blocs/profile/profile_state.dart';
 import 'package:hand_bill/src/data/model/profile/profile_model.dart';
+import 'package:hand_bill/src/data/model/user.dart';
 import 'package:hand_bill/src/data/response/auth/edit_profile_response_.dart';
 import 'package:hand_bill/src/data/response/auth/common_response.dart';
 import 'package:hand_bill/src/data/response/auth/profile_response.dart';
@@ -16,7 +17,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileRepository profileRepository = ProfileRepository();
 
   bool isFetching = false;
-  List<ProfileModel>? profile;
+  List<GetProfileDataModel>? profile;
 
   AuthRepository authRepository = AuthRepository();
   late GlobalBloc globalBloc;
@@ -62,7 +63,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       yield ProfileLoadingState();
       ProfileResponse? response =
           await profileRepository.fetchUserData(user: event.user);
-      globalBloc.user = response!.data;
+      globalBloc.user = response!.data as User? ;
       log("parse profile data from db to local >>>>>>> ${globalBloc.user!.toJson()}");
       if (response.status!) {
         yield ProfileSuccessState(user: response.data);

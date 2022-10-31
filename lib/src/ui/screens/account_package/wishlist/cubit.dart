@@ -32,9 +32,11 @@ class AccountBloc extends Cubit<AccountState> {
     _dio.get(APIData.getProfile, queryParameters: queryParams).then((value) {
       acountModel = AcountModel.fromJson(value.data);
       print(value.data);
+      print('sssssssssssssssssssss');
       emit(AccountSuccessStates());
     }).catchError((error) {
       print(error.toString());
+
       emit(AcoountErrorStates(error.toString()));
     });
     // DioHelper.getdata(url: gift, token: token).then((value) {

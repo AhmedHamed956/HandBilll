@@ -23,6 +23,7 @@ class LoginEvent extends AuthEvent {
 
 class RegisterButtonPressed extends AuthEvent {
   final String name;
+  final String namear;
   final String email;
   final String password;
   final String country;
@@ -38,12 +39,11 @@ class RegisterButtonPressed extends AuthEvent {
       required this.password,
       required this.country,
       required this.confirimpassword,
-      // required this.catgID,
-      required this.phone});
+      required this.phone, required this.namear});
 
   @override
   List<Object> get props =>
-      [name, email, password, country, phone, confirimpassword];
+      [name, email, password, country, phone, confirimpassword,namear];
 }
 
 // rest password
