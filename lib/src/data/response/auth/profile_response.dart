@@ -1,4 +1,5 @@
 
+import 'package:hand_bill/src/data/model/profile/profile_model.dart';
 import 'package:hand_bill/src/data/model/user.dart';
 
 class ProfileResponse {

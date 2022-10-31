@@ -14,6 +14,7 @@ class User {
   String? _phone;
   String? _password;
   String? _confirmpassword;
+  String? _namear;
 
   SaveImageModel? _image;
 
@@ -38,7 +39,10 @@ class User {
   String? get phone => _phone;
 
   String? get password => _password;
+
   String? get confirmpassword => _confirmpassword;
+
+  String? get namear => _namear;
 
   SaveImageModel? get image => _image;
 
@@ -54,7 +58,9 @@ class User {
       String? username,
       String? phone,
       SaveImageModel? image,
-      String? name}) {
+      String? name,
+      String? namear,
+      }) {
     _id = id;
     _isVerified = isVerified;
     _deviceToken = deviceToken;
@@ -64,6 +70,7 @@ class User {
     _country = country;
     _email = email;
     _name = name;
+    _namear = namear;
     _phone = phone;
     _image = image;
   }
@@ -77,6 +84,7 @@ class User {
     _address = json["address"];
     _country = json["country"];
     _email = json["email"];
+    _namear = json["name_ar"];
     _name = json["name"];
     _phone = json["phone"];
     _image =
@@ -92,7 +100,8 @@ class User {
     map["api_token"] = _apiToken;
     map["address"] = _address;
     map["email"] = _email;
-    map["name"] = name;
+    map["name"] = _name;
+    map["name_ar"] = _namear;
     map["country"] = _country;
     map["phone"] = _phone;
     if (_image != null) {
@@ -106,22 +115,28 @@ class User {
     map["id"] = _id;
     map["email"] = _email;
     map["name"] = _name;
+    map["name_ar"] = _namear;
     map["thumb"] = image;
-    map["country"] = _country;
+    map["country"] = country;
     map["device_token"] = _deviceToken;
     return map;
   }
 
   set phone(String? value) {
     _phone = value;
+    print(_phone);
   }
 
   set country(String? value) {
     _country = value;
+    print(_country);
+
   }
 
   set password(String? value) {
     _password = value;
+    print(_password);
+
   }
 
   set confirmpassword(String? value) {
@@ -130,10 +145,18 @@ class User {
 
   set name(String? value) {
     _name = value;
+    print(_name);
   }
+  set namear(String? value) {
+    _namear = value;
+    print(_namear);
+  }
+
 
   set email(String? value) {
     _email = value;
+    print(_email);
+
   }
 
   set deviceToken(String? value) {

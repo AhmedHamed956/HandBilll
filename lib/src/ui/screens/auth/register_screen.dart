@@ -359,8 +359,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final _emailController = TextEditingController();
   final _nameController = TextEditingController();
+  final _namearController = TextEditingController();
   final _phoneController = TextEditingController();
-  String countryname = 'Egypt';
+  String? countryname;
+
   bool _autoValidate = false, loading = false;
   double marginVer = 24;
   AuthBloc? _authBloc;
@@ -398,6 +400,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         id: 9, name: "Chartered Accountants", value: "chartered_accountants"),
     NatureOfActivityModel(id: 10, name: "Schools", value: "schools"),
   ];
+
   @override
   void initState() {
     _natureOfActivityModel =
@@ -453,21 +456,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget build(BuildContext context) {
-    _onRegisterButtonPressed() {
-      // if (_countryModel!.id == 0) {
-      //   Fluttertoast.showToast(msg: translate("signup.select_country"));
-      // } else
-      _authBloc!
-        ..add(RegisterButtonPressed(
-            // catgID: catgID,
-            // natureactivity: natureactivity,
-            confirimpassword: _confirmpasswordController.text.trim(),
-            name: _nameController.text.trim(),
-            email: _emailController.text.trim(),
-            password: _passwordController.text.trim(),
-            country: countryname,
-            phone: phoneNumber));
-    }
 
     Size size = MediaQuery.of(context).size;
 
@@ -530,6 +518,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       }),
                                   SizedBox(height: marginVer),
+                                  CustomTextFormField(
+                                      hintText: translate("signup.ArabicName"),
+                                      icon: Icons.person_outline,
+                                      controller: _namearController,
+                                      validator: (input) {
+                                        if (input.toString().length < 4) {
+                                          return translate(
+                                              "signup.enter_arabic_name");
+                                        }
+                                        return null;
+                                      }),
+                                  SizedBox(height: marginVer),
+
                                   Row(children: [
                                     Expanded(
                                         child: CustomTextFormField(
@@ -803,7 +804,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             onPress: () {
                                               if (_key.currentState!
                                                   .validate()) {
-                                                _onRegisterButtonPressed();
+                                                print(countryname);
+                                                print('khaled');
+                                                _authBloc!
+                                                  ..add(RegisterButtonPressed(
+                                                     namear:_namearController.text.trim(),
+                                                      confirimpassword:
+                                                          _confirmpasswordController
+                                                              .text
+                                                              .trim(),
+                                                      name: _nameController.text
+                                                          .trim(),
+                                                      email: _emailController
+                                                          .text
+                                                          .trim(),
+                                                      password:
+                                                          _passwordController
+                                                              .text
+                                                              .trim(),
+                                                      country: countryname!,
+                                                      phone: phoneNumber));
                                               }
                                             }),
                                       ]),
@@ -848,6 +868,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   bool byAgent = true;
   bool byVisa = false;
+
   Widget dialogFiled(
       {required Widget dialog, required String label, required IconData icon}) {
     return InkWell(
@@ -870,7 +891,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     // typedef void MyFormCallback(CountryModel result);
   }
 
-  // typedef void MyFormCallback(CountryModel result);
+// typedef void MyFormCallback(CountryModel result);
 
 }
 
@@ -889,6 +910,7 @@ class MyForm extends StatefulWidget {
 
 class _MyFormState extends State<MyForm> {
   int? value;
+
   @override
   Widget build(BuildContext context) {
     if (!Platform.isIOS) {

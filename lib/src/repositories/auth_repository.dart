@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:hand_bill/src/common/api_data.dart';
 import 'package:hand_bill/src/common/global.dart';
+import 'package:hand_bill/src/data/model/profile/profile_model.dart';
 import 'package:hand_bill/src/data/model/user.dart';
 import 'package:hand_bill/src/data/response/auth/common_response.dart';
 import 'package:hand_bill/src/data/response/auth/countries_response.dart';
@@ -36,6 +37,7 @@ class AuthRepository {
       "password": user.password,
       "device_token": user.deviceToken
     });
+
     LoginResponse? loginResponse;
     Response? response;
     try {
@@ -49,6 +51,8 @@ class AuthRepository {
   }
 
   Future<RegisterResponse?> register({required User user}) async {
+    print(user.country);
+    print('yaraaaaaab');
     FormData formData = new FormData.fromMap({
       "secret": APIData.secretKey,
       "email": user.email,
@@ -57,7 +61,8 @@ class AuthRepository {
       "name": user.name,
       "device_token": user.deviceToken,
       "country": user.country,
-      "phone": user.phone
+      "phone": user.phone,
+      // "name_ar":user.namear,
     });
     RegisterResponse? registerResponse;
     Response? response;
@@ -68,6 +73,8 @@ class AuthRepository {
     );
     log("\nregister ${jsonEncode(response.data)}");
     registerResponse = RegisterResponse.fromJson(response.data);
+    // print(registerResponse.data!.namear);
+    print('werwerewrewrewrewrerwerwe');
     // } catch (error, stackTrace) {
     //   print("$tag ${response!.statusCode}");
     //   print("$tag error $error , stackTrace: $stackTrace ");
@@ -75,8 +82,7 @@ class AuthRepository {
     return registerResponse;
   }
 
-  Future<CommonResponse?> restPassword(
-      {required String code, required String newPassword}) async {
+  Future<CommonResponse?> restPassword({required String code, required String newPassword}) async {
     FormData formData = new FormData.fromMap(
         {"secret": APIData.secretKey, "code": code, "password": newPassword});
 
@@ -116,6 +122,7 @@ class AuthRepository {
       print("error $error , stackTrace: $stackTrace ");
       return null;
     }
+    return null;
   }
 
   Future<SendCodeResponse?> checkVerificationCode(String code) async {
@@ -140,6 +147,7 @@ class AuthRepository {
       return null;
     }
   }
+
 
   Future<bool> logging() async {
     currentUser = (await storage.read(key: "currentUser"));

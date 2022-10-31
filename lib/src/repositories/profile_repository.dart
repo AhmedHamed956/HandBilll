@@ -53,7 +53,8 @@ class ProfileRepository {
 //   }
 
   Future<ProfileResponse?> fetchUserData({required User user}) async {
-    Response response = await dio.post('${APIData.userProfile}${user.id}');
+    Response response = await dio.get('${APIData.editProfile}${user.id}');
+    print('${APIData.editProfile}${user.id}');
     ProfileResponse? profileResponse;
     try {
       profileResponse = ProfileResponse.fromJson(response.data);
@@ -72,7 +73,7 @@ class ProfileRepository {
     FormData formData;
     if (image == null) {
       formData = FormData.fromMap({
-        "secret": APIData.secretKey,
+        // "secret": APIData.secretKey,
         "name": user.name,
         "phone": user.phone.toString(),
         "address": user.address.toString()
