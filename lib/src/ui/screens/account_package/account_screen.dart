@@ -5,6 +5,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hand_bill/src/blocs/global_bloc/global_bloc.dart';
 import 'package:hand_bill/src/blocs/profile/profile_bloc.dart';
 import 'package:hand_bill/src/blocs/profile/profile_event.dart';
@@ -52,10 +53,12 @@ class _AccountScreenState extends State<AccountScreen> {
   String _avatar = placeholder;
   String _name = "Guest";
   String _label = translate("login.login");
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _scaffoldKey = GlobalKey();
+  FToast? fToast;
 
   @override
   void initState() {
+
     _globalBloc = BlocProvider.of<GlobalBloc>(context);
     _profileBloc = BlocProvider.of<ProfileBloc>(context);
     _user = _globalBloc.user;
@@ -208,9 +211,7 @@ class _AccountScreenState extends State<AccountScreen> {
       ),
     );
   }
-
   Widget item(AcountModel model, Size size) => Scaffold(
-      key: _scaffoldKey,
       // backgroundColor: Color(0xffeeeeee),
       backgroundColor: Color(0xfff5f5f5),
       body: RefreshIndicator(
@@ -232,10 +233,15 @@ class _AccountScreenState extends State<AccountScreen> {
                         InkWell(
                             onTap: () {
                               if (_user == null) {
-                                displaySnackBar(
-                                    title: translate("toast.login"),
-                                    scaffoldKey: _scaffoldKey);
-                              } else {
+                                Fluttertoast.showToast(
+                                    msg:translate("toast.login"),
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.green,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0
+                                );                              } else {
                                 Navigator.pushNamed(
                                     context, EditAccountScreen.routeName);
                               }

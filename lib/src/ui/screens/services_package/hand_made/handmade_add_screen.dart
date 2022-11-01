@@ -71,9 +71,9 @@ class _HandmadeAddScreenState extends State<HandmadeAddScreen> {
 
     super.initState();
   }
+  File? image;
 
   Future<void> getImage() async {
-    File? image;
     if (_maxImages > _images.length) {
       final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -95,16 +95,15 @@ class _HandmadeAddScreenState extends State<HandmadeAddScreen> {
   @override
   Widget build(BuildContext context) {
     _onAddButtonPressed() {
-      if (_user!.profileCompleted()) {
-        displaySnackBar(
-            title: "Complete your profile", scaffoldKey: _scaffoldKey);
-      } else if (_formKey!.currentState!.validate()) {
+      if  (_formKey!.currentState!.validate()) {
         setState(() => loading = true);
         _model.title = _titleController.text;
         _model.description = _descriptionController.text;
         _model.price = _priceController.text;
         _handmadeBloc.add(
             HandmadeAddEvent(model: _model, user: _user!, images: _images));
+
+
       }
     }
 
@@ -119,20 +118,33 @@ class _HandmadeAddScreenState extends State<HandmadeAddScreen> {
                 loading = true;
               }
               if (state is HandmadeErrorState) {
-                displaySnackBar(title: state.error!, scaffoldKey: _scaffoldKey);
+                Fluttertoast.showToast(
+                    msg: state.error ?? '',
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.green,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                );
                 setState(() {
                   loading = false;
                 });
               }
               if (state is HandmadeAddSuccessState) {
-                displaySnackBar(
-                    title: state.message, scaffoldKey: _scaffoldKey);
+                Fluttertoast.showToast(
+                    msg: state.message ?? '',
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.green,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                );
                 setState(() {
                   loading = false;
-                  _descriptionController.clear();
-                  _titleController.clear();
-                  _priceController.clear();
-                  _images.clear();
+                  Navigator.pop(context);
+
                 });
               }
             },
@@ -293,6 +305,7 @@ class _HandmadeAddScreenState extends State<HandmadeAddScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomButton(
+
                                 title: _model.title == null ? "Add" : "Edit",
                                 width: size.width * 0.7,
                                 radius: 900,

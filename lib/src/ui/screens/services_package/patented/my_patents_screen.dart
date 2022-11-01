@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hand_bill/src/blocs/global_bloc/global_bloc.dart';
 import 'package:hand_bill/src/blocs/patents/patents_bloc.dart';
 import 'package:hand_bill/src/blocs/patents/patents_event.dart';
@@ -85,11 +86,19 @@ class _MyPatentsScreenState extends State<MyPatentsScreen> {
             listener: (context, state) {
               if (state is PatentsErrorState) {
                 _items = [];
-                displaySnackBar(title: state.error!, scaffoldKey: _scaffoldKey);
-              }
+                Fluttertoast.showToast(
+                    msg: state.error ?? '',
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.green,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                );              }
               if (state is MyPatentsSuccessState) {
                 if (_items == null) {
                   _items = [];
+
                 }
                 setState(() {
                   _items!.addAll(state.items!);
@@ -133,9 +142,7 @@ class _MyPatentsScreenState extends State<MyPatentsScreen> {
                                       scrollDirection: Axis.vertical,
                                       itemBuilder: (context, index) {
                                         return PatentedWidget(
-                                            model: _items![index],
-                                            onDeleteTap: () =>
-                                                _deleteItem(_items![index]));
+                                            model: _items![index], onDeleteTap: () => _deleteItem(_items![index]));
                                       },
                                       separatorBuilder:
                                           (BuildContext context, int index) =>

@@ -28,7 +28,7 @@ class HandmadeWidget extends StatelessWidget {
               CachedNetworkImage(
                   imageUrl: model.images!.isEmpty
                       ? placeholder
-                      : model.images![0].url ?? placeholder,
+                      : model.images![0].url!,
                   placeholder: (context, url) => Container(
                       height: height,
                       child: Center(

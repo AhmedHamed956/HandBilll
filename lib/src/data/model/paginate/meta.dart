@@ -6,7 +6,7 @@ class Meta {
   int? _lastPage;
   List<Links>? _links;
   String? _path;
-  String? _perPage;
+  int? _perPage;
   int? _to;
   int? _total;
 
@@ -15,7 +15,7 @@ class Meta {
   int? get lastPage => _lastPage;
   List<Links>? get links => _links;
   String? get path => _path;
-  String? get perPage => _perPage;
+  int? get perPage => _perPage;
   int? get to => _to;
   int? get total => _total;
 
@@ -25,7 +25,7 @@ class Meta {
     int? lastPage,
     List<Links>? links,
     String? path,
-    String? perPage,
+    int? perPage,
     int? to,
     int? total}){
     _currentPage = currentPage;

@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hand_bill/src/blocs/global_bloc/global_bloc.dart';
 import 'package:hand_bill/src/blocs/profile/profile_bloc.dart';
 import 'package:hand_bill/src/blocs/profile/profile_event.dart';
@@ -44,7 +45,6 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
 
   final ImagePicker _picker = ImagePicker();
   List<Object> _images = [];
-
   bool loadingProfile = false, loadingPassword = false;
 
   ProfileBloc? _profileBloc ;
@@ -70,12 +70,13 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
     if (_user != null) {
       _userNameController.text = _user!.name!;
       _phoneController.text = _user!.phone ?? "";
-      _addressController.text = _user!.country ?? "";
+      _addressController.text = _user!.address ?? "";
       print(_addressController.text);
       print(_phoneController.text);
     //
     }
   }
+
 
   @override
   void dispose() {
@@ -102,6 +103,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
     //   Fluttertoast.showToast(msg: "max images is $_maxImages");
     // }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -134,28 +136,44 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
     marginVer = MediaQuery.of(context).size.height * 0.025;
     imgSize = MediaQuery.of(context).size.width * 0.27;
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-        key: _scaffoldKey,
+    return  Scaffold(
         appBar: RegularAppBar(label: "Account information"),
         body: BlocListener<ProfileBloc, ProfileState>(
           listener: (context, state) {
             if (state is EditProfileSuccessState) {
-              displaySnackBar(
-                  scaffoldKey: _scaffoldKey, title: state.message ?? "");
-              setState(() {
-                // _user = state.user;
-                loadingProfile = false;
-              });
-            } else if (state is EditProfileErrorState) {
-              displaySnackBar(
-                  scaffoldKey: _scaffoldKey, title: state.error ?? "");
               setState(() => loadingProfile = false);
-              setState(() => loadingPassword = false);
+              Fluttertoast.showToast(
+                  msg: state.message ?? '',
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.green,
+                  textColor: Colors.white,
+                  fontSize: 16.0
+              );
+            } else if (state is EditProfileErrorState) {
+              setState(() => loadingProfile = false);
+              Fluttertoast.showToast(
+                  msg: state.error ?? '',
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+
             }
 
             if (state is ChangePasswordSuccessState) {
-              displaySnackBar(
-                  scaffoldKey: _scaffoldKey, title: state.message ?? "");
+              Fluttertoast.showToast(
+                  msg: state.message ?? '',
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.green,
+                  textColor: Colors.white,
+                  fontSize: 16.0
+              );
               setState(() => loadingPassword = false);
             }
           },

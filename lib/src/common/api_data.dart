@@ -11,14 +11,22 @@ class APIData {
   static const forgetPassword = domainLinkApi + 'user/forgot-password';
   static const checkVerificationCode = domainLinkApi + 'user/check-code';
   static const getCountries = domainLinkApi + 'company/countries';
-
+   // Fluttertoast.showToast(
+   //                  msg: state.message ?? '',
+   //                  toastLength: Toast.LENGTH_SHORT,
+   //                  gravity: ToastGravity.CENTER,
+   //                  timeInSecForIosWeb: 1,
+   //                  backgroundColor: Colors.green,
+   //                  textColor: Colors.white,
+   //                  fontSize: 16.0
+   //              );
   //home
   static const getSliders = domainLinkApi + 'user/top-banners';
   static const getTopCompanies = domainLinkApi + 'user/top-companies';
   static const getPopular = domainLinkApi + 'user/top-products';
 
-  static const userProfile = domainLinkApi + 'users/';
-  static const editProfile = domainLinkApi + 'user/profile';
+  static const userProfile = domainLinkApi + 'users/profile';
+  static const editProfile = domainLinkApi + 'user/edit';
   static const changePassword = domainLinkApi + 'user/change-password';
 
   // categories
@@ -40,7 +48,7 @@ class APIData {
   static const removePatented = domainLinkApi + 'user/remove-patent';
 
   // handmade
-  static const getAllHandmade = domainLinkApi + 'user/hand-made';
+  // static const getAllHandmade = domainLinkApi + 'user/hand-made';
   static const myHandmade = domainLinkApi + 'user/my-hand-made';
   static const addHandmade = domainLinkApi + 'user/hand-made';
   static const editHandmade = domainLinkApi + 'user/hand-made';

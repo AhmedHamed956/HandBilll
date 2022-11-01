@@ -157,22 +157,24 @@ class _PatentedDetailsScreenState extends State<PatentedDetailsScreen> {
                                   SizedBox(
                                       height: 60,
                                       child: Row(children: [
-                                        AspectRatio(
-                                            aspectRatio: 1 / 1,
-                                            child: Container(
-                                                decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                        image:
-                                                        CachedNetworkImageProvider(
-                                                            APIData.domainLink +
-                                                                _model.user!
-                                                                    .image!.url!),
-                                                        fit: BoxFit.cover),
-                                                    color: Color(0xffffffff),
-                                                    borderRadius:
-                                                    BorderRadius.circular(8),
-                                                    border: Border.all(
-                                                        color: Color(0xffe0e0e0))))),
+                                        // AspectRatio(
+                                        //     aspectRatio: 1 / 1,
+                                        //     child: Container(
+                                        //         decoration: BoxDecoration(
+                                        //             image: DecorationImage(
+                                        //                 image:
+                                        //                 CachedNetworkImageProvider(
+                                        //                     APIData.domainLink +
+                                        //                         _model.user!
+                                        //                             .image!.url!),
+                                        //                 fit: BoxFit.cover),
+                                        //             color: Color(0xffffffff),
+                                        //             borderRadius:
+                                        //             BorderRadius.circular(8),
+                                        //             border: Border.all(
+                                        //                 color: Color(0xffe0e0e0)))
+                                        //     )
+                                        // ),
                                         SizedBox(width: 16),
                                         Column(
                                             mainAxisAlignment:

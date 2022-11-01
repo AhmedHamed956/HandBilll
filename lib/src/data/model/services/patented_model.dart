@@ -7,8 +7,6 @@ class PatentedModel {
   String? _userId;
   String? _description;
   String? _title;
-  String? _createdAt;
-  String? _updatedAt;
   User? _user;
   List<ImageModel>? _images;
 
@@ -19,11 +17,6 @@ class PatentedModel {
   String? get description => _description;
 
   String? get title => _title;
-
-
-  String? get createdAt => _createdAt;
-
-  String? get updatedAt => _updatedAt;
 
   User? get user => _user;
 
@@ -43,8 +36,7 @@ class PatentedModel {
     _userId = userId;
     _description = description;
     _title = title;
-    _createdAt = createdAt;
-    _updatedAt = updatedAt;
+
     _user = user;
     _images = images;
   }
@@ -54,8 +46,7 @@ class PatentedModel {
     _userId = json["user_id"];
     _description = json["description"];
     _title = json["title"];
-    _createdAt = json["created_at"];
-    _updatedAt = json["updated_at"];
+
     _user = json["user"] != null ? User.fromJson(json["user"]) : null;
     if (json["images"] != null) {
       _images = [];
@@ -71,8 +62,7 @@ class PatentedModel {
     map["user_id"] = _userId;
     map["description"] = _description;
     map["title"] = _title;
-    map["created_at"] = _createdAt;
-    map["updated_at"] = _updatedAt;
+
     if (_user != null) {
       map["user"] = _user?.toJson();
     }

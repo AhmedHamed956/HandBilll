@@ -7,7 +7,7 @@ class AllHandmadeResponse {
   Links? _links;
   Meta? _meta;
   bool? _status;
-  String? _message;
+  dynamic? _message;
 
   List<HandmadeModel>? get data => _data;
 

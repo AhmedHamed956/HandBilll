@@ -20,9 +20,9 @@ class PatentsBloc extends Bloc<PatentsEvent, PatentsState> {
 
   @override
   Stream<PatentsState> mapEventToState(PatentsEvent event) async* {
-    if (event is FetchPatentsEvent) {
-      yield* _mapFetchAllPatents();
-    }
+    // if (event is FetchPatentsEvent) {
+    //   yield* _mapFetchAllPatents();
+    // }
     if (event is FetchMyPatentsEvent) {
       yield* _mapFetchMyPatents(event);
     }
@@ -34,25 +34,24 @@ class PatentsBloc extends Bloc<PatentsEvent, PatentsState> {
     }
   }
 
-  Stream<PatentsState> _mapFetchAllPatents() async* {
-    yield PatentsLoadingState();
-    final response = await _patentsRepository.getAllPatentsData(page: allPage);
-
-    if (response!.status!) {
-      final items = response.data;
-      yield PatentsSuccessState(items: items);
-      allPage++;
-      isFetching = false;
-    } else {
-      yield PatentsErrorState(error: response.message);
-      isFetching = false;
-    }
-  }
+  // Stream<PatentsState> _mapFetchAllPatents() async* {
+  //   yield PatentsLoadingState();
+  //   final response = await _patentsRepository.getAllPatentsData(page: allPage);
+  //
+  //   if (response!.status!) {
+  //     final items = response.data;
+  //     yield PatentsSuccessState(items: items);
+  //     allPage++;
+  //     isFetching = false;
+  //   } else {
+  //     yield PatentsErrorState(error: response.message);
+  //     isFetching = false;
+  //   }
+  // }
 
   Stream<PatentsState> _mapFetchMyPatents(FetchMyPatentsEvent event) async* {
     yield PatentsLoadingState();
-    final response = await _patentsRepository.getMyPatentsData(
-        page: myPage, user: event.user);
+    final response = await _patentsRepository.getMyPatentsData(user: event.user);
 
     if (response!.status!) {
       final items = response.data;

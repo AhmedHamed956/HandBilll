@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hand_bill/src/blocs/global_bloc/global_bloc.dart';
 import 'package:hand_bill/src/blocs/hand_made/hand_made_bloc.dart';
 import 'package:hand_bill/src/blocs/hand_made/hand_made_event.dart';
@@ -39,7 +40,7 @@ class _MyHandmadeScreenState extends State<MyHandmadeScreen> {
 
     _user = BlocProvider.of<GlobalBloc>(context).user;
     if (_user != null) {
-      _handmaneBloc.myPage = 1;
+      // _handmaneBloc.myPage = 1;
       _handmaneBloc..add(FetchMyHandmadeEvent(user: _user!));
     }
     super.initState();
@@ -81,10 +82,20 @@ class _MyHandmadeScreenState extends State<MyHandmadeScreen> {
           if (state is HandmadeErrorState) {
             _items = [];
             SchedulerBinding.instance?.addPostFrameCallback((_) {
-              displaySnackBar(title: state.error!, scaffoldKey: _scaffoldKey);
+              Fluttertoast.showToast(
+                  msg: state.error ?? '',
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.green,
+                  textColor: Colors.white,
+                  fontSize: 16.0
+              );
             });
           }
           if (state is MyHandmadeSuccessState) {
+            print('omniaaaaaaaaaaaaaa');
+            // print(_items!.first!.title!);
             if (_items == null) {
               _items = [];
             }
@@ -93,8 +104,15 @@ class _MyHandmadeScreenState extends State<MyHandmadeScreen> {
           if (state is HandmadeRemoveSuccessState) {
             _items!.removeWhere((element) => element.id == state.model.id);
             SchedulerBinding.instance?.addPostFrameCallback((_) {
-              displaySnackBar(title: state.message!, scaffoldKey: _scaffoldKey);
-            });
+              Fluttertoast.showToast(
+                  msg: state.message ?? '',
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.green,
+                  textColor: Colors.white,
+                  fontSize: 16.0
+              );            });
           }
 
           return RefreshIndicator(

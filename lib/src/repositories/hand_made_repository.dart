@@ -14,44 +14,38 @@ class HandmadeRepository {
   String tag = "HandmadeRepository";
   Dio _dio = Dio();
 
-  Future<AllHandmadeResponse?> getAllHandmadeData({required int page}) async {
-    Map<String, String> queryParams = ({
-      "secret": APIData.secretKey,
-      "page": page.toString(),
-      "paginate": "6"
-    });
-
-    late AllHandmadeResponse handmadeResponse;
-    Response response;
-    try {
-      response =
-          await _dio.get(APIData.getAllHandmade, queryParameters: queryParams);
-
-      log("${jsonEncode(response.data)}");
-
-      handmadeResponse = AllHandmadeResponse.fromJson(response.data);
-    } catch (error, stackTrace) {
-      print("$tag error : $error , stackTrace:  $stackTrace");
-    }
-    return handmadeResponse;
-  }
+  // Future<AllHandmadeResponse?> getAllHandmadeData({required int page}) async {
+  //   Map<String, String> queryParams = ({
+  //     "secret": APIData.secretKey,
+  //     "page": page.toString(),
+  //     "paginate": "6"
+  //   });
+  //
+  //   late AllHandmadeResponse handmadeResponse;
+  //   Response response;
+  //   try {
+  //     response =
+  //         await _dio.get(APIData.getAllHandmade, queryParameters: queryParams);
+  //
+  //     log("${jsonEncode(response.data)}");
+  //
+  //     handmadeResponse = AllHandmadeResponse.fromJson(response.data);
+  //   } catch (error, stackTrace) {
+  //     print("$tag error : $error , stackTrace:  $stackTrace");
+  //   }
+  //   return handmadeResponse;
+  // }
 
   Future<AllHandmadeResponse?> getMyHandmadeData(
-      {required int page, required User user}) async {
+      { required User user}) async {
     _dio.options.headers["Authorization"] =
         "Bearer " + user.apiToken.toString();
     _dio.options.headers["Accept"] = "application/json";
-    Map<String, String> queryParams = ({
-      "secret": APIData.secretKey,
-      "page": page.toString(),
-      "paginate": "6"
-    });
-
     late AllHandmadeResponse handmadeResponse;
     Response response;
     try {
       response =
-          await _dio.get(APIData.myHandmade, queryParameters: queryParams);
+          await _dio.get(APIData.myHandmade,);
 
       log("${jsonEncode(response.data)}");
 
@@ -70,15 +64,15 @@ class HandmadeRepository {
         "Bearer " + user.apiToken.toString();
     _dio.options.headers["Accept"] = "application/json";
     FormData formData;
-
     File file1;
     File file2;
     File file3;
     Map<String, dynamic> _map = {
-      "secret": APIData.secretKey,
+      // "secret": APIData.secretKey,
       "title": model.title,
       "price": model.price,
-      "description": model.description
+      "description": model.description,
+      "image": model.images
     };
     if (images.length == 1) {
       file1 = images[0] as File;

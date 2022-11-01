@@ -9,6 +9,8 @@ import 'package:hand_bill/src/data/model/local/drawer_model.dart';
 import 'package:hand_bill/src/data/response/account/account_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hand_bill/src/ui/component/items/To%20Be%20Seller.dart';
+import 'package:hand_bill/src/ui/screens/services_package/hand_made/my_handmade_screen.dart';
+import 'package:hand_bill/src/ui/screens/services_package/patented/my_patents_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../blocs/global_bloc/global_bloc.dart';
@@ -80,13 +82,13 @@ class DrawerItemWidget extends StatelessWidget {
                                   .pushNamed(AssetsScreen.routeName)
                               : model.title.toString() == 'Patented'
                                   ? Navigator.of(context)
-                                      .pushNamed(PatentsScreen.routeName)
+                                      .pushNamed(MyPatentsScreen.routeName)
                                   : model.title.toString() == 'Jobs'
                                       ? Navigator.of(context).pushNamed(
                                           CompaniesJobsScreen.routeName)
                                       : model.title.toString() == 'Hand Made'
                                           ? Navigator.of(context).pushNamed(
-                                              HandmadeScreen.routeName)
+                                              MyHandmadeScreen.routeName)
                                           : model.title.toString() == 'Agents'
                                               ? Navigator.of(context).pushNamed(
                                                   AgentsScreen.routeName)

@@ -13,43 +13,43 @@ class PatentsRepository {
   String tag = "PatentsRepository";
   Dio _dio = Dio();
 
-  Future<AllPatentsResponse?> getAllPatentsData({required int page}) async {
-    Map<String, String> queryParams =
-        ({"secret": APIData.secretKey, "paginate": "$page"});
-
-    late AllPatentsResponse patentsResponse;
-    Response response;
-    try {
-      response =
-          await _dio.get(APIData.getAllPatents, queryParameters: queryParams);
-
-      log("${jsonEncode(response.data)}");
-
-      patentsResponse = AllPatentsResponse.fromJson(response.data);
-      if (patentsResponse.status!) {
-        return patentsResponse;
-      } else {
-        return patentsResponse;
-      }
-    } catch (error, stackTrace) {
-      print("$tag error : $error , stackTrace:  $stackTrace");
-    }
-    return patentsResponse;
-  }
+  // Future<AllPatentsResponse?> getAllPatentsData({required int page}) async {
+  //   Map<String, String> queryParams =
+  //       ({"secret": APIData.secretKey, "paginate": "$page"});
+  //
+  //   late AllPatentsResponse patentsResponse;
+  //   Response response;
+  //   try {
+  //     response =
+  //         await _dio.get(APIData.getAllPatents, queryParameters: queryParams);
+  //
+  //     log("${jsonEncode(response.data)}");
+  //
+  //     patentsResponse = AllPatentsResponse.fromJson(response.data);
+  //     if (patentsResponse.status!) {
+  //       return patentsResponse;
+  //     } else {
+  //       return patentsResponse;
+  //     }
+  //   } catch (error, stackTrace) {
+  //     print("$tag error : $error , stackTrace:  $stackTrace");
+  //   }
+  //   return patentsResponse;
+  // }
 
   Future<AllPatentsResponse?> getMyPatentsData(
-      {required int page, required User user}) async {
+      { required User user}) async {
     _dio.options.headers["Authorization"] =
         "Bearer " + user.apiToken.toString();
     _dio.options.headers["Accept"] = "application/json";
-    Map<String, String> queryParams =
-        ({"secret": APIData.secretKey, "paginate": "$page"});
+    // Map<String, String> queryParams =
+    //     ({"secret": APIData.secretKey, "paginate": "$page"});
 
     late AllPatentsResponse patentsResponse;
     Response response;
     try {
       response =
-          await _dio.get(APIData.getMyPatents, queryParameters: queryParams);
+          await _dio.get(APIData.getMyPatents);
 
       log("${jsonEncode(response.data)}");
 
@@ -78,7 +78,7 @@ class PatentsRepository {
     String fileName1 = file1.path.split('/').last;
 
     formData = FormData.fromMap({
-      "secret": APIData.secretKey,
+      // "secret": APIData.secretKey,
       "title": model.title,
       "description": model.description,
       "first_image_patent":

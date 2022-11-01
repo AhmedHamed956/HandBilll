@@ -115,9 +115,16 @@ class _PatentedAddScreenState extends State<PatentedAddScreen> {
             _loading = false;
           }
           if (state is PatentedAddSuccessState) {
-            SchedulerBinding.instance?.addPostFrameCallback((_) {
-              displaySnackBar(title: state.message, scaffoldKey: _scaffoldKey);
-            });
+            Fluttertoast.showToast(
+                msg: state.message ?? '',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.green,
+                textColor: Colors.white,
+                fontSize: 16.0
+            );
+            Navigator.pop(context);
             _images.clear();
             _titleController.clear();
             _descriptionController.clear();

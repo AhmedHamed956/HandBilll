@@ -80,8 +80,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       yield EditProfileLoadingState();
       EditProfileResponse? response = await profileRepository.editProfile(
           user: event.user!, image: event.image);
+      print(event.user!.phone);
       if (response!.status!) {
         globalBloc.user = response.data;
+        print(globalBloc.user!.phone);
+        print('yaaaaaaaaraaaaaaab');
         authRepository.setCurrentUser(globalBloc.user);
         yield EditProfileSuccessState(
             user: response.data, message: response.message);
@@ -96,7 +99,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Stream<ProfileState> _mapChangePasswordToState(
       ChangePasswordEvent event) async* {
     yield EditProfileLoadingState();
-
     CommonResponse? response = await profileRepository.changePassword(
         user: event.user!,
         currentPass: event.currentPassword,

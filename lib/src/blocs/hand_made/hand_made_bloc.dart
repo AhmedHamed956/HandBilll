@@ -20,9 +20,9 @@ class HandmadeBloc extends Bloc<HandmadeEvent, HandmadeState> {
 
   @override
   Stream<HandmadeState> mapEventToState(HandmadeEvent event) async* {
-    if (event is FetchHandmadeEvent) {
-      yield* _mapFetchAllHandmade();
-    }
+    // if (event is FetchHandmadeEvent) {
+    //   yield* _mapFetchAllHandmade();
+    // }
     if (event is FetchMyHandmadeEvent) {
       yield* _mapFetchMyHandmade(event);
     }
@@ -33,27 +33,26 @@ class HandmadeBloc extends Bloc<HandmadeEvent, HandmadeState> {
       yield* _mapRemoveHandmade(event);
     }
   }
-
-  Stream<HandmadeState> _mapFetchAllHandmade() async* {
-    yield HandmadeLoadingState();
-    final response =
-        await _handmadeRepository.getAllHandmadeData(page: allPage);
-
-    if (response!.status!) {
-      final items = response.data;
-      yield HandmadeSuccessState(items: items);
-      allPage++;
-      isFetching = false;
-    } else {
-      yield HandmadeErrorState(error: response.message);
-      isFetching = false;
-    }
-  }
+  //
+  // Stream<HandmadeState> _mapFetchAllHandmade() async* {
+  //   yield HandmadeLoadingState();
+  //   final response =
+  //       await _handmadeRepository.getAllHandmadeData(page: allPage);
+  //
+  //   if (response!.status!) {
+  //     final items = response.data;
+  //     yield HandmadeSuccessState(items: items);
+  //     allPage++;
+  //     isFetching = false;
+  //   } else {
+  //     yield HandmadeErrorState(error: response.message);
+  //     isFetching = false;
+  //   }
+  // }
 
   Stream<HandmadeState> _mapFetchMyHandmade(FetchMyHandmadeEvent event) async* {
     yield HandmadeLoadingState();
-    final response = await _handmadeRepository.getMyHandmadeData(
-        page: myPage, user: event.user);
+    final response = await _handmadeRepository.getMyHandmadeData(user: event.user);
 
     if (response!.status!) {
       final items = response.data;

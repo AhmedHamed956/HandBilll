@@ -21,7 +21,9 @@ class EditProfileEvent extends ProfileEvent {
   final User? user;
   final File? image;
 
-  EditProfileEvent({required this.user, this.image});
+  EditProfileEvent({required this.user, this.image}){
+    print('${user!.phone} + sdfdsfsdfdsfsdf');
+  }
 
   @override
   List<Object?> get props => [user];
