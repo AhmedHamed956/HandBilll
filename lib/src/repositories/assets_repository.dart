@@ -6,17 +6,13 @@ class AssetsRepository {
   String tag = "AssetsRepository";
   Dio _dio = Dio();
 
-  Future<AssetsResponse> getAssetsData({required int page}) async {
-    Map<String, String> queryParams = ({
-      "secret": APIData.secretKey,
-      "page": page.toString(),
-      "paginate": "6"
-    });
+  Future<AssetsResponse> getAssetsData() async {
+
 
     late AssetsResponse assetsResponse;
     try {
       Response response =
-          await _dio.get(APIData.getAssetsData, queryParameters: queryParams);
+          await _dio.get(APIData.getAssetsData);
       assetsResponse = AssetsResponse.fromJson(response.data);
       // log("${jsonEncode(response.data)}");
 

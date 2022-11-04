@@ -112,7 +112,7 @@ class _HandmadeDetailsScreenState extends State<HandmadeDetailsScreen> {
                                             fit: BoxFit.cover,
                                             imageUrl: _model.images!.isEmpty
                                                 ? placeholder
-                                                : _model.images![index].thump!,
+                                                : _model.images![0].thump!,
                                             placeholder: (context, url) => FittedBox(
                                                 child: Transform.scale(
                                                     scale: 0.2,

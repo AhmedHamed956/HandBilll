@@ -32,27 +32,27 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                                       "assets/icons/search_ic.svg",
                                       height: size,
                                       width: size)),
-                              SizedBox(width: 20),
-                              InkWell(
-                                  onTap: () => Navigator.pushNamed(
-                                      context, NotificationsScreen.routeName),
-                                  child: Stack(
-                                    alignment: Alignment.topRight,
-                                    children: [
-                                      SvgPicture.asset(
-                                          "assets/icons/notifications_ic.svg",
-                                          height: size,
-                                          width: size),
-                                      Container(
-                                        width: 10,
-                                        height: 10,
-                                        decoration: BoxDecoration(
-                                          color: Colors.red,
-                                          borderRadius: BorderRadius.circular(30),
-                                        ),
-                                      ),
-                                    ],
-                                  ))
+                              // SizedBox(width: 20),
+                              // InkWell(
+                              //     onTap: () => Navigator.pushNamed(
+                              //         context, NotificationsScreen.routeName),
+                              //     child: Stack(
+                              //       alignment: Alignment.topRight,
+                              //       children: [
+                              //         SvgPicture.asset(
+                              //             "assets/icons/notifications_ic.svg",
+                              //             height: size,
+                              //             width: size),
+                              //         Container(
+                              //           width: 10,
+                              //           height: 10,
+                              //           decoration: BoxDecoration(
+                              //             color: Colors.red,
+                              //             borderRadius: BorderRadius.circular(30),
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ))
                             ])
                           ]))),
               Container(
