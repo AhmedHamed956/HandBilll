@@ -1,33 +1,33 @@
 import 'links.dart';
 
 class Meta {
-  int? _currentPage;
-  int? _from;
-  int? _lastPage;
+  dynamic? _currentPage;
+  dynamic? _from;
+  dynamic? _lastPage;
   List<Links>? _links;
-  String? _path;
-  int? _perPage;
-  int? _to;
-  int? _total;
+  dynamic? _path;
+  dynamic? _perPage;
+  dynamic? _to;
+  dynamic? _total;
 
-  int? get currentPage => _currentPage;
-  int? get from => _from;
-  int? get lastPage => _lastPage;
+  dynamic? get currentPage => _currentPage;
+  dynamic? get from => _from;
+  dynamic? get lastPage => _lastPage;
   List<Links>? get links => _links;
-  String? get path => _path;
-  int? get perPage => _perPage;
-  int? get to => _to;
-  int? get total => _total;
+  dynamic? get path => _path;
+  dynamic? get perPage => _perPage;
+  dynamic? get to => _to;
+  dynamic? get total => _total;
 
   Meta({
-    int? currentPage,
-    int? from,
-    int? lastPage,
+    dynamic? currentPage,
+    dynamic? from,
+    dynamic? lastPage,
     List<Links>? links,
-    String? path,
-    int? perPage,
-    int? to,
-    int? total}){
+    dynamic? path,
+    dynamic? perPage,
+    dynamic? to,
+    dynamic? total}){
     _currentPage = currentPage;
     _from = from;
     _lastPage = lastPage;

@@ -28,7 +28,7 @@ class AssetsBloc extends Bloc<AssetsEvent, AssetsState> {
 
   Stream<AssetsState> _mapFetchAssets() async* {
     yield AssetsLoadingState();
-    final response = await _auctionsRepository.getAssetsData(page: page);
+    final response = await _auctionsRepository.getAssetsData();
 
     if (response.status!) {
       final items = response.data;

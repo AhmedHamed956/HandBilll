@@ -109,8 +109,10 @@ class _CompaniesJobsScreenState extends State<CompaniesJobsScreen> {
                         title: state.error!, scaffoldKey: _scaffoldKey);
                   }
                   if (state is CompanyJobSuccessState) {
+                    print(state.items!.first.title);
                     if (_items == null) {
                       _items = [];
+
                     }
                     setState(() {
                       _items!.addAll(state.items!);
@@ -245,31 +247,34 @@ class MyForm extends StatefulWidget {
   MyForm({required this.onSubmit, required this.items, required this.label});
 
   @override
-  _MyFormState createState() => _MyFormState();
+  MyFormState createState() => MyFormState();
 }
 
-class _MyFormState extends State<MyForm> {
+class MyFormState extends State<MyForm> {
   int? value;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        title: Text(widget.label),
-        content: ListView.builder(
-            itemCount: widget.items.length,
-            primary: false,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return RadioListTile(
-                value: index,
-                groupValue: value,
-                onChanged: (int? ind) => setState(() {
-                  value = ind!;
-                  Navigator.pop(context);
-                  widget.onSubmit(widget.items[value!]);
+          title: Text(widget.label),
+          content: SizedBox(
+            height: 500,
+            width: 300,
+            child: ListView.builder(
+                itemCount: widget.items.length,
+                itemBuilder: (context, index) {
+                  return RadioListTile(
+                    value: index,
+                    groupValue: value,
+                    onChanged: (int? ind) => setState(() {
+                      value = ind!;
+                      Navigator.pop(context);
+                      widget.onSubmit(widget.items[value!]);
+                    }),
+                    title: Text(widget.items[index].name ?? "name"),
+                  );
                 }),
-                title: Text(widget.items[index].name ?? "name"),
-              );
-            }));
+          ),
+    );
   }
 }

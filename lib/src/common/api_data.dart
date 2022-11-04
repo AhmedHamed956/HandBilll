@@ -24,7 +24,6 @@ class APIData {
   static const getSliders = domainLinkApi + 'user/top-banners';
   static const getTopCompanies = domainLinkApi + 'user/top-companies';
   static const getPopular = domainLinkApi + 'user/top-products';
-
   static const userProfile = domainLinkApi + 'users/profile';
   static const editProfile = domainLinkApi + 'user/edit';
   static const changePassword = domainLinkApi + 'user/change-password';
@@ -97,8 +96,7 @@ class APIData {
 
   // company
   static const getCompanyDetails = domainLinkApi + 'user/details-company';
-  static const getFeaturedProductOfCompany =
-      domainLinkApi + 'user/featured-products-companies';
+  static const getFeaturedProductOfCompany = domainLinkApi + 'user/featured-products-companies';
   static const getCompanyProducts = domainLinkApi + 'user/products-companies';
   static const getCompanyCategories = domainLinkApi + 'user/serviceCategories';
 

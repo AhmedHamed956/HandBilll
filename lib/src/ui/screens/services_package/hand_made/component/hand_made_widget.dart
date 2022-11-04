@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hand_bill/src/common/api_data.dart';
 import 'package:hand_bill/src/common/constns.dart';
 import 'package:hand_bill/src/data/model/services/handmade_model.dart';
 import 'package:hand_bill/src/data/model/local/route_argument.dart';
@@ -28,7 +29,7 @@ class HandmadeWidget extends StatelessWidget {
               CachedNetworkImage(
                   imageUrl: model.images!.isEmpty
                       ? placeholder
-                      : model.images![0].url!,
+                      : "${model.images![0].thump!}",
                   placeholder: (context, url) => Container(
                       height: height,
                       child: Center(

@@ -59,12 +59,12 @@ class HandmadeRepository {
   Future<CommonResponse?> addHandmade(
       {required HandmadeModel model,
       required User user,
-      required List<Object> images}) async {
+      required List<dynamic> images}) async {
     _dio.options.headers["Authorization"] =
         "Bearer " + user.apiToken.toString();
     _dio.options.headers["Accept"] = "application/json";
     FormData formData;
-    File file1;
+    File? file1;
     File file2;
     File file3;
     Map<String, dynamic> _map = {
@@ -72,23 +72,23 @@ class HandmadeRepository {
       "title": model.title,
       "price": model.price,
       "description": model.description,
-      "image": model.images
+       // "first_image_hand_made": model.images![0].url!
     };
     if (images.length == 1) {
-      file1 = images[0] as File;
-      _map["first_image_hand_made"] = await MultipartFile.fromFile(file1.path,
-          filename: file1.path.split('/').last);
+      file1 = images as File?;
+      _map["first_image_hand_made"] = await MultipartFile.fromFile(file1!.path,
+          filename: file1?.path.split('/').last);
     } else if (images.length == 2) {
-      file1 = images[0] as File;
-      file2 = images[1] as File;
+      file1 = images as File;
+      file2 = images as File;
       _map["first_image_hand_made"] = await MultipartFile.fromFile(file1.path,
           filename: file1.path.split('/').last);
       _map["second_image_hand_made"] = await MultipartFile.fromFile(file2.path,
           filename: file2.path.split('/').last);
     } else if (images.length == 3) {
-      file1 = images[0] as File;
-      file2 = images[1] as File;
-      file3 = images[2] as File;
+      file1 = images as File;
+      file2 = images as File;
+      file3 = images as File;
       _map["first_image_hand_made"] = await MultipartFile.fromFile(file1.path,
           filename: file1.path.split('/').last);
       _map["second_image_hand_made"] = await MultipartFile.fromFile(file2.path,
@@ -104,7 +104,7 @@ class HandmadeRepository {
 
     try {
       response = await _dio.post(APIData.addHandmade, data: formData);
-
+print(response.data);
       log("${jsonEncode(response.data)}");
 
       commonResponse = CommonResponse.fromJson(response.data);
