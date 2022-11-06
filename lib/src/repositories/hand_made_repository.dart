@@ -14,27 +14,27 @@ class HandmadeRepository {
   String tag = "HandmadeRepository";
   Dio _dio = Dio();
 
-  // Future<AllHandmadeResponse?> getAllHandmadeData({required int page}) async {
-  //   Map<String, String> queryParams = ({
-  //     "secret": APIData.secretKey,
-  //     "page": page.toString(),
-  //     "paginate": "6"
-  //   });
-  //
-  //   late AllHandmadeResponse handmadeResponse;
-  //   Response response;
-  //   try {
-  //     response =
-  //         await _dio.get(APIData.getAllHandmade, queryParameters: queryParams);
-  //
-  //     log("${jsonEncode(response.data)}");
-  //
-  //     handmadeResponse = AllHandmadeResponse.fromJson(response.data);
-  //   } catch (error, stackTrace) {
-  //     print("$tag error : $error , stackTrace:  $stackTrace");
-  //   }
-  //   return handmadeResponse;
-  // }
+  Future<AllHandmadeResponse?> getAllHandmadeData({required int page}) async {
+    Map<String, String> queryParams = ({
+      "secret": APIData.secretKey,
+      "page": page.toString(),
+      "paginate": "6"
+    });
+
+    late AllHandmadeResponse handmadeResponse;
+    Response response;
+    try {
+      response =
+          await _dio.get(APIData.getAllHandmade, queryParameters: queryParams);
+
+      log("${jsonEncode(response.data)}");
+
+      handmadeResponse = AllHandmadeResponse.fromJson(response.data);
+    } catch (error, stackTrace) {
+      print("$tag error : $error , stackTrace:  $stackTrace");
+    }
+    return handmadeResponse;
+  }
 
   Future<AllHandmadeResponse?> getMyHandmadeData(
       { required User user}) async {
@@ -64,7 +64,7 @@ class HandmadeRepository {
         "Bearer " + user.apiToken.toString();
     _dio.options.headers["Accept"] = "application/json";
     FormData formData;
-    File? file1;
+    File file1;
     File file2;
     File file3;
     Map<String, dynamic> _map = {
@@ -75,9 +75,9 @@ class HandmadeRepository {
        // "first_image_hand_made": model.images![0].url!
     };
     if (images.length == 1) {
-      file1 = images as File?;
-      _map["first_image_hand_made"] = await MultipartFile.fromFile(file1!.path,
-          filename: file1?.path.split('/').last);
+      file1 = images as File;
+      _map["first_image_hand_made"] = await MultipartFile.fromFile(file1.path,
+          filename: file1.path.split('/').last);
     } else if (images.length == 2) {
       file1 = images as File;
       file2 = images as File;

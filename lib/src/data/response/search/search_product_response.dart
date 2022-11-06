@@ -1,17 +1,17 @@
 import 'package:hand_bill/src/data/model/product.dart';
 
 class SearchProductResponse {
-  bool? _status;
+  dynamic? _status;
   List<Product>? _data;
-  String? _message;
+  dynamic? _message;
 
-  bool? get status => _status;
+  dynamic? get status => _status;
 
   List<Product>? get data => _data;
 
-  String? get message => _message;
+  dynamic? get message => _message;
 
-  SearchProductResponse({bool? success, List<Product>? data, String? message}) {
+  SearchProductResponse({dynamic? success, List<Product>? data, dynamic? message}) {
     _status = success;
     _data = data;
     _message = message;

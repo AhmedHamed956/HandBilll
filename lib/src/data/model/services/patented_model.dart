@@ -8,7 +8,7 @@ class PatentedModel {
   String? _description;
   String? _title;
   User? _user;
-  List<ImageModel>? _images;
+  List<ImageModel>? _image;
 
   int? get id => _id;
 
@@ -20,7 +20,7 @@ class PatentedModel {
 
   User? get user => _user;
 
-  List<ImageModel>? get images => _images;
+  List<ImageModel>? get image => _image;
 
   PatentedModel(
       {int? id,
@@ -31,14 +31,14 @@ class PatentedModel {
       String? createdAt,
       String? updatedAt,
       User? user,
-      List<ImageModel>? images}) {
+      List<ImageModel>? image}) {
     _id = id;
     _userId = userId;
     _description = description;
     _title = title;
 
     _user = user;
-    _images = images;
+    _image = image;
   }
 
   PatentedModel.fromJson(dynamic json) {
@@ -49,9 +49,9 @@ class PatentedModel {
 
     _user = json["user"] != null ? User.fromJson(json["user"]) : null;
     if (json["images"] != null) {
-      _images = [];
+      _image = [];
       json["images"].forEach((v) {
-        _images?.add(ImageModel.fromJson(v));
+        _image?.add(ImageModel.fromJson(v));
       });
     }
   }
@@ -66,8 +66,8 @@ class PatentedModel {
     if (_user != null) {
       map["user"] = _user?.toJson();
     }
-    if (_images != null) {
-      map["images"] = _images?.map((v) => v.toJson()).toList();
+    if (_image != null) {
+      map["images"] = _image?.map((v) => v.toJson()).toList();
     }
     return map;
   }

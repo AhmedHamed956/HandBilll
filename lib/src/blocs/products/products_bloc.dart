@@ -36,7 +36,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
       FetchProductsBySubCategoryEvent event) async* {
     yield ProductsLoadingState();
     final response = await productsRepository.getProductsBySubCategory(
-        subcategoryId: event.subcategoryId, page: page);
+        subcategoryId: event.subcategoryId);
 
     if (response.status!) {
       yield ProductsSuccessState(products: response.data);
@@ -52,7 +52,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
       FetchSimilarProductsEvent event) async* {
     yield ProductsLoadingState();
     final response = await productsRepository.getProductsBySubCategory(
-        subcategoryId: event.subcategoryId, page: similarPage);
+        subcategoryId: event.subcategoryId,);
 
     if (response.status!) {
       yield SimilarProductsSuccessState(products: response.data);

@@ -25,13 +25,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                           children: [
                                    Image.asset("assets/images/hb_logo.jpeg",height: 32),
                             Row(children: [
-                              InkWell(
-                                  onTap: () => Navigator.pushNamed(
-                                      context, SearchScreen.routeName),
-                                  child: SvgPicture.asset(
-                                      "assets/icons/search_ic.svg",
-                                      height: size,
-                                      width: size)),
+
                               // SizedBox(width: 20),
                               // InkWell(
                               //     onTap: () => Navigator.pushNamed(

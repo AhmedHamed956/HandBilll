@@ -56,8 +56,8 @@ class VideoModel {
     _updatedAt = json["updated_at"];
   }
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+  Map<dynamic, dynamic> toJson() {
+    var map = <dynamic, dynamic>{};
     map["id"] = _id;
     map["order"] = _order;
     map["model_id"] = _modelId;

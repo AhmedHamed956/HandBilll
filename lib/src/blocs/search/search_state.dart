@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:hand_bill/src/data/model/Search_data.dart';
 import 'package:hand_bill/src/data/model/company.dart';
 import 'package:hand_bill/src/data/model/market.dart';
 import 'package:hand_bill/src/data/model/product.dart';
@@ -47,3 +48,31 @@ class SearchCompaniesErrorState extends SearchState {
 
   const SearchCompaniesErrorState({required this.error});
 }
+//categories
+class SearchCategoriesLoadingState extends SearchState {}
+
+class SearchCategoriesSuccessState extends SearchState {
+List<Data>? products;
+SearchCategoriesSuccessState({this.products});
+}
+
+class SearchCategoriesErrorState extends SearchState {
+  final String error;
+
+  const SearchCategoriesErrorState({required this.error});
+}
+
+class SearchSubCategoriesLoadingState extends SearchState {}
+
+class SearchSubCategoriesSuccessState extends SearchState {
+  List<Data>? products;
+  SearchSubCategoriesSuccessState({this.products});
+}
+
+class SearchSubCategoriesErrorState extends SearchState {
+  final String error;
+
+  const SearchSubCategoriesErrorState({required this.error});
+}
+
+

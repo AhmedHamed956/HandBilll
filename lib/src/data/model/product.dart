@@ -7,56 +7,56 @@ import 'package:hand_bill/src/data/model/shipping_data.dart';
 import 'package:hand_bill/src/data/model/specifications.dart';
 
 class Product {
-  int? _id;
-  String? _subSubCategoryId;
-  bool? _isFavourite;
-  String? _subCategoryId;
-  String? _featured;
-  String? _shippingMqo;
-  String? _categoryId;
-  String? _companyId;
-  String? _description;
-  String? _country;
-  String? _price;
-  String? _flag;
-  String? _name;
-  String? _createdAt;
-  String? _updatedAt;
+  dynamic? _id;
+  dynamic? _subSubCategoryId;
+  dynamic? _isFavourite;
+  dynamic? _subCategoryId;
+  dynamic? _featured;
+  dynamic? _shippingMqo;
+  dynamic? _categoryId;
+  dynamic? _companyId;
+  dynamic? _description;
+  dynamic? _country;
+  dynamic? _price;
+  dynamic? _flag;
+  dynamic? _name;
+  dynamic? _createdAt;
+  dynamic? _updatedAt;
   List<ImageModel>? _images;
   VideoModel? _video;
   ShippingData? _shippingData;
   List<Specifications>? _specifications;
   Company? _company;
 
-  int? get id => _id;
+  dynamic? get id => _id;
 
-  String? get subSubCategoryId => _subSubCategoryId;
+  dynamic? get subSubCategoryId => _subSubCategoryId;
 
   bool? get isFavourite => _isFavourite;
 
-  String? get subCategoryId => _subCategoryId;
+  dynamic? get subCategoryId => _subCategoryId;
 
-  String? get featured => _featured;
+  dynamic? get featured => _featured;
 
-  String? get shippingMqo => _shippingMqo;
+  dynamic? get shippingMqo => _shippingMqo;
 
-  String? get categoryId => _categoryId;
+  dynamic? get categoryId => _categoryId;
 
-  String? get companyId => _companyId;
+  dynamic? get companyId => _companyId;
 
-  String? get description => _description;
+  dynamic? get description => _description;
 
-  String? get country => _country;
+  dynamic? get country => _country;
 
-  String? get price => _price;
+  dynamic? get price => _price;
 
-  String? get flag => _flag;
+  dynamic? get flag => _flag;
 
-  String? get name => _name;
+  dynamic? get name => _name;
 
-  String? get createdAt => _createdAt;
+  dynamic? get createdAt => _createdAt;
 
-  String? get updatedAt => _updatedAt;
+  dynamic? get updatedAt => _updatedAt;
 
   List<ImageModel>? get images => _images;
 
@@ -71,20 +71,20 @@ class Product {
 
   Product({
     int? id,
-    String? subSubCategoryId,
+    dynamic? subSubCategoryId,
     bool? isFavourite,
-    String? subCategoryId,
-    String? featured,
-    String? shippingMqo,
-    String? categoryId,
-    String? companyId,
-    String? description,
-    String? country,
-    String? price,
-    String? flag,
-    String? name,
-    String? createdAt,
-    String? updatedAt,
+    dynamic? subCategoryId,
+    dynamic? featured,
+    dynamic? shippingMqo,
+    dynamic? categoryId,
+    dynamic? companyId,
+    dynamic? description,
+    dynamic? country,
+    dynamic? price,
+    dynamic? flag,
+    dynamic? name,
+    dynamic? createdAt,
+    dynamic? updatedAt,
     List<ImageModel>? images,
     VideoModel? video,
     ShippingData? shippingData,
@@ -151,8 +151,8 @@ class Product {
         json["company"] != null ? Company.fromJson(json["company"]) : null;
   }
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+  Map<dynamic, dynamic> toJson() {
+    var map = <dynamic, dynamic>{};
     map["id"] = _id;
     map["sub_sub_category_id"] = _subSubCategoryId;
     map["is_favourite"] = _isFavourite;

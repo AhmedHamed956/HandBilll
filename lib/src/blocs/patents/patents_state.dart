@@ -30,7 +30,7 @@ class MyPatentsSuccessState extends PatentsState {
   final List<PatentedModel>? items;
 
   MyPatentsSuccessState({required this.items}){
-    print(items!.first);
+    // print(items!.first);
   }
 }
 

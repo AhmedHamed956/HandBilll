@@ -11,11 +11,10 @@ class ProductsRepository {
   Dio _dio = Dio();
   User? user;
   Future<ProductDetailsResponse> getProductDetail({required int id}) async {
-    Map<String, String> queryParameters = {"secret": APIData.secretKey};
+
     late ProductDetailsResponse productDetailResponse;
     // try {
-      Response response = await _dio.get('${APIData.productDetails}/$id',
-          queryParameters: queryParameters);
+      Response response = await _dio.get('${APIData.productDetails}$id');
       productDetailResponse = ProductDetailsResponse.fromJson(response.data);
       log("\ngetProductDetail$id: ${jsonEncode(response.data)}");
     // } catch (error, stackTrace) {
@@ -25,12 +24,9 @@ class ProductsRepository {
   }
 
   Future<ProductsResponse> getProductsBySubCategory(
-      {required String subcategoryId, required int page}) async {
+      {required String subcategoryId}) async {
     Map<String, String> queryParams = ({
-      "secret": APIData.secretKey,
-      'paginate': '12',
-      'page': '$page',
-      'sub_sub_category_id': subcategoryId,
+      'id': subcategoryId,
     });
     late ProductsResponse productsResponse;
     Response response;
