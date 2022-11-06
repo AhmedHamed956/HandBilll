@@ -95,7 +95,7 @@ class _PatentedDetailsScreenState extends State<PatentedDetailsScreen> {
                               height: height,
                               // color: Colors.white,
                               child: PageView.builder(
-                                  itemCount: _model.images!.length,
+                                  itemCount: _model.image!.length,
                                   controller: PageController(viewportFraction: 1),
                                   onPageChanged: (int index) {
                                     setState(() => _imageIndex = index);
@@ -105,10 +105,10 @@ class _PatentedDetailsScreenState extends State<PatentedDetailsScreen> {
                                         onTap: () => Navigator.pushNamed(
                                             context, ImageFullScreen.routeName,
                                             arguments: RouteArgument(
-                                                param: _model.images![index].url)),
+                                                param: _model.image![index].url)),
                                         child: CachedNetworkImage(
                                             fit: BoxFit.cover,
-                                            imageUrl: _model.images![index].thump!,
+                                            imageUrl: '${APIData.domainLink}/${_model.image![index].thump!}',
                                             placeholder: (context, url) => FittedBox(
                                                 child: Transform.scale(
                                                     scale: 0.2,
@@ -127,7 +127,7 @@ class _PatentedDetailsScreenState extends State<PatentedDetailsScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     DotsIndicator(
-                                        dotsCount: _model.images!.length,
+                                        dotsCount: 3,
                                         position: _imageIndex.toDouble(),
                                         decorator: DotsDecorator(
                                             color: Color(0x4DFFFFFF),

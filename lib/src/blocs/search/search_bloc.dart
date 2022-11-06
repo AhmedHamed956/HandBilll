@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hand_bill/src/blocs/search/search_event.dart';
 import 'package:hand_bill/src/blocs/search/search_state.dart';
@@ -21,6 +20,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     if (event is SearchMarketEvent) {
       yield* _mapSearchCompanies(event);
+    }
+    if(event is SearchAllCategoriesEvent){
+      yield* _mapSearchCategories();
+    }
+    if(event is SearchAllSubCategoriesEvent){
+      yield* _mapSearchSubCategories(event);
     }
   }
 
@@ -53,4 +58,36 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       yield SearchCompaniesErrorState(error: err.toString());
     }
   }
+
+  Stream<SearchState> _mapSearchCategories() async* {
+    yield SearchCategoriesLoadingState();
+    final response = await searchRepository.getAllCategories();
+    try {
+      if (response?.data!= null) {
+        final products = response?.data;
+        yield SearchCategoriesSuccessState(products: products);
+      } else {
+        yield SearchCategoriesErrorState(error: response!.message.toString());
+      }
+    } catch (err) {
+      yield SearchCategoriesErrorState(error: err.toString());
+    }
+  }
+
+  Stream<SearchState> _mapSearchSubCategories(SearchAllSubCategoriesEvent event ) async* {
+    yield SearchSubCategoriesLoadingState();
+    final response = await searchRepository.getAllSubCategories(event.id);
+    try {
+      if (response?.data!= null) {
+        final products = response?.data;
+        yield SearchCategoriesSuccessState(products: products);
+      } else {
+        yield SearchCategoriesErrorState(error: response!.message.toString());
+      }
+    } catch (err) {
+      yield SearchCategoriesErrorState(error: err.toString());
+    }
+  }
+
+
 }

@@ -10,6 +10,7 @@ import 'package:hand_bill/src/ui/screens/account_package/account_screen.dart';
 import 'package:hand_bill/src/ui/screens/navigation_package/categories/categories_screen.dart';
 import 'package:hand_bill/src/ui/screens/navigation_package/home/componenet/my_app_bar.dart';
 import 'package:hand_bill/src/ui/screens/navigation_package/home/home_screen.dart';
+import 'package:hand_bill/src/ui/screens/navigation_package/search/appBar2.dart';
 import 'package:hand_bill/src/ui/screens/navigation_package/services_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hand_bill/src/ui/screens/services_package/shipping/shipping_main_screen.dart';
@@ -89,7 +90,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     textColor = mainColor;
     textAlign = ui.TextAlign.center;
     return Scaffold(
-        appBar: MyAppBar(),
+        appBar: MyAppBarSearch(),
         bottomNavigationBar: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

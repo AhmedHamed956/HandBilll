@@ -142,7 +142,7 @@ class _MyPatentsScreenState extends State<MyPatentsScreen> {
                                       scrollDirection: Axis.vertical,
                                       itemBuilder: (context, index) {
                                         return PatentedWidget(
-                                            model: _items![index], onDeleteTap: () => _deleteItem(_items![index]));
+                                            model: _items![index], onDeleteTap: () => _deleteItem(_items![index]),);
                                       },
                                       separatorBuilder:
                                           (BuildContext context, int index) =>

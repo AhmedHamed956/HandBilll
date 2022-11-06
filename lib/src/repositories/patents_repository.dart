@@ -13,29 +13,29 @@ class PatentsRepository {
   String tag = "PatentsRepository";
   Dio _dio = Dio();
 
-  // Future<AllPatentsResponse?> getAllPatentsData({required int page}) async {
-  //   Map<String, String> queryParams =
-  //       ({"secret": APIData.secretKey, "paginate": "$page"});
-  //
-  //   late AllPatentsResponse patentsResponse;
-  //   Response response;
-  //   try {
-  //     response =
-  //         await _dio.get(APIData.getAllPatents, queryParameters: queryParams);
-  //
-  //     log("${jsonEncode(response.data)}");
-  //
-  //     patentsResponse = AllPatentsResponse.fromJson(response.data);
-  //     if (patentsResponse.status!) {
-  //       return patentsResponse;
-  //     } else {
-  //       return patentsResponse;
-  //     }
-  //   } catch (error, stackTrace) {
-  //     print("$tag error : $error , stackTrace:  $stackTrace");
-  //   }
-  //   return patentsResponse;
-  // }
+  Future<AllPatentsResponse?> getAllPatentsData({required int page}) async {
+    Map<String, String> queryParams =
+        ({"secret": APIData.secretKey, "paginate": "$page"});
+
+    late AllPatentsResponse patentsResponse;
+    Response response;
+    try {
+      response =
+          await _dio.get(APIData.getAllPatents, queryParameters: queryParams);
+
+      log("${jsonEncode(response.data)}");
+
+      patentsResponse = AllPatentsResponse.fromJson(response.data);
+      if (patentsResponse.status!) {
+        return patentsResponse;
+      } else {
+        return patentsResponse;
+      }
+    } catch (error, stackTrace) {
+      print("$tag error : $error , stackTrace:  $stackTrace");
+    }
+    return patentsResponse;
+  }
 
   Future<AllPatentsResponse?> getMyPatentsData(
       { required User user}) async {

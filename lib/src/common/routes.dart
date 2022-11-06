@@ -46,6 +46,8 @@ import 'package:hand_bill/src/ui/screens/account_package/wishlist/wishlist_scree
 
 import '../ui/screens/aboutUsScreen.dart';
 import '../ui/screens/navigation_package/categories/component/sub_cat.dart';
+import '../ui/screens/navigation_package/search/search_categories.dart';
+import '../ui/screens/navigation_package/search/sub_categoies_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -79,8 +81,9 @@ class RouteGenerator {
         return CustomPageRoute(widget: HelpCenterScreen());
       case AgentsScreen.routeName:
         return CustomPageRoute(widget: AgentsScreen());
-      case AboutUsScreen.routeName:
-        return CustomPageRoute(widget: AboutUsScreen());
+      case AboutUsScreen.routeName:return CustomPageRoute(widget: AboutUsScreen());
+      case SubCategoriesScreen.routeName:
+        return CustomPageRoute(widget: SubCategoriesScreen(routeArgument: args!));
       case ProductDetailsScreen.routeName:
         return CustomPageRoute(
             widget: ProductDetailsScreen(routeArgument: args!));
@@ -89,7 +92,7 @@ class RouteGenerator {
       case ProductsScreen.routeName:
         return CustomPageRoute(widget: ProductsScreen(routeArgument: args!));
       case SearchScreen.routeName:
-        return CustomPageRoute(widget: SearchScreen());
+        return CustomPageRoute(widget: SearchByCategoriesScreen());
       // case InboxScreen.routeName:
       //   return CustomPageRoute(widget: InboxScreen(routeArgument: args!));
       case CompaniesJobsScreen.routeName:

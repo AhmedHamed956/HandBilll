@@ -10,7 +10,7 @@ class APIData {
   static const restPassword = domainLinkApi + 'user/reset';
   static const forgetPassword = domainLinkApi + 'user/forgot-password';
   static const checkVerificationCode = domainLinkApi + 'user/check-code';
-  static const getCountries = domainLinkApi + 'company/countries';
+   static const getCountries = domainLinkApi + 'company/countries';
    // Fluttertoast.showToast(
    //                  msg: state.message ?? '',
    //                  toastLength: Toast.LENGTH_SHORT,
@@ -47,7 +47,7 @@ class APIData {
   static const removePatented = domainLinkApi + 'user/remove-patent';
 
   // handmade
-  // static const getAllHandmade = domainLinkApi + 'user/hand-made';
+   static const getAllHandmade = domainLinkApi + 'user/hand-made';
   static const myHandmade = domainLinkApi + 'user/my-hand-made';
   static const addHandmade = domainLinkApi + 'user/hand-made';
   static const editHandmade = domainLinkApi + 'user/hand-made';
@@ -90,7 +90,7 @@ class APIData {
   static const checkIsFavorite = domainLinkApi + 'favorites/exist';
 
   // product
-  static const productBySubCategory = domainLinkApi + 'user/products';
+  static const productBySubCategory = domainLinkApi + 'user/products/2';
   static const getFeatured = domainLinkApi + 'foods';
   static const productDetails = domainLinkApi + 'user/products';
 
@@ -101,6 +101,8 @@ class APIData {
   static const getCompanyCategories = domainLinkApi + 'user/serviceCategories';
 
   //search
+  static const searchCategories = domainLinkApi + 'user/categories';
+  static const searchSubCategories = domainLinkApi + 'user/subcate-by-cate';
   static const searchProduct = domainLinkApi + 'user/search-products';
   static const searchMarkets = domainLinkApi + 'user/search-companies';
   // aboutUs

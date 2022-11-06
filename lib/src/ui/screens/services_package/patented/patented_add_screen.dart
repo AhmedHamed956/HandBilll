@@ -57,7 +57,7 @@ class _PatentedAddScreenState extends State<PatentedAddScreen> {
       _model = widget.routeArgument!.param;
       _titleController.text = _model.title!;
       _descriptionController.text = _model.description!;
-      _images.addAll(_model.images!);
+      _images.addAll(_model.image!);
     } else {
       _model = PatentedModel();
       // _titleController.text = "New Patented";
@@ -91,8 +91,15 @@ class _PatentedAddScreenState extends State<PatentedAddScreen> {
   Widget build(BuildContext context) {
     _onAddButtonPressed() {
       if (!_user!.profileCompleted()) {
-        displaySnackBar(
-            title: "Complete your profile", scaffoldKey: _scaffoldKey);
+        Fluttertoast.showToast(
+            msg:  'Complete Your Profile',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
       } else if (_formKey!.currentState!.validate()) {
         _model.title = _titleController.text;
         _model.description = _descriptionController.text;

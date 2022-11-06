@@ -82,13 +82,13 @@ class DrawerItemWidget extends StatelessWidget {
                                   .pushNamed(AssetsScreen.routeName)
                               : model.title.toString() == 'Patented'
                                   ? Navigator.of(context)
-                                      .pushNamed(MyPatentsScreen.routeName)
+                                      .pushNamed(PatentsScreen.routeName)
                                   : model.title.toString() == 'Jobs'
                                       ? Navigator.of(context).pushNamed(
                                           CompaniesJobsScreen.routeName)
                                       : model.title.toString() == 'Hand Made'
                                           ? Navigator.of(context).pushNamed(
-                                              MyHandmadeScreen.routeName)
+                                              HandmadeScreen.routeName)
                                           : model.title.toString() == 'Agents'
                                               ? Navigator.of(context).pushNamed(
                                                   AgentsScreen.routeName)

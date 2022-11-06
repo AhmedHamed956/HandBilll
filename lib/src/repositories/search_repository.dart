@@ -3,8 +3,11 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:hand_bill/src/common/api_data.dart';
+import 'package:hand_bill/src/data/response/search/search_categories_response.dart';
 import 'package:hand_bill/src/data/response/search/search_companies_response.dart';
 import 'package:hand_bill/src/data/response/search/search_product_response.dart';
+
+import '../data/model/Search_data.dart';
 
 class SearchRepository {
   String tag = "SearchRepository";
@@ -12,7 +15,7 @@ class SearchRepository {
 
   Future<SearchProductResponse> getSearchProducts(String search) async {
     Map<String, String> queryParams = ({
-      "secret": APIData.secretKey,
+      // "secret": APIData.secretKey,
       "search": '$search',
     });
 
@@ -55,4 +58,47 @@ class SearchRepository {
     }
     return companyResponse;
   }
+
+  Future<SearchCategoriesResponse> getAllCategories() async{
+   late SearchCategoriesResponse searchCategoriesResponse;
+    try {
+      Response response =
+      await dio.get(APIData.searchCategories,);
+      log("getSearchCategories: ${jsonEncode(response.data)}");
+
+      searchCategoriesResponse = SearchCategoriesResponse.fromJson(response.data);
+      if (searchCategoriesResponse.status!) {
+        return searchCategoriesResponse;
+      } else {
+        return searchCategoriesResponse;
+      }
+    } catch (error, stackTrace) {
+      print("$tag error : $error , stackTrace:  $stackTrace");
+    }
+    return searchCategoriesResponse;
+  }
+
+  Future<SearchCategoriesResponse> getAllSubCategories(int id) async{
+
+    Map<String, String> queryParams =
+    ({ "id": '$id'});
+
+    late SearchCategoriesResponse searchCategoriesResponse;
+    try {
+      Response response =
+      await dio.get(APIData.searchSubCategories,queryParameters: queryParams);
+      log("getSearchSubCategories: ${jsonEncode(response.data)}");
+
+      searchCategoriesResponse = SearchCategoriesResponse.fromJson(response.data);
+      if (searchCategoriesResponse.status!) {
+        return searchCategoriesResponse;
+      } else {
+        return searchCategoriesResponse;
+      }
+    } catch (error, stackTrace) {
+      print("$tag error : $error , stackTrace:  $stackTrace");
+    }
+    return searchCategoriesResponse;
+  }
+
 }

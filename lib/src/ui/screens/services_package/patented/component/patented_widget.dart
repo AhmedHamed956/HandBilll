@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hand_bill/src/common/api_data.dart';
 import 'package:hand_bill/src/common/constns.dart';
 import 'package:hand_bill/src/data/model/services/patented_model.dart';
 import 'package:hand_bill/src/data/model/local/route_argument.dart';
@@ -25,19 +26,16 @@ class PatentedWidget extends StatelessWidget {
         child: Container(
             decoration: BoxDecoration(color: Colors.white),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              CachedNetworkImage(
-                  imageUrl: model!.images!.isEmpty
-                  ? placeholder
-                  :model.images![0].thump!,
-                  placeholder: (context, url) => Container(
-                      height: height,
-                      child: Center(
-                          heightFactor: 1,
-                          widthFactor: 1,
-                          child: CircularProgressIndicator(
-                              color: mainColorLite, strokeWidth: 2))),
-                  errorWidget: (context, url, error) =>
-                      new Icon(Icons.error, color: mainColorLite)),
+            CachedNetworkImage( imageUrl:'${APIData.domainLink}/${model!.image![0].thump!}',
+            placeholder: (context, url) => Container(
+            height: height,
+            child: Center(
+                heightFactor: 1,
+                widthFactor: 1,
+                child: CircularProgressIndicator(
+                    color: mainColorLite, strokeWidth: 2))),
+        errorWidget: (context, url, error) =>
+        new Icon(Icons.error, color: mainColorLite)),
               Container(
                   color: Color(0xfffafafa), height: 2, width: double.infinity),
               Padding(

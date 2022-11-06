@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hand_bill/src/blocs/auth/auth_bloc.dart';
 import 'package:hand_bill/src/blocs/auth/auth_event.dart';
 import 'package:hand_bill/src/blocs/auth/auth_state.dart';
@@ -59,12 +60,30 @@ class _LoginScreenState extends State<LoginScreen> {
                 setState(() => loading = true);
               }
               if (state is AuthFailure) {
-                displaySnackBar(
-                    scaffoldKey: _scaffoldKey, title: state.error ?? "error");
+                Fluttertoast.showToast(
+                    msg: state.error ?? '',
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                );
                 setState(() => loading = false);
               }
               if (state is LoginSuccess) {
                 if (state.user!.isVerified == "1") {
+                  Fluttertoast.showToast(
+                      msg: state.message ?? '',
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.green,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                  );
+                  setState(() => loading = false);
+
                   Navigator.pushNamedAndRemoveUntil(context,
                       NavigationScreen.routeName, ModalRoute.withName('/'));
                 } else {
