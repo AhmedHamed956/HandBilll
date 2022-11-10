@@ -27,13 +27,11 @@ class HandmadeWidget extends StatelessWidget {
             decoration: BoxDecoration(color: Colors.white),
             child: Column(children: [
               CachedNetworkImage(
-                  imageUrl: model.images!.isEmpty
-                      ? placeholder
-                      : "${APIData.domainLink}${model.images![0].thump!}",
+                  imageUrl:"${model.images![0].thump}",
                   placeholder: (context, url) => Container(
                       height: height,
                       child: Center(
-                          heightFactor: 1,
+                          heightFactor: 30,
                           widthFactor: 1,
                           child: CircularProgressIndicator(
                               color: mainColorLite, strokeWidth: 2))),

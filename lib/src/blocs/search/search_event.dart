@@ -21,9 +21,25 @@ class SearchMarketEvent extends SearchEvent {
 }
 
 class SearchAllCategoriesEvent extends SearchEvent{}
+
 class SearchAllSubCategoriesEvent extends SearchEvent{
-
   final int id;
-  SearchAllSubCategoriesEvent({required this.id});
+  SearchAllSubCategoriesEvent({required this.id});}
 
+class SearchSubSubCategoriesEvent extends SearchEvent{
+  final int id;
+  SearchSubSubCategoriesEvent({required this.id});
+
+}
+class ProductEvent extends SearchEvent{
+  final int id;
+  ProductEvent({required this.id});
+
+}
+class  isFavourite extends SearchEvent{
+   final String? num;
+  isFavourite({required this.num}){
+    print('ddsdsdsdd');
+    print(num);
+  }
 }

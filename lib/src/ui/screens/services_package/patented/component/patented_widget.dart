@@ -26,7 +26,7 @@ class PatentedWidget extends StatelessWidget {
         child: Container(
             decoration: BoxDecoration(color: Colors.white),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-            CachedNetworkImage( imageUrl:'${APIData.domainLink}/${model!.image![0].thump!}',
+            CachedNetworkImage( imageUrl:'${model!.image![0].thump!}',
             placeholder: (context, url) => Container(
             height: height,
             child: Center(
