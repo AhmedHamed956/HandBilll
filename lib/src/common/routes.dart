@@ -46,8 +46,11 @@ import 'package:hand_bill/src/ui/screens/account_package/wishlist/wishlist_scree
 
 import '../ui/screens/aboutUsScreen.dart';
 import '../ui/screens/navigation_package/categories/component/sub_cat.dart';
+import '../ui/screens/navigation_package/search/all_products.dart';
+import '../ui/screens/navigation_package/search/Product_Details.dart';
 import '../ui/screens/navigation_package/search/search_categories.dart';
 import '../ui/screens/navigation_package/search/sub_categoies_screen.dart';
+import '../ui/screens/navigation_package/search/sub_sub_categorie.dart';
 
 class RouteGenerator {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -79,11 +82,12 @@ class RouteGenerator {
         return CustomPageRoute(widget: WishListScreen());
       case HelpCenterScreen.routeName:
         return CustomPageRoute(widget: HelpCenterScreen());
-      case AgentsScreen.routeName:
-        return CustomPageRoute(widget: AgentsScreen());
+      case AgentsScreen.routeName:return CustomPageRoute(widget: AgentsScreen());
+      case ProductDetails.routeName:return CustomPageRoute(widget: ProductDetails(routeArgument: args!,));
+      case AllProducts.routeName:return CustomPageRoute(widget: AllProducts(routeArgument: args!,));
       case AboutUsScreen.routeName:return CustomPageRoute(widget: AboutUsScreen());
-      case SubCategoriesScreen.routeName:
-        return CustomPageRoute(widget: SubCategoriesScreen(routeArgument: args!));
+      case SubCategoriesScreen.routeName:return CustomPageRoute(widget: SubCategoriesScreen(routeArgument: args!));
+      case SubSubCategories.routeName:return CustomPageRoute(widget: SubSubCategories(routeArgument: args!));
       case ProductDetailsScreen.routeName:
         return CustomPageRoute(
             widget: ProductDetailsScreen(routeArgument: args!));

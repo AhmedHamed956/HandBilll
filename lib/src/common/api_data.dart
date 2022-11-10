@@ -103,6 +103,7 @@ class APIData {
   //search
   static const searchCategories = domainLinkApi + 'user/categories';
   static const searchSubCategories = domainLinkApi + 'user/subcate-by-cate';
+  static const searchSubSubCategories = domainLinkApi + 'user/subsubcate-by-subcate';
   static const searchProduct = domainLinkApi + 'user/search-products';
   static const searchMarkets = domainLinkApi + 'user/search-companies';
   // aboutUs

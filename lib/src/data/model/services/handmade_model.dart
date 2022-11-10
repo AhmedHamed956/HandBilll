@@ -4,21 +4,21 @@ import 'package:hand_bill/src/data/model/user.dart';
 class HandmadeModel {
   int? _id;
   String? _userId;
+  String? _titleAr;
+  String? _descriptionAr;
   String? _description;
   String? _title;
   String? _price;
-  String? _createdAt;
-  String? _updatedAt;
-  User? _user;
   List<ImageModel>? _images;
+  User? _user;
 
   int? get id => _id;
   String? get userId => _userId;
   String? get description => _description;
   String? get title => _title;
   String? get price => _price;
-  String? get createdAt => _createdAt;
-  String? get updatedAt => _updatedAt;
+  String? get titleAr => _titleAr;
+  String? get descriptionAr => _descriptionAr;
   User? get user => _user;
   List<ImageModel>? get images => _images;
 
@@ -37,8 +37,8 @@ class HandmadeModel {
     _description = description;
     _title = title;
     _price = price;
-    _createdAt = createdAt;
-    _updatedAt = updatedAt;
+    _titleAr = titleAr;
+    _descriptionAr = descriptionAr;
     _user = user;
     _images = images;
   }
@@ -49,8 +49,8 @@ class HandmadeModel {
     _description = json["description"];
     _title = json["title"];
     _price = json["price"];
-    _createdAt = json["created_at"];
-    _updatedAt = json["updated_at"];
+    _titleAr = json["title_ar"];
+    _descriptionAr = json["description_ar"];
     _user = json["user"] != null ? User.fromJson(json["user"]) : null;
     if (json["images"] != null) {
       _images = [];
@@ -67,8 +67,8 @@ class HandmadeModel {
     map["description"] = _description;
     map["title"] = _title;
     map["price"] = _price;
-    map["created_at"] = _createdAt;
-    map["updated_at"] = _updatedAt;
+    map["title_ar"] = titleAr;
+    map["description_ar"] = _descriptionAr;
     if (_user != null) {
       map["user"] = _user?.toJson();
     }

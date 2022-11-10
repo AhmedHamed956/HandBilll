@@ -135,7 +135,7 @@ class MyApp extends StatelessWidget {
             ],
             // supportedLocales: localizationDelegate.supportedLocales,
             locale: localizationDelegate.currentLocale,
-            home: LoginScreen(),
+            home: SplashPage(),
             // home: ServicesCompanyDetailsScreen(routeArgument: RouteArgument(param: 1),),
             onGenerateRoute: RouteGenerator.generateRoute),
       );

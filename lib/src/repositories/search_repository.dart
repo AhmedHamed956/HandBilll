@@ -8,6 +8,8 @@ import 'package:hand_bill/src/data/response/search/search_companies_response.dar
 import 'package:hand_bill/src/data/response/search/search_product_response.dart';
 
 import '../data/model/Search_data.dart';
+import '../data/response/search/Search_sub_sub.dart';
+import '../data/response/search/search_sub_categorie.dart';
 
 class SearchRepository {
   String tag = "SearchRepository";
@@ -36,6 +38,7 @@ class SearchRepository {
     }
     return searchResponse;
   }
+
 
   Future<SearchCompaniesResponse> getSearchCompanies(String search) async {
     Map<String, String> queryParams =
@@ -78,18 +81,18 @@ class SearchRepository {
     return searchCategoriesResponse;
   }
 
-  Future<SearchCategoriesResponse> getAllSubCategories(int id) async{
+  Future<SearchSubCategoriesResponse> getAllSubCategories(int id) async{
 
     Map<String, String> queryParams =
     ({ "id": '$id'});
 
-    late SearchCategoriesResponse searchCategoriesResponse;
+    late SearchSubCategoriesResponse searchCategoriesResponse;
     try {
       Response response =
       await dio.get(APIData.searchSubCategories,queryParameters: queryParams);
-      log("getSearchSubCategories: ${jsonEncode(response.data)}");
+      log("getSearchSubSubCategories: ${jsonEncode(response.data)}");
 
-      searchCategoriesResponse = SearchCategoriesResponse.fromJson(response.data);
+      searchCategoriesResponse = SearchSubCategoriesResponse.fromJson(response.data);
       if (searchCategoriesResponse.status!) {
         return searchCategoriesResponse;
       } else {
@@ -99,6 +102,53 @@ class SearchRepository {
       print("$tag error : $error , stackTrace:  $stackTrace");
     }
     return searchCategoriesResponse;
+  }
+
+  Future<SearchSubSubCategoriesResponse> getSubSubCategories(int id) async{
+
+    Map<String, String> queryParams =
+    ({ "id": '$id'});
+
+    late SearchSubSubCategoriesResponse searchSubSubCategoriesResponse;
+    try {
+      Response response =
+      await dio.get(APIData.searchSubSubCategories,queryParameters: queryParams);
+      log("getSearchSubCategories: ${jsonEncode(response.data)}");
+
+      searchSubSubCategoriesResponse = SearchSubSubCategoriesResponse.fromJson(response.data);
+      if (searchSubSubCategoriesResponse.status!) {
+        return searchSubSubCategoriesResponse;
+      } else {
+        return searchSubSubCategoriesResponse;
+      }
+    } catch (error, stackTrace) {
+      print("$tag error : $error , stackTrace:  $stackTrace");
+    }
+    return searchSubSubCategoriesResponse;
+  }
+
+  Future<SearchProductResponse> getSearchProduct(int id) async {
+    Map<String, String> queryParams = ({
+      // "secret": APIData.secretKey,
+      "sub_sub_category_id": '$id',
+    });
+
+    late SearchProductResponse searchResponse;
+    Response response;
+    try {
+      response =
+      await dio.get(APIData.searchProduct, queryParameters: queryParams);
+      log("getSearchProducts: ${jsonEncode(response.data)}");
+      searchResponse = SearchProductResponse.fromJson(response.data);
+      if (searchResponse.status!) {
+        return searchResponse;
+      } else {
+        return searchResponse;
+      }
+    } catch (error, stackTrace) {
+      print("$tag error : $error , stackTrace:  $stackTrace");
+    }
+    return searchResponse;
   }
 
 }

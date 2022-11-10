@@ -4,6 +4,7 @@ import 'package:hand_bill/src/data/model/Search_data.dart';
 import 'package:hand_bill/src/data/model/company.dart';
 import 'package:hand_bill/src/data/model/market.dart';
 import 'package:hand_bill/src/data/model/product.dart';
+import 'package:hand_bill/src/data/model/search_Subcategoreis_model.dart';
 import 'package:hand_bill/src/data/response/search/search_companies_response.dart';
 
 abstract class SearchState extends Equatable {
@@ -65,8 +66,11 @@ class SearchCategoriesErrorState extends SearchState {
 class SearchSubCategoriesLoadingState extends SearchState {}
 
 class SearchSubCategoriesSuccessState extends SearchState {
-  List<Data>? products;
-  SearchSubCategoriesSuccessState({this.products});
+  List<Data>? subCategories;
+  SearchSubCategoriesSuccessState({this.subCategories}){
+    print('omniaaaaaaaaaa');
+    print(subCategories);
+  }
 }
 
 class SearchSubCategoriesErrorState extends SearchState {
@@ -75,4 +79,42 @@ class SearchSubCategoriesErrorState extends SearchState {
   const SearchSubCategoriesErrorState({required this.error});
 }
 
+class SearchSubSubCategoriesLoadingState extends SearchState {}
 
+class SearchSubSubCategoriesSuccessState extends SearchState {
+  List<Categories>? subSubCategories;
+  SearchSubSubCategoriesSuccessState({this.subSubCategories}){
+    print('omniaaaaaaaaaa');
+    print(subSubCategories);
+  }
+}
+
+class SearchSubSubCategoriesErrorState extends SearchState {
+  final String error;
+
+  const SearchSubSubCategoriesErrorState({required this.error});
+}
+
+
+class ProductLoadingState extends SearchState {}
+
+class ProductSuccessState extends SearchState {
+  final List<Product>? products;
+
+  const ProductSuccessState({required this.products});
+}
+
+class ProductErrorState extends SearchState {
+  final String error;
+
+  const ProductErrorState({required this.error});
+}
+
+class isFavouriteSuccessState extends SearchState{
+  final String? num;
+  isFavouriteSuccessState({required this.num}){
+    print(num);
+    print('object');
+  }
+
+}
