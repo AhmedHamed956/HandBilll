@@ -20,6 +20,7 @@ import '../../../component/custom/login_first_widget_sliver.dart';
 import '../../../component/custom/regular_app_bar.dart';
 import '../../details_package/product_details/product_details_screen.dart';
 import '../../services_package/patented/patents_screen.dart';
+import 'Product_Details.dart';
 
 class SearchByCategoriesScreen extends StatefulWidget {
   const SearchByCategoriesScreen({Key? key}) : super(key: key);
@@ -56,7 +57,8 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
       if (_searchController.text.length >= 3) {
         if (selectedPage == 0) {
           _searchBloc..add(SearchProductEvent(searchKey: value));
-        }}
+        }
+      }
     }
 
     Color borderColor = Color(0xffeeeeee);
@@ -141,7 +143,6 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                             : SliverToBoxAdapter(
                                 child: Column(
                                 children: [
-
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Align(
@@ -155,7 +156,6 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                                       ),
                                     ),
                                   ),
-
                                   SizedBox(
                                       height: 165,
                                       child: Padding(
@@ -181,7 +181,7 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                                                       Container(
                                                 height: 1,
                                                 width: double.infinity,
-                                                color: Colors.white10,
+                                                color: Colors.grey.shade500,
                                               ),
                                             ),
                                           ))),
@@ -237,25 +237,27 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
   Widget SearchProduct(Product model) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, ProductDetailsScreen.routeName,
+        Navigator.pushNamed(context, ProductDetails.routeName,
             arguments: RouteArgument(param: model));
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(top: 8.0, bottom: 8),
         child: Container(
-            height: 30,
+            height: 60,
             width: 200,
             child: Row(
               children: [
                 // CachedNetworkImage(imageUrl: model.flag),
-                SizedBox(
-                  width: 10,
-                ),
+                Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Container(
+                        child: CachedNetworkImage(
+                            imageUrl: model.images![0].thump!))),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     model.name,
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.black, fontSize: 15),
                   ),
                 ),
               ],
@@ -293,21 +295,23 @@ class SearchCategories extends StatelessWidget {
               ]),
           child: Row(
             children: [
-              CachedNetworkImage(imageUrl: model.icon!),
+              Expanded(child: CachedNetworkImage(imageUrl: model.icon!)),
               Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      model.name!,
-                      style: TextStyle(color: Colors.black),
-                    )),
+                  child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  model.name!,
+                  style: TextStyle(color: Colors.black),
+                ),
               )),
-              IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward_ios))
+              IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, SubCategoriesScreen.routeName,
+                        arguments: RouteArgument(param: model.id));
+                  },
+                  icon: Icon(Icons.arrow_forward_ios))
             ],
           ));
     }));
   }
 }
-

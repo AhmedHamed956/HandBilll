@@ -31,6 +31,10 @@ class HomeRepository {
   Future<TopCompanyResponse> getTopCompaniesData() async {
     var queryParameters = {"secret": APIData.secretKey};
     TopCompanyResponse? topCompanyResponse;
+    print('omnia');
+    print('dataaomniaaaaa');
+    print('dataa');
+
     try {
       Response response =
       await _dio.get(APIData.getTopCompanies, queryParameters: queryParameters);

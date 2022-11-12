@@ -32,7 +32,7 @@ class Product {
 
   dynamic? get subSubCategoryId => _subSubCategoryId;
 
-  bool? get isFavourite => _isFavourite;
+  dynamic? get isFavourite => _isFavourite;
 
   dynamic? get subCategoryId => _subCategoryId;
 
@@ -72,7 +72,7 @@ class Product {
   Product({
     int? id,
     dynamic? subSubCategoryId,
-    bool? isFavourite,
+    dynamic? isFavourite,
     dynamic? subCategoryId,
     dynamic? featured,
     dynamic? shippingMqo,
@@ -86,7 +86,7 @@ class Product {
     dynamic? createdAt,
     dynamic? updatedAt,
     List<ImageModel>? images,
-    VideoModel? video,
+    // VideoModel? video,
     ShippingData? shippingData,
     List<Specifications>? specifications,
     Company? company,
@@ -108,7 +108,7 @@ class Product {
     _createdAt = createdAt;
     _updatedAt = updatedAt;
     _images = images;
-    _video = video;
+    // _video = video;
     _shippingData = shippingData;
     _specifications = specifications;
     _company = company;
@@ -137,7 +137,7 @@ class Product {
         _images?.add(ImageModel.fromJson(v));
       });
     }
-    _video = json["video"];
+    // _video = json["video"];
     _shippingData = json["shipping_data"] != null
         ? ShippingData.fromJson(json["shipping_data"])
         : null;
@@ -184,7 +184,7 @@ class Product {
     return map;
   }
 
-  set isFavourite(bool? value) {
+  set isFavourite(dynamic? value) {
     _isFavourite = value;
   }
 }

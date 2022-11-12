@@ -10,11 +10,13 @@ abstract class FavoriteEvent extends Equatable {
 class FetchFavoriteEvent extends FavoriteEvent {
   final User user;
 
-  FetchFavoriteEvent({required this.user});
+  FetchFavoriteEvent({required this.user}){
+    print(user.name);
+  }
 }
 
 class FetchIsFavorite extends FavoriteEvent {
-  final int? productId;
+  final int productId;
 
   FetchIsFavorite({required this.productId});
 
@@ -23,11 +25,15 @@ class FetchIsFavorite extends FavoriteEvent {
 }
 
 class AddToFavoriteEvent extends FavoriteEvent {
-  final int? productId;
+  final int productId;
   final User user;
 
   AddToFavoriteEvent(
-      {required this.user, required this.productId});
+      {required this.user, required this.productId}){
+    print(user.name);
+    print('dddddddddddd');
+    print(productId);
+  }
 
   @override
   List<Object?> get props => [productId];

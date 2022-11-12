@@ -12,7 +12,7 @@ class RegularAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.11,
+        height: MediaQuery.of(context).size.height * 0.14,
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         color: Colors.white,
         child: Column(

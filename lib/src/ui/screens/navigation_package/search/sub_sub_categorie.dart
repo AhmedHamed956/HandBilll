@@ -103,10 +103,8 @@ class SearchSubCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(onTap: () {
-      // print('omnilalalalalaalalalalaaaaaaa');
-      // print(model.id);
-      // Navigator.pushNamed(context, SubSubCategories.routeName,
-      //     arguments: RouteArgument(param: model.id));
+      Navigator.pushNamed(context, AllProducts.routeName,
+          arguments: RouteArgument(param: model.id));
     }, child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           return Container(

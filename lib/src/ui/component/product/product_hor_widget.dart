@@ -76,7 +76,7 @@ class ProductHorWidget extends StatelessWidget {
                               Fluttertoast.showToast(
                                   msg: translate("toast.login"));
                             } else {
-                              if (model.isFavourite == true) {
+                              if (model.isFavourite == '0') {
                                 favoriteBloc.add(RemoveFromFavoriteEvent(
                                     user: user!, favoriteId: model.id!));
                               } else {
@@ -92,7 +92,7 @@ class ProductHorWidget extends StatelessWidget {
                                   border: Border.all(color: Color(0xffeeeeee)),
                                   color: Color(0x99ffffff)),
                               child: Icon(
-                                  model.isFavourite == true
+                                  model.isFavourite == '0'
                                       ? Icons.favorite
                                       : Icons.favorite_border_rounded,
                                   color: mainColorLite,

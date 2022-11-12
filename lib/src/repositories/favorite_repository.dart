@@ -26,8 +26,7 @@ class FavoriteRepository {
     _dio.options.headers["Authorization"] =
         "Bearer " + user.apiToken.toString();
     _dio.options.headers["Accept"] = "application/json";
-    Map<String, String> queryParams = ({
-      "secret": APIData.secretKey,
+    Map<String, dynamic> queryParams = ({
       "page": page.toString(),
       "paginate": "6"
     });
@@ -35,9 +34,12 @@ class FavoriteRepository {
     late FavoriteResponse favoriteResponse;
     Response response;
     try {
-      response = await _dio.get(APIData.favouriteProduct,
-          queryParameters: queryParams);
+      print('omniaaaaaaaaaaaaaaaa');
+      response = await _dio.get(APIData.favouriteProduct);
+      print('omniaaaaaaaaaaaaaaaa');
+
       favoriteResponse = FavoriteResponse.fromJson(response.data);
+      print('omniaaaaaaaaaaaaaaaa');
 
       log("${jsonEncode(response.data)}");
       if (favoriteResponse.status!) {
@@ -57,7 +59,7 @@ class FavoriteRepository {
         "Bearer " + user.apiToken.toString();
     _dio.options.headers["Accept"] = "application/json";
     FormData formData = FormData.fromMap(
-        {"secret": APIData.secretKey, "product_id": "$productId"});
+        { "product_id": "$productId"});
 
     late AddToFavoriteResponse addToFavoriteResponse;
     Response response;

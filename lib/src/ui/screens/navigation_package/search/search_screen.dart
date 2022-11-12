@@ -75,9 +75,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   getUser() {
-    _user = BlocProvider
-        .of<GlobalBloc>(context)
-        .user;
+    _user = BlocProvider.of<GlobalBloc>(context).user;
     if (_user != null) {
       setState(() {});
     }

@@ -32,9 +32,9 @@ class FavoriteWidget extends StatelessWidget {
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(8.0)),
                   child: CachedNetworkImage(
-                      imageUrl: model.product.images!.isEmpty
+                      imageUrl: model.product!.images!.isEmpty
                           ? placeholder
-                          : model.product.images![0].thump!,
+                          : model.product!.images![0].thump!,
                       placeholder: (context, url) => Center(
                           heightFactor: 1,
                           widthFactor: 1,
@@ -64,7 +64,7 @@ class FavoriteWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
-                              child: Text(model.product.name!,
+                              child: Text(model.product!.name!,
                                   style: Theme.of(context).textTheme.headline1,
                                   textAlign: TextAlign.start,
                                   maxLines: 2)),
@@ -79,7 +79,7 @@ class FavoriteWidget extends StatelessWidget {
                                           fontWeight: FontWeight.bold),
                                       children: [
                                     TextSpan(
-                                        text: model.product.price.toString()),
+                                        text: model.product!.price.toString()),
                                     TextSpan(
                                         text: " \$",
                                         style:
@@ -92,7 +92,7 @@ class FavoriteWidget extends StatelessWidget {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4)),
                                   child: CachedNetworkImage(
-                                      imageUrl: model.product.flag ?? imageFlag,
+                                      imageUrl: model.product!.flag ?? imageFlag,
                                       placeholder: (context, url) =>
                                           Transform.scale(
                                               scale: 0.4,
