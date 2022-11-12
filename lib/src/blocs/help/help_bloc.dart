@@ -24,6 +24,9 @@ class HelpBloc extends Bloc<HelpEvent, HelpState> {
     if (event is FetchAgentEvent) {
       yield* _mapFetchAgent();
     }
+    if(event is HelpCenterEvent){
+      yield* _mapFetchHelpCenter();
+    }
   }
 
   Stream<HelpState> _mapFetchAgent() async* {
@@ -37,6 +40,19 @@ class HelpBloc extends Bloc<HelpEvent, HelpState> {
     } else {
       yield HelpErrorState(error: response.message);
       isFetching = false;
+    }
+  }
+
+  Stream<HelpState> _mapFetchHelpCenter() async* {
+    yield HelpCenterLoading();
+    final response = await _helpRepository.getHelpData();
+
+    if (response.status!) {
+      final items = response.data;
+      print(items!.first.email!);
+      yield HelpCenterSuccess(items: items);
+    } else {
+      yield HelpErrorState(error: response.message);
     }
   }
 }

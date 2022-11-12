@@ -77,17 +77,20 @@ class ServiceCategoryModel {
 
   // get subCategories => subCategoryModel;
 
-  int? _id;
-  String? _name;
-  String? _image;
-  bool? _selected;
-  int? get id => _id;
+  dynamic? _id;
+  dynamic? _name;
+  dynamic? _image;
+  dynamic? _selected;
 
-  String? get name => _name;
-  String? get image => _image;
+  dynamic? get id => _id;
+
+  dynamic? get name => _name;
+
+  dynamic? get image => _image;
+
   bool? get selected => _selected;
 
-  ServiceCategoryModel({int? id, String? name, bool? selected, String? image}) {
+  ServiceCategoryModel({dynamic? id, dynamic? name, dynamic? selected, dynamic? image}) {
     _id = id;
     _name = name;
     _selected = selected;
@@ -102,8 +105,8 @@ class ServiceCategoryModel {
     _selected = false;
   }
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+  Map<dynamic, dynamic> toJson() {
+    var map = <dynamic, dynamic>{};
     map["id"] = _id;
     map["name"] = _name;
     map["image"] = _image;

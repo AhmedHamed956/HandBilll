@@ -1,30 +1,30 @@
 import 'package:hand_bill/src/common/api_data.dart';
 
 class VideoModel {
-  int? _id;
-  String? _order;
-  String? _modelId;
-  String? _description;
-  String? _modelType;
-  String? _url;
-  String? _createdAt;
-  String? _updatedAt;
+  dynamic? _id;
+  dynamic? _order;
+  dynamic? _modelId;
+  dynamic? _description;
+  dynamic? _modelType;
+  dynamic? _url;
+  dynamic? _createdAt;
+  dynamic? _updatedAt;
 
-  int? get id => _id;
+  dynamic? get id => _id;
 
-  String? get order => _order;
+  dynamic? get order => _order;
 
-  String? get modelId => _modelId;
+  dynamic? get modelId => _modelId;
 
-  String? get description => _description;
+  dynamic? get description => _description;
 
-  String? get modelType => _modelType;
+  dynamic? get modelType => _modelType;
 
-  String? get url => _url;
+  dynamic? get url => _url;
 
-  String? get createdAt => _createdAt;
+  dynamic? get createdAt => _createdAt;
 
-  String? get updatedAt => _updatedAt;
+  dynamic? get updatedAt => _updatedAt;
 
   VideoModel(
       {int? id,

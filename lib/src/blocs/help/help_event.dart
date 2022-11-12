@@ -7,4 +7,5 @@ abstract class HelpEvent extends Equatable {
 
 // fetch
 class FetchAgentEvent extends HelpEvent {}
+class HelpCenterEvent extends HelpEvent {}
 

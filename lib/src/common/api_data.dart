@@ -111,4 +111,7 @@ class APIData {
   // // profile
 
   static const getProfile = domainLinkApi + 'user/profile-page';
+
+  // Help Cernter
+  static const helpCenter = domainLinkApi + 'user/help-center';
 }

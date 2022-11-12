@@ -37,11 +37,14 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
 
   Stream<FavoriteState> _mapFetchFavorite(FetchFavoriteEvent event) async* {
     yield FavoriteLoadingState();
+    print(event.user);
     final response = await favoriteRepository.getFavoriteProducts(
         page: page, user: event.user);
-
+    print('omniaaaaaaaaaaaaaaaa');
     if (response.status!) {
       final tours = response.data;
+      print(tours);
+      print('omniaaaaaaaaaaaaaaaa');
       yield FavoriteSuccessState(items: tours);
       page++;
     } else {

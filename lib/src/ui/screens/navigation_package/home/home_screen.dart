@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hand_bill/src/blocs/category/category_bloc.dart';
 import 'package:hand_bill/src/blocs/category/category_event.dart';
 import 'package:hand_bill/src/blocs/explore/explore_bloc.dart';
@@ -119,87 +120,92 @@ class _HomeScreenState extends State<HomeScreen> {
                     _homeBloc!.popularList.forEach((element) {
                       if (element.id == state.favoriteId) {
                         setState(() {
-                          element.isFavourite = true;
+                          element.isFavourite = '0';
                         });
                       }
                     });
-                    displaySnackBar(
-                        scaffoldKey: _scaffoldKey,
-                        title: state.message.toString());
+                    Fluttertoast.showToast(
+                        msg: state.message ?? '',
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.green,
+                        textColor: Colors.white,
+                        fontSize: 16.0
+                    );
                   }
                   if (state is RemoveFromFavoriteSuccessState) {
                     _homeBloc!.popularList.forEach((element) {
                       if (element.id == state.productId) {
                         setState(() {
-                          element.isFavourite = false;
+                          element.isFavourite = '1';
                         });
                       }
                     });
-                    displaySnackBar(
-                        scaffoldKey: _scaffoldKey,
-                        title: state.message.toString());
+                    Fluttertoast.showToast(
+                        msg: state.message ?? '',
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.green,
+                        textColor: Colors.white,
+                        fontSize: 16.0
+                    );
                   }
                 })
               ],
               child: ListView(physics: BouncingScrollPhysics(), children: [
-                // Align(
-                //   alignment: Alignment.topCenter,
-                //   child: Stack(
-                //     children: [
-                //       Container(
-                //           height: size.height * 0.2,
-                //           width: double.infinity,
-                //           decoration: BoxDecoration(
-                //               color: Colors.white,
-                //               borderRadius: BorderRadius.vertical(
-                //                   bottom: Radius.circular(8))),
-                //           child: CarouselSlider.builder(
-                //               itemCount: _homeBloc!.sliders.isNotEmpty
-                //                   ? _homeBloc!.sliders.length
-                //                   : 6,
-                //               itemBuilder:
-                //                   (BuildContext context, int index, int idx) {
-                //                 if (_homeBloc!.sliders.isNotEmpty) {
-                //                   return SliderWidget(
-                //                       model: _homeBloc!.sliders[index]);
-                //                 }
-                //                 return SliderEmptyWidget();
-                //               },
-                //               options: CarouselOptions(
-                //                   viewportFraction: 1,
-                //                   initialPage: 0,
-                //                   // enlargeCenterPage: true,
-                //                   scrollDirection: Axis.horizontal,
-                //                   autoPlay: true,
-                //                   enableInfiniteScroll: true,
-                //                   autoPlayInterval:
-                //                       Duration(milliseconds: 4000),
-                //                   autoPlayCurve: Curves.easeOutSine,
-                //                   onPageChanged: (index, reason) {
-                //                     setState(() {
-                //                       _sliderPosition = index;
-                //                     });
-                //                   }))),
-                //       _homeBloc!.sliders.isEmpty
-                //           ? SizedBox()
-                //           : Positioned(
-                //               bottom: 8,
-                //               right: 0,
-                //               left: 0,
-                //               child: DotsIndicator(
-                //                   dotsCount: _homeBloc!.sliders.length,
-                //                   position: _sliderPosition.toDouble(),
-                //                   decorator: DotsDecorator(
-                //                       color: Color(0xffffffff),
-                //                       activeColor: mainColorLite,
-                //                       size: const Size(6.0, 4.0),
-                //                       activeSize: const Size(12.0, 4.0),
-                //                       activeShape: RoundedRectangleBorder(
-                //                           borderRadius:
-                //                               BorderRadius.circular(20.0))))),
-                //     ],
-                //   ),
-                // ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Stack(
+                    children: [
+                       CarouselSlider.builder(
+                              itemCount: _homeBloc!.sliders.isNotEmpty
+                                  ? _homeBloc!.sliders.length
+                                  : 6,
+                              itemBuilder:
+                                  (BuildContext context, int index, int idx) {
+                                if (_homeBloc!.sliders.isNotEmpty) {
+                                  return SliderWidget(
+                                      model: _homeBloc!.sliders[index]);
+                                }
+                                return SliderEmptyWidget();
+                              },
+                              options: CarouselOptions(
+                                  viewportFraction: 1,
+                                  initialPage: 0,
+                                  // enlargeCenterPage: true,
+                                  scrollDirection: Axis.horizontal,
+                                  autoPlay: true,
+                                  enableInfiniteScroll: true,
+                                  autoPlayInterval:
+                                      Duration(milliseconds: 4000),
+                                  autoPlayCurve: Curves.easeOutSine,
+                                  onPageChanged: (index, reason) {
+                                    setState(() {
+                                      _sliderPosition = index;
+                                    });
+                                  }),),
+                      _homeBloc!.sliders.isEmpty
+                          ? SizedBox()
+                          : Positioned(
+                              bottom: 8,
+                              right: 0,
+                              left: 0,
+                              child: DotsIndicator(
+                                  dotsCount: _homeBloc!.sliders.length,
+                                  position: _sliderPosition.toDouble(),
+                                  decorator: DotsDecorator(
+                                      color: Color(0xffffffff),
+                                      activeColor: mainColorLite,
+                                      size: const Size(6.0, 4.0),
+                                      activeSize: const Size(12.0, 4.0),
+                                      activeShape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0))))),
+                    ],
+                  ),
+                ),
                 ListView.separated(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,

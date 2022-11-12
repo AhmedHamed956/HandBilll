@@ -46,10 +46,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Stream<HomeState> _mapTopCompanies() async* {
     yield TopCompaniesLoadingState();
+    print('isis');
+
     final response = await homeRepository.getTopCompaniesData();
     try {
       if (response.status!) {
         final items = response.data;
+        print(items!.first.name);
+        print('dataa');
+
         if(topCompaniesList.isEmpty)topCompaniesList = items!;
         yield TopCompaniesSuccessState(items: items);
       } else {

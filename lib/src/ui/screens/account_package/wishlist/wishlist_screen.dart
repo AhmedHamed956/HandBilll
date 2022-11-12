@@ -86,7 +86,7 @@ class _WishListScreenState extends State<WishListScreen> {
               if (state is RemoveFromFavoriteSuccessState) {
                 setState(() {
                   _items!.removeWhere(
-                      (element) => element.product.id == state.productId);
+                      (element) => element.product!.id == state.productId);
                 });
                 Fluttertoast.showToast(msg: state.message!);
               }
@@ -141,7 +141,7 @@ class _WishListScreenState extends State<WishListScreen> {
   _onFavTap(FavoriteModel model) {
     _favoriteBloc
       ..add(
-          RemoveFromFavoriteEvent(user: _user!, favoriteId: model.product.id!));
+          RemoveFromFavoriteEvent(user: _user!, favoriteId: model.product!.id!));
   }
 
   @override

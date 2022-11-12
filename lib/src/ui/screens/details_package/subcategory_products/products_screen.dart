@@ -133,7 +133,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       _items!.forEach((element) {
                         if (element.id == state.favoriteId) {
                           setState(() {
-                            element.isFavourite = true;
+                            element.isFavourite = '0' ;
                           });
                         }
                       });
@@ -146,7 +146,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       _items!.forEach((element) {
                         if (element.id == state.productId) {
                           setState(() {
-                            element.isFavourite = false;
+                            element.isFavourite = '1';
                           });
                         }
                       });

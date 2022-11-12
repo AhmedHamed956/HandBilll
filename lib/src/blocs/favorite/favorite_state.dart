@@ -38,7 +38,7 @@ class CheckIsFavoriteSuccessState extends FavoriteState {
 
 class AddToFavoriteSuccessState extends FavoriteState {
   final String? message;
-  final int? favoriteId;
+  final int favoriteId;
 
   AddToFavoriteSuccessState({required this.favoriteId, required this.message});
 }
@@ -47,7 +47,7 @@ class AddToFavoriteSuccessState extends FavoriteState {
 
 class RemoveFromFavoriteSuccessState extends FavoriteState {
   final String? message;
-  final int? productId;
+  final int productId;
 
   RemoveFromFavoriteSuccessState(
       {required this.message, required this.productId});

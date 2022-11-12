@@ -75,12 +75,12 @@ class HandmadeRepository {
        // "first_image_hand_made": model.images![0].url!
     };
     if (images.length == 1) {
-      file1 = images as File;
+      file1 = images[0] as File;
       _map["first_image_hand_made"] = await MultipartFile.fromFile(file1.path,
           filename: file1.path.split('/').last);
     } else if (images.length == 2) {
-      file1 = images as File;
-      file2 = images as File;
+      file1 = images[0] as File ;
+      file2 = images[1] as File;
       _map["first_image_hand_made"] = await MultipartFile.fromFile(file1.path,
           filename: file1.path.split('/').last);
       _map["second_image_hand_made"] = await MultipartFile.fromFile(file2.path,

@@ -134,7 +134,8 @@ class SearchCategories extends StatelessWidget {
               SizedBox(
                 width: 120,
               ),
-              IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward_ios))
+              IconButton(onPressed: () {Navigator.pushNamed(context, SubSubCategories.routeName,
+                  arguments: RouteArgument(param: model.id));}, icon: Icon(Icons.arrow_forward_ios))
             ],
           ));
     }));

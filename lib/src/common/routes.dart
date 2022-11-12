@@ -48,7 +48,7 @@ import '../ui/screens/aboutUsScreen.dart';
 import '../ui/screens/navigation_package/categories/component/sub_cat.dart';
 import '../ui/screens/navigation_package/search/all_products.dart';
 import '../ui/screens/navigation_package/search/Product_Details.dart';
-import '../ui/screens/navigation_package/search/search_categories.dart';
+import '../ui/screens/navigation_package/search/search_screen1.dart';
 import '../ui/screens/navigation_package/search/sub_categoies_screen.dart';
 import '../ui/screens/navigation_package/search/sub_sub_categorie.dart';
 

@@ -1,42 +1,29 @@
 import 'package:hand_bill/src/data/model/product.dart';
 
 class FavoriteModel {
-  int? _id;
-  String? _userId;
-  String? _productId;
-  late Product _product;
+  int? id;
+  String? userId;
+  String? productId;
+  Product? product;
 
-  int? get id => _id;
+  FavoriteModel({this.id, this.userId, this.productId, this.product});
 
-  String? get userId => _userId;
-
-  String? get productId => _productId;
-
-  Product get product => _product;
-
-  FavoriteModel(
-      {int? id, String? userId, String? productId, required Product product}) {
-    _id = id;
-    _userId = userId;
-    _productId = productId;
-    _product = product;
+  FavoriteModel.fromJson(Map<dynamic, dynamic> json) {
+    id = json['id'];
+    userId = json['user_id'];
+    productId = json['product_id'];
+    product =
+    json['product'] != null ? new Product.fromJson(json["product"]) : null;
   }
 
-  FavoriteModel.fromJson(dynamic json) {
-    _id = json["id"];
-    _userId = json["user_id"];
-    _productId = json["product_id"];
-    _product =
-        (json["product"] != null ? Product.fromJson(json["product"]) : null)!;
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map["id"] = _id;
-    map["user_id"] = _userId;
-    map["product_id"] = _productId;
-
-    map["product"] = _product.toJson();
-    return map;
+  Map<dynamic, dynamic> toJson() {
+    final Map<dynamic, dynamic> data = new Map<dynamic, dynamic>();
+    data['id'] = this.id;
+    data['user_id'] = this.userId;
+    data['product_id'] = this.productId;
+    if (this.product != null) {
+      data['product'] = this.product!.toJson();
+    }
+    return data;
   }
 }

@@ -55,6 +55,7 @@ class ProfileRepository {
   Future<ProfileResponse?> fetchUserData({required User user}) async {
     Response response = await dio.get('${APIData.editProfile}${user.id}');
     print('${APIData.editProfile}${user.id}');
+    print('lalalaalalalalalalalalala');
     print('${APIData.userProfile}${user.id}');
     ProfileResponse? profileResponse;
     try {
@@ -66,11 +67,9 @@ class ProfileRepository {
     return profileResponse;
   }
 
-  Future<EditProfileResponse?> editProfile(
-      {required User user, File? image}) async {
+  Future<EditProfileResponse?> editProfile({required User user, File? image}) async {
     dio.options.headers["Authorization"] = "Bearer " + user.apiToken.toString();
     dio.options.headers["Accept"] = "application/json";
-
     FormData formData;
     if (image == null) {
       formData = FormData.fromMap({
@@ -82,7 +81,6 @@ class ProfileRepository {
     } else {
       String fileName = image.path.split('/').last;
       formData = FormData.fromMap({
-        // "secret": APIData.secretKey,
         "name": user.name,
         "phone": user.phone.toString(),
         "address": user.address.toString(),
@@ -105,9 +103,9 @@ class ProfileRepository {
   }
 
   Future<CommonResponse?> changePassword(
-      {required User user,
-      required String currentPass,
-      required String newPass}) async {
+      { required User user,
+        required String currentPass,
+        required String newPass}) async {
     FormData formData;
 
     formData = FormData.fromMap({
