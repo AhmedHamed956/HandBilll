@@ -54,9 +54,7 @@ class ProfileRepository {
 
   Future<ProfileResponse?> fetchUserData({required User user}) async {
     Response response = await dio.get('${APIData.editProfile}${user.id}');
-    print('${APIData.editProfile}${user.id}');
-    print('lalalaalalalalalalalalala');
-    print('${APIData.userProfile}${user.id}');
+
     ProfileResponse? profileResponse;
     try {
       profileResponse = ProfileResponse.fromJson(response.data);

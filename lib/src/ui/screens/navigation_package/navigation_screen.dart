@@ -17,6 +17,7 @@ import 'package:hand_bill/src/ui/screens/services_package/shipping/shipping_main
 
 class NavigationScreen extends StatefulWidget {
   static const routeName = "/navigationScreen";
+
   @override
   _NavigationScreenState createState() => _NavigationScreenState();
 }
@@ -28,6 +29,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   bool isDrawerOpen = false, isDragging = false;
 
   late int _selectedPageIndex;
+
   // User? _user;
   // late NotificationsBloc _notificationsBloc;
 
@@ -83,6 +85,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   Color? activeColor, inactiveColor, textColor;
   TextAlign? textAlign;
+
   @override
   Widget build(BuildContext context) {
     activeColor = mainColor;
@@ -90,7 +93,36 @@ class _NavigationScreenState extends State<NavigationScreen> {
     textColor = mainColor;
     textAlign = ui.TextAlign.center;
     return Scaffold(
-        appBar: MyAppBarSearch(),
+        appBar: _selectedPageIndex == 0
+            ? AppBar(
+          elevation: 0,
+          toolbarHeight: 33,
+                backgroundColor: Colors.white,
+                title:
+                  Container(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 2.0),
+                        child: Image.asset("assets/images/hb_logo.jpeg", height: 31),
+                      )),
+
+
+              )
+            : _selectedPageIndex == 1
+                ? MyAppBarSearch()
+                : _selectedPageIndex == 2
+                    ? MyAppBar()
+                    : AppBar(
+          elevation: 0,
+          toolbarHeight: 33,
+          backgroundColor: Colors.white,
+          title:
+          Container(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 2.0),
+                child: Image.asset("assets/images/hb_logo.jpeg", height: 31),
+              )),
+
+        ),
         bottomNavigationBar: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -173,6 +205,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 class KeepAlive extends StatefulWidget {
   const KeepAlive({Key? key, required this.widget}) : super(key: key);
   final Widget widget;
+
   @override
   _KeepAliveState createState() => _KeepAliveState();
 }
@@ -188,3 +221,4 @@ class _KeepAliveState extends State<KeepAlive>
     return widget.widget;
   }
 }
+

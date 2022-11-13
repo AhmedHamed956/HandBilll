@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hand_bill/src/blocs/search/search_event.dart';
 import 'package:hand_bill/src/data/model/product.dart';
-import 'package:hand_bill/src/ui/screens/navigation_package/search/sub_sub_categorie.dart';
+import 'package:hand_bill/src/ui/screens/navigation_package/search/Search_market/sub_sub_categorie.dart';
 
-import '../../../../blocs/search/search_bloc.dart';
-import '../../../../blocs/search/search_state.dart';
-import '../../../../data/model/local/route_argument.dart';
-import '../../../component/custom/login_first_widget_sliver.dart';
-import '../../services_package/patented/patents_screen.dart';
+import '../../../../../blocs/search/search_bloc.dart';
+import '../../../../../blocs/search/search_state.dart';
+import '../../../../../data/model/local/route_argument.dart';
+import '../../../../component/custom/login_first_widget_sliver.dart';
+import '../../../services_package/patented/patents_screen.dart';
 import 'Product_Details.dart';
 
 class AllProducts extends StatefulWidget {

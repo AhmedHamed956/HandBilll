@@ -74,7 +74,7 @@ class ServiceCategoryModel {
   // set setSubCategories(List<SubCategoryModel>? value) {
   //   subCategoryModel = value;
   // }
-
+  //
   // get subCategories => subCategoryModel;
 
   dynamic? _id;

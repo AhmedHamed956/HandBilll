@@ -69,7 +69,7 @@
 		"search": " search",
         "text": "search products ",
         "products": "Products",
-        "suppliers": "Suppliers"
+        "suppliers": "search Suppliers"
 	},
 	"rules":{
 		"check": " you accepted the Licenses and Terms ",

@@ -9,17 +9,17 @@ import 'package:hand_bill/src/blocs/search/search_event.dart';
 import 'package:hand_bill/src/blocs/search/search_state.dart';
 import 'package:hand_bill/src/data/model/Search_data.dart';
 import 'package:hand_bill/src/data/model/product.dart';
-import 'package:hand_bill/src/ui/screens/navigation_package/search/sub_categoies_screen.dart';
+import 'package:hand_bill/src/ui/screens/navigation_package/search/Search_market/sub_categoies_screen.dart';
 
-import '../../../../blocs/favorite/favorite_bloc.dart';
-import '../../../../blocs/search/search_bloc.dart';
-import '../../../../common/constns.dart';
-import '../../../../common/global.dart';
-import '../../../../data/model/local/route_argument.dart';
-import '../../../component/custom/login_first_widget_sliver.dart';
-import '../../../component/custom/regular_app_bar.dart';
-import '../../details_package/product_details/product_details_screen.dart';
-import '../../services_package/patented/patents_screen.dart';
+import '../../../../../blocs/favorite/favorite_bloc.dart';
+import '../../../../../blocs/search/search_bloc.dart';
+import '../../../../../common/constns.dart';
+import '../../../../../common/global.dart';
+import '../../../../../data/model/local/route_argument.dart';
+import '../../../../component/custom/login_first_widget_sliver.dart';
+import '../../../../component/custom/regular_app_bar.dart';
+import '../../../details_package/product_details/product_details_screen.dart';
+import '../../../services_package/patented/patents_screen.dart';
 import 'Product_Details.dart';
 
 class SearchByCategoriesScreen extends StatefulWidget {
@@ -32,7 +32,7 @@ class SearchByCategoriesScreen extends StatefulWidget {
 
 class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
   late SearchBloc _searchBloc;
-  List<Data>? data;
+  List<SearchData>? data;
   bool isFetching = false;
   var _scrollController = ScrollController();
   final _searchController = TextEditingController();
@@ -268,7 +268,7 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
 }
 
 class SearchCategories extends StatelessWidget {
-  final Data model;
+  final SearchData model;
   final bool isHome;
 
   SearchCategories({required this.model, this.isHome = false});

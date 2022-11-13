@@ -28,15 +28,7 @@ class HandmadeWidget extends StatelessWidget {
             child: Column(children: [
               CachedNetworkImage(
                   imageUrl:"${model.images![0].thump}",
-                  placeholder: (context, url) => Container(
-                      height: height,
-                      child: Center(
-                          heightFactor: 30,
-                          widthFactor: 1,
-                          child: CircularProgressIndicator(
-                              color: mainColorLite, strokeWidth: 2))),
-                  errorWidget: (context, url, error) =>
-                      new Icon(Icons.error, color: mainColorLite)),
+                width: 200,height: 200,),
               Container(
                   color: Color(0xfffafafa), height: 2, width: double.infinity),
               Row(children: [

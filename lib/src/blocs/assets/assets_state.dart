@@ -22,5 +22,7 @@ class AssetsErrorState extends AssetsState {
 class AssetsSuccessState extends AssetsState {
   final List<AssetsModel>? items;
 
-  AssetsSuccessState({required this.items});
+  AssetsSuccessState({required this.items}){
+    print(items!.first.title);
+  }
 }

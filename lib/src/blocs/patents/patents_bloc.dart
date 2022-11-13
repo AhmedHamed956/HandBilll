@@ -55,6 +55,7 @@ class PatentsBloc extends Bloc<PatentsEvent, PatentsState> {
 
     if (response!.status!) {
       final items = response.data;
+      print(items!.first.title);
       yield MyPatentsSuccessState(items: items);
       myPage++;
       isFetching = false;

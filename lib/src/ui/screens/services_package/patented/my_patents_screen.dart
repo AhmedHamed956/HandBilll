@@ -82,86 +82,83 @@ class _MyPatentsScreenState extends State<MyPatentsScreen> {
             },
             child: Icon(Icons.add)),
         backgroundColor: Color(0xffeeeeee),
-        body: BlocListener<PatentsBloc, PatentsState>(
-            listener: (context, state) {
-              if (state is PatentsErrorState) {
-                _items = [];
-                Fluttertoast.showToast(
-                    msg: state.error ?? '',
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.green,
-                    textColor: Colors.white,
-                    fontSize: 16.0
-                );              }
-              if (state is MyPatentsSuccessState) {
-                if (_items == null) {
-                  _items = [];
+        body:
+            BlocConsumer<PatentsBloc, PatentsState>(listener: (context, state) {
+          if (state is PatentsErrorState) {
+            _items = [];
+            Fluttertoast.showToast(
+                msg: state.error ?? '',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.green,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+          if (state is MyPatentsSuccessState) {
+            print(state.items!.first.title);
+            print('ssssssssssssss');
+            _items = state.items!;
+          }
 
+          if (state is PatentedRemoveSuccessState) {
+            setState(() {
+              _items!.removeWhere((element) => element.id == state.model.id);
+            });
+            displaySnackBar(title: state.message!, scaffoldKey: _scaffoldKey);
+          }
+        }, builder: (context, state) {
+          return RefreshIndicator(
+              onRefresh: () async {
+                if (_items != null) {
+                  _items!.clear();
+                  _items = null;
                 }
-                setState(() {
-                  _items!.addAll(state.items!);
-                });
-              }
-
-              if (state is PatentedRemoveSuccessState) {
-                setState(() {
-                  _items!
-                      .removeWhere((element) => element.id == state.model.id);
-                });
-                displaySnackBar(
-                    title: state.message!, scaffoldKey: _scaffoldKey);
-              }
-            },
-            child: RefreshIndicator(
-                onRefresh: () async {
-                  if (_items != null) {
-                    _items!.clear();
-                    _items = null;
-                  }
-                  _patentsBloc.myPage = 1;
-                  _patentsBloc.add(FetchMyPatentsEvent(user: _user!));
-                },
-                child: CustomScrollView(
-                    physics: BouncingScrollPhysics(),
-                    controller: _scrollController,
-                    slivers: [
-                      _items == null
-                          ? LoadingSliver()
-                          : _items!.length == 0
-                              ? CenterWidgetListSliver(
-                                  label: "your patents is empty")
-                              : SliverToBoxAdapter(
-                                  child: ListView.separated(
-                                      physics: BouncingScrollPhysics(),
-                                      // padding: EdgeInsets.symmetric(vertical: 16),
-                                      primary: false,
-                                      shrinkWrap: true,
-                                      itemCount: _items!.length,
-                                      scrollDirection: Axis.vertical,
-                                      itemBuilder: (context, index) {
-                                        return PatentedWidget(
-                                            model: _items![index], onDeleteTap: () => _deleteItem(_items![index]),);
-                                      },
-                                      separatorBuilder:
-                                          (BuildContext context, int index) =>
-                                              Container(
-                                                  height: 10,
-                                                  color: Color(0xffeeeeee)))),
-                      SliverToBoxAdapter(child: SizedBox(height: 100)),
-                      SliverToBoxAdapter(
-                          child: Container(
-                              child: loading == true
-                                  ? Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 40),
-                                      child: Align(
-                                          alignment: Alignment.bottomCenter,
-                                          child: CircularProgressIndicator(
-                                              strokeWidth: 2)))
-                                  : SizedBox()))
-                    ]))));
+                _patentsBloc.myPage = 1;
+                _patentsBloc.add(FetchMyPatentsEvent(user: _user!));
+              },
+              child: CustomScrollView(
+                  physics: BouncingScrollPhysics(),
+                  controller: _scrollController,
+                  slivers: [
+                    _items == null
+                        ? LoadingSliver()
+                        : _items!.length == 0
+                            ? CenterWidgetListSliver(
+                                label: "your patents is empty")
+                            : SliverToBoxAdapter(
+                                child: ListView.separated(
+                                    physics: BouncingScrollPhysics(),
+                                    // padding: EdgeInsets.symmetric(vertical: 16),
+                                    primary: false,
+                                    shrinkWrap: true,
+                                    itemCount: _items!.length,
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder: (context, index) {
+                                      return PatentedWidget(
+                                        model: _items![index],
+                                        onDeleteTap: () =>
+                                            _deleteItem(_items![index]),
+                                      );
+                                    },
+                                    separatorBuilder:
+                                        (BuildContext context, int index) =>
+                                            Container(
+                                                height: 10,
+                                                color: Color(0xffeeeeee)))),
+                    SliverToBoxAdapter(child: SizedBox(height: 100)),
+                    SliverToBoxAdapter(
+                        child: Container(
+                            child: loading == true
+                                ? Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 40),
+                                    child: Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: CircularProgressIndicator(
+                                            strokeWidth: 2)))
+                                : SizedBox()))
+                  ]));
+        }));
   }
 
   void _deleteItem(PatentedModel model) {

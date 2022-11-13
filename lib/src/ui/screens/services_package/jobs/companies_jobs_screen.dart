@@ -86,7 +86,8 @@ class _CompaniesJobsScreenState extends State<CompaniesJobsScreen> {
                 onTap: () {
                   if (_user == null) {
                     displaySnackBar(
-                        title: translate("toast.login"), scaffoldKey: _scaffoldKey);
+                        title: translate("toast.login"),
+                        scaffoldKey: _scaffoldKey);
                   } else {
                     Navigator.pushNamed(context, MyJobsScreen.routeName);
                   }
@@ -101,70 +102,59 @@ class _CompaniesJobsScreenState extends State<CompaniesJobsScreen> {
               _jobsBloc.allPage = 1;
               _jobsBloc.add(FetchCompaniesJobsEvent());
             },
-            child: BlocListener<JobsBloc, JobsState>(
-                listener: (context, state) {
-                  if (state is JobErrorState) {
-                    _items = [];
-                    displaySnackBar(
-                        title: state.error!, scaffoldKey: _scaffoldKey);
-                  }
-                  if (state is CompanyJobSuccessState) {
-                    print(state.items!.first.title);
-                    if (_items == null) {
-                      _items = [];
+            child:
+                BlocConsumer<JobsBloc, JobsState>(listener: (context, state) {
+              if (state is CompanyJobSuccessState) {
+                _items = state.items;
+              }
 
-                    }
-                    setState(() {
-                      _items!.addAll(state.items!);
-                    });
-                  }
-
-                  if (state is JobCategoriesSuccessState) {
-                    _categories.addAll(state.items!);
-                    loading = false;
-                  }
-                  if (state is JobSubcategoriesSuccessState) {
-                    _subcategories.addAll(state.items!);
-                    loading = false;
-                  }
-                },
-                child: CustomScrollView(
-                    physics: BouncingScrollPhysics(),
-                    controller: _scrollController,
-                    slivers: [
-                      _items == null
-                          ? LoadingSliver()
-                          : _items!.length == 0
-                              ? CenterWidgetListSliver(label: "Jobs is empty")
-                              : SliverToBoxAdapter(
-                                  child: ListView.separated(
-                                      physics: BouncingScrollPhysics(),
-                                      primary: false,
-                                      shrinkWrap: true,
-                                      itemCount: _items!.length,
-                                      scrollDirection: Axis.vertical,
-                                      itemBuilder: (context, index) {
-                                        return JobCompanyWidget(
-                                            model: _items![index]);
-                                      },
-                                      separatorBuilder:
-                                          (BuildContext context, int index) =>
-                                              Container(
-                                                  height: 10,
-                                                  color: Color(0xffeeeeee)))),
-                      SliverToBoxAdapter(child: SizedBox(height: 100)),
-                      SliverToBoxAdapter(
-                          child: Container(
-                              child: loading == true
-                                  ? Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 40),
-                                      child: Align(
-                                          alignment: Alignment.bottomCenter,
-                                          child: CircularProgressIndicator(
-                                              strokeWidth: 2)))
-                                  : SizedBox()))
-                    ]))),
+              if (state is JobCategoriesSuccessState) {
+                _categories.addAll(state.items!);
+                loading = false;
+              }
+              if (state is JobSubcategoriesSuccessState) {
+                _subcategories.addAll(state.items!);
+                loading = false;
+              }
+            }, builder: (context, state) {
+              return CustomScrollView(
+                  physics: BouncingScrollPhysics(),
+                  controller: _scrollController,
+                  slivers: [
+                    _items == null
+                        ? LoadingSliver()
+                        : _items!.length == 0
+                            ? CenterWidgetListSliver(label: "Jobs is empty")
+                            : SliverToBoxAdapter(
+                                child: SizedBox(
+                                height: 700,
+                                child: ListView.separated(
+                                    physics: BouncingScrollPhysics(),
+                                    itemCount: _items!.length,
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder: (context, index) {
+                                      return JobCompanyWidget(
+                                          model: _items![index]);
+                                    },
+                                    separatorBuilder:
+                                        (BuildContext context, int index) =>
+                                            Container(
+                                                height: 10,
+                                                color: Color(0xffeeeeee))),
+                              )),
+                    SliverToBoxAdapter(child: SizedBox(height: 100)),
+                    SliverToBoxAdapter(
+                        child: Container(
+                            child: loading == true
+                                ? Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 40),
+                                    child: Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: CircularProgressIndicator(
+                                            strokeWidth: 2)))
+                                : SizedBox()))
+                  ]);
+            })),
         bottomNavigationBar: Column(mainAxisSize: MainAxisSize.min, children: [
           Container(
               color: Colors.white,
@@ -256,25 +246,25 @@ class MyFormState extends State<MyForm> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-          title: Text(widget.label),
-          content: SizedBox(
-            height: 500,
-            width: 300,
-            child: ListView.builder(
-                itemCount: widget.items.length,
-                itemBuilder: (context, index) {
-                  return RadioListTile(
-                    value: index,
-                    groupValue: value,
-                    onChanged: (int? ind) => setState(() {
-                      value = ind!;
-                      Navigator.pop(context);
-                      widget.onSubmit(widget.items[value!]);
-                    }),
-                    title: Text(widget.items[index].name ?? "name"),
-                  );
+      title: Text(widget.label),
+      content: SizedBox(
+        height: 500,
+        width: 300,
+        child: ListView.builder(
+            itemCount: widget.items.length,
+            itemBuilder: (context, index) {
+              return RadioListTile(
+                value: index,
+                groupValue: value,
+                onChanged: (int? ind) => setState(() {
+                  value = ind!;
+                  Navigator.pop(context);
+                  widget.onSubmit(widget.items[value!]);
                 }),
-          ),
+                title: Text(widget.items[index].name ?? "name"),
+              );
+            }),
+      ),
     );
   }
 }

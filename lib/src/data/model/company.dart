@@ -6,58 +6,58 @@ import 'package:hand_bill/src/data/model/local/images.dart';
 import 'local/video_model.dart';
 
 class Company {
-  int? _id;
-  String? _natureActivity;
-  String? _subNatureActivity;
-  bool? _isVerified;
-  String? _deviceToken;
-  String? _banners;
-  bool? _active;
-  String? _offers;
-  String? _assets;
-  String? _apiToken;
-  String? _jobs;
-  String? _email;
-  String? _name;
-  String? _createdAt;
-  String? _updatedAt;
+  dynamic? _id;
+  dynamic? _natureActivity;
+  dynamic? _subNatureActivity;
+  dynamic? _isVerified;
+  dynamic? _deviceToken;
+  dynamic? _banners;
+  dynamic? _active;
+  dynamic? _offers;
+  dynamic? _assets;
+  dynamic? _apiToken;
+  dynamic? _jobs;
+  dynamic? _email;
+  dynamic? _name;
+  dynamic? _createdAt;
+  dynamic? _updatedAt;
   LeftDataOfCompanies? _leftDataOfCompanies;
   List<ImageModel>? _images;
   ImageModel? _logo;
   VideoModel? _video;
-  String? _phone;
-  String? _country;
-  String? _flag;
+  dynamic? _phone;
+  dynamic? _country;
+  dynamic? _flag;
 
-  int? get id => _id;
+  dynamic? get id => _id;
 
-  String? get natureActivity => _natureActivity;
+  dynamic? get natureActivity => _natureActivity;
 
-  String? get subNatureActivity => _subNatureActivity;
+  dynamic? get subNatureActivity => _subNatureActivity;
 
   bool? get isVerified => _isVerified;
 
-  String? get deviceToken => _deviceToken;
+  dynamic? get deviceToken => _deviceToken;
 
-  String? get banners => _banners;
+  dynamic? get banners => _banners;
 
   bool? get active => _active;
 
-  String? get offers => _offers;
+  dynamic? get offers => _offers;
 
-  String? get assets => _assets;
+  dynamic? get assets => _assets;
 
-  String? get apiToken => _apiToken;
+  dynamic? get apiToken => _apiToken;
 
-  String? get jobs => _jobs;
+  dynamic? get jobs => _jobs;
 
-  String? get email => _email;
+  dynamic? get email => _email;
 
-  String? get name => _name;
+  dynamic? get name => _name;
 
-  String? get createdAt => _createdAt;
+  dynamic? get createdAt => _createdAt;
 
-  String? get updatedAt => _updatedAt;
+  dynamic? get updatedAt => _updatedAt;
 
   LeftDataOfCompanies? get leftDataOfCompanies => _leftDataOfCompanies;
 
@@ -67,35 +67,35 @@ class Company {
 
   VideoModel? get video => _video;
 
-  String? get firstPhone => _phone;
+  dynamic? get firstPhone => _phone;
 
-  String? get country => _country;
+  dynamic? get country => _country;
 
-  String? get flag => _flag;
+  dynamic? get flag => _flag;
 
   Company({
-    int? id,
-    String? natureActivity,
-    String? subNatureActivity,
+    dynamic? id,
+    dynamic? natureActivity,
+    dynamic? subNatureActivity,
     bool? isVerified,
-    String? deviceToken,
-    String? banners,
-    bool? active,
-    String? offers,
-    String? assets,
-    String? apiToken,
-    String? jobs,
-    String? email,
-    String? name,
-    String? createdAt,
-    String? updatedAt,
+    dynamic? deviceToken,
+    dynamic? banners,
+    dynamic? active,
+    dynamic? offers,
+    dynamic? assets,
+    dynamic? apiToken,
+    dynamic? jobs,
+    dynamic? email,
+    dynamic? name,
+    dynamic? createdAt,
+    dynamic? updatedAt,
     LeftDataOfCompanies? leftDataOfCompanies,
     List<ImageModel>? images,
     ImageModel? logo,
     VideoModel? video,
-    String? firstPhone,
-    String? country,
-    String? flag,
+    dynamic? firstPhone,
+    dynamic? country,
+    dynamic? flag,
   }) {
     _id = id;
     _natureActivity = natureActivity;

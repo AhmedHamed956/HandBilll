@@ -23,19 +23,27 @@ class ShippingWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    model.image == ''
-                        ? Container(
-                            // height: 50,
-                            // width: 50,
-                            child: Image.asset(
-                              "assets/images/Hbill.jpeg",
-                              height: 60,
-                            ),
-                          )
-                        : Image.network(
-                            model.image.toString(),
-                            height: 40,
-                          ),
+                    Container(
+                      // height: 50,
+                      // width: 50,
+                      child: Image.asset(
+                        "assets/images/Hbill.jpeg",
+                        height: 60,
+                      ),
+                    ),
+                    // model.image == ''
+                    //     ? Container(
+                    //         // height: 50,
+                    //         // width: 50,
+                    //         child: Image.asset(
+                    //           "assets/images/Hbill.jpeg",
+                    //           height: 60,
+                    //         ),
+                    //       )
+                    //     : Image.network(
+                    //         model.image.toString(),
+                    //         height: 40,
+                    //       ),
                     Text(model.name.toString(),
                         style: model.selected == true
                             ? TextStyle(

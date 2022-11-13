@@ -72,25 +72,23 @@ class _AssetsScreenState extends State<AssetsScreen> {
               _assetsBloc.page = 1;
               _assetsBloc.add(FetchAssetsEvent());
             },
-            child: BlocListener<AssetsBloc, AssetsState>(
-                listener: (context, state) {
-                  if (state is AssetsErrorState) {
-                    _items = [];
-                    SchedulerBinding.instance?.addPostFrameCallback((_) {
-                      displaySnackBar(
-                          title: state.error!, scaffoldKey: _scaffoldKey);
-                    });
+            child: BlocConsumer<AssetsBloc, AssetsState>(
+              listener: (context, state) {
+                if (state is AssetsErrorState) {
+                  _items = [];
+                  SchedulerBinding.instance?.addPostFrameCallback((_) {
+                    displaySnackBar(
+                        title: state.error!, scaffoldKey: _scaffoldKey);
+                  });
+                }
+                if (state is AssetsSuccessState) {
+                  if (_items == null) {
+                    _items = state.items;
                   }
-                  if (state is AssetsSuccessState) {
-                    if (_items == null) {
-                      _items = [];
-                    }
-                    setState(() {
-                      _items!.addAll(state.items!);
-                    });
-                  }
-                },
-                child: CustomScrollView(
+                }
+              },
+              builder: (context, state) {
+                return CustomScrollView(
                     physics: BouncingScrollPhysics(),
                     controller: _scrollController,
                     slivers: [
@@ -99,6 +97,8 @@ class _AssetsScreenState extends State<AssetsScreen> {
                           : _items!.length == 0
                               ? CenterWidgetListSliver(label: "assets is empty")
                               : SliverToBoxAdapter(
+                                  child: SizedBox(
+                                  height: 700,
                                   child: ListView.separated(
                                       physics: BouncingScrollPhysics(),
                                       // padding: EdgeInsets.symmetric(vertical: 16),
@@ -114,7 +114,8 @@ class _AssetsScreenState extends State<AssetsScreen> {
                                           (BuildContext context, int index) =>
                                               Container(
                                                   height: 10,
-                                                  color: Color(0xffeeeeee)))),
+                                                  color: Color(0xffeeeeee))),
+                                )),
                       SliverToBoxAdapter(child: SizedBox(height: 100)),
                       SliverToBoxAdapter(
                           child: Container(
@@ -127,6 +128,8 @@ class _AssetsScreenState extends State<AssetsScreen> {
                                           child: CircularProgressIndicator(
                                               strokeWidth: 2)))
                                   : SizedBox()))
-                    ]))));
+                    ]);
+              },
+            )));
   }
 }

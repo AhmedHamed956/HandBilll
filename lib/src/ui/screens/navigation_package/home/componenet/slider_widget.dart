@@ -16,13 +16,10 @@ class SliderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          if (model.company!.natureActivity == "Supplier") {
+
             Navigator.pushNamed(context, CompanyScreen.routeName,
                 arguments: RouteArgument(param: model.company!.id));
-          } else {
-            Navigator.pushNamed(context, ServicesCompanyDetailsScreen.routeName,
-                arguments: RouteArgument(param: model.company!.id));
-          }
+
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -40,7 +37,7 @@ class SliderWidget extends StatelessWidget {
             child: CachedNetworkImage(
 
                 imageUrl: model.image!,
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.cover,
                 placeholder: (context, url) => Center(
                     heightFactor: 3,
                     widthFactor: 2,

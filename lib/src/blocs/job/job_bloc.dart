@@ -56,7 +56,6 @@ class JobsBloc extends Bloc<JobEvent, JobsState> {
         page: allPage,
         categoryId: event.categoryId,
         subcategoryId: event.subcategoryId);
-
     if (response!.status!) {
       final items = response.data;
       yield CompanyJobSuccessState(items: items);

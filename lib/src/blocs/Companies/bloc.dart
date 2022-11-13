@@ -16,11 +16,7 @@ class ServiceBloc extends Bloc<ServiceEvent, ServiceState> {
   final ServiceRepository serviceRepository = ServiceRepository();
   late GlobalBloc globalBloc;
 
-  // ServiceBloc() : super(ServiceInitialState());
-  ServiceBloc({required BuildContext context}) : super(ServiceInitialState()) {
-    globalBloc = BlocProvider.of<GlobalBloc>(context);
-  }
-
+  ServiceBloc() : super(ServiceInitialState());
   @override
   Stream<ServiceState> mapEventToState(ServiceEvent event) async* {
     if (event is FetchServiceEvent) {

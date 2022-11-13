@@ -75,8 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: Color(0xfff5f5f5),
+
       key: _scaffoldKey,
-      backgroundColor: Colors.white,
       body: RefreshIndicator(
           onRefresh: () async {
             _homeBloc!.sliders.clear();
@@ -88,7 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           child: MultiBlocListener(
               listeners: [
-                BlocListener<HomeBloc, HomeState>(listener: (context, state) {
+                BlocListener<HomeBloc, HomeState>
+                  (listener: (context, state) {
                   if (state is SliderLoadingState) {
                   } else if (state is SliderErrorState) {
                     displaySnackBar(

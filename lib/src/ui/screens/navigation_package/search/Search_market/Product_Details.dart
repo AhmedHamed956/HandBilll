@@ -7,15 +7,15 @@ import 'package:hand_bill/src/blocs/search/search_event.dart';
 import 'package:hand_bill/src/data/model/local/route_argument.dart';
 import 'package:hand_bill/src/data/model/product.dart';
 
-import '../../../../blocs/favorite/favorite_bloc.dart';
-import '../../../../blocs/favorite/favorite_event.dart';
-import '../../../../blocs/favorite/favorite_state.dart';
-import '../../../../blocs/global_bloc/global_bloc.dart';
-import '../../../../blocs/home/home_bloc.dart';
-import '../../../../blocs/search/search_bloc.dart';
-import '../../../../blocs/search/search_state.dart';
-import '../../../../common/constns.dart';
-import '../../../../data/model/user.dart';
+import '../../../../../blocs/favorite/favorite_bloc.dart';
+import '../../../../../blocs/favorite/favorite_event.dart';
+import '../../../../../blocs/favorite/favorite_state.dart';
+import '../../../../../blocs/global_bloc/global_bloc.dart';
+import '../../../../../blocs/home/home_bloc.dart';
+import '../../../../../blocs/search/search_bloc.dart';
+import '../../../../../blocs/search/search_state.dart';
+import '../../../../../common/constns.dart';
+import '../../../../../data/model/user.dart';
 
 class ProductDetails extends StatefulWidget {
   static const routeName = "/ProductDetalis";

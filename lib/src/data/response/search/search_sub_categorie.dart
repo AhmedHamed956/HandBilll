@@ -1,7 +1,7 @@
 import '../../model/Search_data.dart';
 
 class SearchSubCategoriesResponse {
-  List<Data>? data;
+  List<SearchData>? data;
   bool? status;
   String? message;
 
@@ -9,9 +9,9 @@ class SearchSubCategoriesResponse {
 
   SearchSubCategoriesResponse.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <SearchData>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(new SearchData.fromJson(v));
       });
     }
     status = json['status'];

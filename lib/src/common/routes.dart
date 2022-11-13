@@ -46,11 +46,11 @@ import 'package:hand_bill/src/ui/screens/account_package/wishlist/wishlist_scree
 
 import '../ui/screens/aboutUsScreen.dart';
 import '../ui/screens/navigation_package/categories/component/sub_cat.dart';
-import '../ui/screens/navigation_package/search/all_products.dart';
-import '../ui/screens/navigation_package/search/Product_Details.dart';
-import '../ui/screens/navigation_package/search/search_screen1.dart';
-import '../ui/screens/navigation_package/search/sub_categoies_screen.dart';
-import '../ui/screens/navigation_package/search/sub_sub_categorie.dart';
+import '../ui/screens/navigation_package/search/Search_market/all_products.dart';
+import '../ui/screens/navigation_package/search/Search_market/Product_Details.dart';
+import '../ui/screens/navigation_package/search/Search_market/search_screen1.dart';
+import '../ui/screens/navigation_package/search/Search_market/sub_categoies_screen.dart';
+import '../ui/screens/navigation_package/search/Search_market/sub_sub_categorie.dart';
 
 class RouteGenerator {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -70,8 +70,8 @@ class RouteGenerator {
         return CustomPageRoute(widget: NavigationScreen());
       case AuthScreen.routeName:
         return CustomPageRoute(widget: AuthScreen());
-      case NotificationsScreen.routeName:
-        return CustomPageRoute(widget: NotificationsScreen());
+      case SearchCompanyScreen.routeName:
+        return CustomPageRoute(widget: SearchCompanyScreen());
       // case ChatsScreen.routeName:
       //   return CustomPageRoute(widget: ChatsScreen());
       case EditAccountScreen.routeName:

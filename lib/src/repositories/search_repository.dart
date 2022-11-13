@@ -8,6 +8,7 @@ import 'package:hand_bill/src/data/response/search/search_companies_response.dar
 import 'package:hand_bill/src/data/response/search/search_product_response.dart';
 
 import '../data/model/Search_data.dart';
+import '../data/response/home/serviceCategory_reponse.dart';
 import '../data/response/search/Search_sub_sub.dart';
 import '../data/response/search/search_sub_categorie.dart';
 
@@ -42,16 +43,17 @@ class SearchRepository {
 
   Future<SearchCompaniesResponse> getSearchCompanies(String search) async {
     Map<String, String> queryParams =
-        ({"secret": APIData.secretKey, "search": '$search'});
+        ({ "search": '$search'});
 
     late SearchCompaniesResponse companyResponse;
     try {
       Response response =
-          await dio.get(APIData.searchMarkets, queryParameters: queryParams);
+          await dio.get(APIData.searchCompanies, queryParameters: queryParams);
       log("getSearchCompanies: ${jsonEncode(response.data)}");
 
       companyResponse = SearchCompaniesResponse.fromJson(response.data);
-      if (companyResponse.status!) {
+      print(companyResponse.data!.first.name);
+      if (companyResponse.data != null) {
         return companyResponse;
       } else {
         return companyResponse;
@@ -61,6 +63,27 @@ class SearchRepository {
     }
     return companyResponse;
   }
+  Future<ServiceResponse> getCategoryCompanies() async {
+
+    late ServiceResponse serviceResponse;
+    try {
+      Response response =
+      await dio.get(APIData.getCompanyCategories);
+      log("getSearchCompanies: ${jsonEncode(response.data)}");
+
+      serviceResponse = ServiceResponse.fromJson(response.data);
+      print(serviceResponse.data!.first.name);
+      if (serviceResponse.data != null) {
+        return serviceResponse;
+      } else {
+        return serviceResponse;
+      }
+    } catch (error, stackTrace) {
+      print("$tag error : $error , stackTrace:  $stackTrace");
+    }
+    return serviceResponse;
+  }
+
 
   Future<SearchCategoriesResponse> getAllCategories() async{
    late SearchCategoriesResponse searchCategoriesResponse;

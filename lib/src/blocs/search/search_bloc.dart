@@ -3,6 +3,8 @@ import 'package:hand_bill/src/blocs/search/search_event.dart';
 import 'package:hand_bill/src/blocs/search/search_state.dart';
 import 'package:hand_bill/src/repositories/search_repository.dart';
 
+import '../../data/model/ServiceCategory/serviceCategory.dart';
+
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   String tag = "SearchBloc";
 
@@ -11,7 +13,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   bool isFetching = false;
   String num = "0";
   SearchBloc() : super(SearchInitialState());
-
   @override
   Stream<SearchState> mapEventToState(SearchEvent event) async* {
     if (event is SearchProductEvent) {
@@ -30,15 +31,16 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     if (event is SearchSubSubCategoriesEvent) {
       yield* _mapSearchSubSubCategories(event);
     }
+
+    if(event is CategoryCompanyEvent){
+      yield* _mapCategoryCompanies();
+    }
     if (event is ProductEvent) {
       yield* SearchProduct(event);
     }
     if (event is isFavourite) {
       if (event.num == "1") {
         num = event.num! ;}
-         print(event.num);
-        print('lalalaalalalalaalalalalal');
-
         emit( isFavouriteSuccessState(num: event.num));
     }
   }
@@ -64,16 +66,31 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     final response =
         await searchRepository.getSearchCompanies(event.searchKey!);
     try {
-      if (response.status!) {
+      if (response.data != null) {
+        print(response.data!.first.name);
+        print(response.data!.first.email);
         final companies = response.data;
         yield SearchCompaniesSuccessState(companies: companies);
       } else {
-        yield SearchCompaniesErrorState(error: response.message.toString());
+        // yield SearchCompaniesErrorState(error: response.message.toString());
       }
     } catch (err) {
       yield SearchCompaniesErrorState(error: err.toString());
     }
   }
+  List<ServiceCategoryModel>? categories;
+  Stream<SearchState> _mapCategoryCompanies() async* {
+    yield CategoryCompaniesLoadingState();
+    final response =
+    await searchRepository.getCategoryCompanies();
+      if (response.data != null) {
+        final companies = response.data;
+        yield CategoryCompaniesSuccessState(companies: companies );
+      } else {
+        // yield SearchCompaniesErrorState(error: response.message.toString());
+      }
+  }
+
 
   Stream<SearchState> _mapSearchCategories() async* {
     yield SearchCategoriesLoadingState();
@@ -90,8 +107,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  Stream<SearchState> _mapSearchSubCategories(
-      SearchAllSubCategoriesEvent event) async* {
+  Stream<SearchState> _mapSearchSubCategories(SearchAllSubCategoriesEvent event) async* {
     yield SearchSubCategoriesLoadingState();
     final response = await searchRepository.getAllSubCategories(event.id);
     print(event.id);

@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hand_bill/src/blocs/search/search_state.dart';
+import 'package:hand_bill/src/ui/screens/navigation_package/search/Search_market/sub_sub_categorie.dart';
 import 'package:hand_bill/src/ui/screens/navigation_package/search/appBar2.dart';
-import 'package:hand_bill/src/ui/screens/navigation_package/search/sub_sub_categorie.dart';
 
-import '../../../../blocs/search/search_bloc.dart';
-import '../../../../blocs/search/search_event.dart';
-import '../../../../data/model/Search_data.dart';
-import '../../../../data/model/local/route_argument.dart';
-import '../../../component/custom/login_first_widget_sliver.dart';
-import '../../services_package/patented/patents_screen.dart';
+import '../../../../../blocs/search/search_bloc.dart';
+import '../../../../../blocs/search/search_event.dart';
+import '../../../../../data/model/Search_data.dart';
+import '../../../../../data/model/local/route_argument.dart';
+import '../../../../component/custom/login_first_widget_sliver.dart';
+import '../../../services_package/patented/patents_screen.dart';
 
 class SubCategoriesScreen extends StatefulWidget {
   static const routeName = "/subCategoriesScreen";
@@ -26,7 +26,7 @@ class SubCategoriesScreen extends StatefulWidget {
 
 class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
   late SearchBloc _searchBloc;
-  List<Data>? list;
+  List<SearchData>? list;
   late int id;
   var _scrollController = ScrollController();
 
@@ -94,7 +94,7 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
 }
 
 class SearchCategories extends StatelessWidget {
-  final Data model;
+  final SearchData model;
   final bool isHome;
 
   SearchCategories({required this.model, this.isHome = false});

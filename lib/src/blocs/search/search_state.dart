@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hand_bill/src/data/model/Search_data.dart';
+import 'package:hand_bill/src/data/model/ServiceCategory/serviceCategory.dart';
 import 'package:hand_bill/src/data/model/company.dart';
 import 'package:hand_bill/src/data/model/market.dart';
 import 'package:hand_bill/src/data/model/product.dart';
@@ -41,19 +42,40 @@ class SearchCompaniesLoadingState extends SearchState {}
 class SearchCompaniesSuccessState extends SearchState {
   final List<Company>? companies;
 
-  const SearchCompaniesSuccessState({required this.companies});
+   SearchCompaniesSuccessState({required this.companies})
+  {
+    print(companies!.first.name);
+    print('ddddddddddddd');
+  }
 }
-
-class SearchCompaniesErrorState extends SearchState {
+class SearchCompaniesErrorState extends SearchState{
   final String error;
 
   const SearchCompaniesErrorState({required this.error});
 }
-//categories
+//categories company
+class CategoryCompaniesLoadingState extends SearchState {}
+
+class CategoryCompaniesSuccessState extends SearchState {
+   List<ServiceCategoryModel>? companies;
+  CategoryCompaniesSuccessState({required this.companies})
+  {
+    print(companies!.first.data);
+    print('ddddddddddddd');
+  }
+}
+
+
+class CategoryCompaniesErrorState extends SearchState {
+  final String error;
+
+  const CategoryCompaniesErrorState({required this.error});
+}
+//categories Product
 class SearchCategoriesLoadingState extends SearchState {}
 
 class SearchCategoriesSuccessState extends SearchState {
-List<Data>? products;
+List<SearchData>? products;
 SearchCategoriesSuccessState({this.products});
 }
 
@@ -66,7 +88,7 @@ class SearchCategoriesErrorState extends SearchState {
 class SearchSubCategoriesLoadingState extends SearchState {}
 
 class SearchSubCategoriesSuccessState extends SearchState {
-  List<Data>? subCategories;
+  List<SearchData>? subCategories;
   SearchSubCategoriesSuccessState({this.subCategories}){
     print('omniaaaaaaaaaa');
     print(subCategories);

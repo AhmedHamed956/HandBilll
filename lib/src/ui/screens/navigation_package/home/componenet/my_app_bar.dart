@@ -23,30 +23,22 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                                   Image.asset("assets/images/hb_logo.jpeg",height: 32),
+                            Image.asset("assets/images/hb_logo.jpeg",
+                                height: 32),
                             Row(children: [
-
-                              // SizedBox(width: 20),
-                              // InkWell(
-                              //     onTap: () => Navigator.pushNamed(
-                              //         context, NotificationsScreen.routeName),
-                              //     child: Stack(
-                              //       alignment: Alignment.topRight,
-                              //       children: [
-                              //         SvgPicture.asset(
-                              //             "assets/icons/notifications_ic.svg",
-                              //             height: size,
-                              //             width: size),
-                              //         Container(
-                              //           width: 10,
-                              //           height: 10,
-                              //           decoration: BoxDecoration(
-                              //             color: Colors.red,
-                              //             borderRadius: BorderRadius.circular(30),
-                              //           ),
-                              //         ),
-                              //       ],
-                              //     ))
+                              SizedBox(width: 20),
+                              InkWell(
+                                onTap: () => Navigator.pushNamed(
+                                    context, SearchCompanyScreen.routeName),
+                                child: Stack(
+                                    alignment: Alignment.topRight,
+                                    children: [
+                                      SvgPicture.asset(
+                                          "assets/icons/search_ic.svg",
+                                          height: size,
+                                          width: size)
+                                    ]),
+                              )
                             ])
                           ]))),
               Container(

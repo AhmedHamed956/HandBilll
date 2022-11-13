@@ -1,11 +1,11 @@
-class Data {
+class SearchData {
   int? id;
   String? name;
   String? icon;
 
-  Data({this.id, this.name, this.icon});
+  SearchData({this.id, this.name, this.icon});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  SearchData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     icon = json['icon'];

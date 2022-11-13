@@ -15,7 +15,7 @@ class CompanyRepository {
   Future<CompanyDetailsResponse> getCompanyDetail(
       {required String companyId}) async {
     Map<String, String> queryParams =
-    ({ "id": companyId});
+    ({ "company_id": companyId});
 
     late CompanyDetailsResponse companyDetailsResponse;
     try {

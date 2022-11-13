@@ -24,18 +24,11 @@ class PatentedWidget extends StatelessWidget {
               arguments: RouteArgument(param: model, check: isMy));
         },
         child: Container(
+
             decoration: BoxDecoration(color: Colors.white),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-            CachedNetworkImage( imageUrl:'${model!.image![0].thump!}',
-            placeholder: (context, url) => Container(
-            height: height,
-            child: Center(
-                heightFactor: 1,
-                widthFactor: 1,
-                child: CircularProgressIndicator(
-                    color: mainColorLite, strokeWidth: 2))),
-        errorWidget: (context, url, error) =>
-        new Icon(Icons.error, color: mainColorLite)),
+            CachedNetworkImage( imageUrl:'${model!.image![0].thump!}',width: 200,height: 200,
+            ),
               Container(
                   color: Color(0xfffafafa), height: 2, width: double.infinity),
               Padding(

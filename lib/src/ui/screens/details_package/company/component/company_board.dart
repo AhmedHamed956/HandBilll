@@ -40,14 +40,14 @@ class _CompanyBoardState extends State<CompanyBoard>
 
   double radius = 12, marginHorizontail = 16, marginTop = 16, heartSize = 42;
 
-  String? name = "",
-      description = "",
-      information = "",
-      address = "",
-      phone = "",
-      mobile = "",
-      image = "",
-      rate = "";
+  String? name ,
+      description,
+      information  ,
+      address ,
+      phone ,
+      mobile ,
+      image ,
+      rate ;
 
   Company? _company;
   late TabController _tabController;
@@ -95,6 +95,8 @@ class _CompanyBoardState extends State<CompanyBoard>
   _getData() async {
     // _company = Company();
     _company = widget.model;
+    print(_company!.name!);
+    print('ddddddddddddddddddd');
     if (_company != null) {
       name = _company!.name;
       _images = widget.model.images ?? [];
@@ -102,8 +104,8 @@ class _CompanyBoardState extends State<CompanyBoard>
       if (_company!.logo != null) {
         image = _company!.logo!.thump;
       }
-      if (_company!.video != null && _addVideo == false) {
-        initializePlayer(_company!.video!.url!);
+      if (_company!.images != null && _addVideo == false) {
+        // initializePlayer(_company!.video!.url! == null ?'Vedio is empty' :_company!.video!.url! );
         _addVideo = true;
       }
     }

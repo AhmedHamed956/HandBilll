@@ -9,6 +9,7 @@ import 'package:hand_bill/src/data/model/local/drawer_model.dart';
 import 'package:hand_bill/src/data/response/account/account_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hand_bill/src/ui/component/items/To%20Be%20Seller.dart';
+import 'package:hand_bill/src/ui/screens/aboutUsScreen.dart';
 import 'package:hand_bill/src/ui/screens/services_package/hand_made/my_handmade_screen.dart';
 import 'package:hand_bill/src/ui/screens/services_package/patented/my_patents_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -29,6 +30,7 @@ import '../../screens/services_package/patented/patents_screen.dart';
 
 class DrawerItemWidget extends StatelessWidget {
   final Pages model;
+
   DrawerItemWidget({required this.model});
 
   final double icSize = 32;
@@ -92,7 +94,14 @@ class DrawerItemWidget extends StatelessWidget {
                                           : model.title.toString() == 'Agents'
                                               ? Navigator.of(context).pushNamed(
                                                   AgentsScreen.routeName)
-                                              : Container();
+                                              :
+          // model.title.toString() ==
+          //                                             'About Us'
+          //                                         ? Navigator.of(context)
+          //                                             .pushNamed(AboutUsScreen
+          //                                                 .routeName)
+          //                                         :
+          Container();
         },
         child: Card(
             elevation: 5,
@@ -219,7 +228,19 @@ class DrawerItemWidget extends StatelessWidget {
                                                                           fit: BoxFit
                                                                               .cover,
                                                                         )
-                                                                      : Container(),
+                                                                      :
+                      // model.title.toString() ==
+                      //                                                         'About Us'
+                      //                                                     ? SvgPicture
+                      //                                                         .asset(
+                      //                                                         'assets/icons/account/arrow.svg',
+                      //                                                         // "assets/icons/account/wishlist.svg",
+                      //                                                         height: icSize,
+                      //                                                         width: icSize,
+                      //                                                         fit: BoxFit.cover,
+                      //                                                       )
+                      //                                                     :
+                      Container(),
                       // model.icon!.endsWith(".svg")
                       //     ? SvgPicture.asset(model.icon!,
                       //         height: icSize, width: icSize)

@@ -51,7 +51,7 @@ class PatentsRepository {
       response =
           await _dio.get(APIData.getMyPatents);
 
-      log("${jsonEncode(response.data)}");
+      log("dataaaaaaaaa${jsonEncode(response.data)}");
 
       patentsResponse = AllPatentsResponse.fromJson(response.data);
       if (patentsResponse.status!) {

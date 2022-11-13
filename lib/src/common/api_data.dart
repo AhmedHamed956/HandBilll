@@ -1,6 +1,6 @@
 class APIData {
-  static const domainLink = "https://test.hand-bill.com/";
-  static const domainLinkApi = "https://test.hand-bill.com/api/";
+  static const domainLink = "http://test.hand-bill.com/";
+  static const domainLinkApi = "http://test.hand-bill.com/api/";
 
   static const secretKey = "5aoIrZjQvSPA2K3po1HeKHZHowNQdTOPrGQ1Ze0";
 
@@ -98,14 +98,14 @@ class APIData {
   static const getCompanyDetails = domainLinkApi + 'user/details-company';
   static const getFeaturedProductOfCompany = domainLinkApi + 'user/featured-products-companies';
   static const getCompanyProducts = domainLinkApi + 'user/products-companies';
-  static const getCompanyCategories = domainLinkApi + 'user/serviceCategories';
+  static const getCompanyCategories = domainLinkApi + 'user/service-categories';
 
   //search
   static const searchCategories = domainLinkApi + 'user/categories';
   static const searchSubCategories = domainLinkApi + 'user/subcate-by-cate';
   static const searchSubSubCategories = domainLinkApi + 'user/subsubcate-by-subcate';
   static const searchProduct = domainLinkApi + 'user/search-products';
-  static const searchMarkets = domainLinkApi + 'user/search-companies';
+  static const searchCompanies = domainLinkApi + 'user/search-companies-services';
   // aboutUs
   static const getAboutItem = domainLinkApi + 'user/setting/about-us';
   // // profile
