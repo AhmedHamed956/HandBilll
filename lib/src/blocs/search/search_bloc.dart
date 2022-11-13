@@ -33,7 +33,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
 
     if(event is CategoryCompanyEvent){
-      yield* _mapCategoryCompanies();
+      // yield* _mapCategoryCompanies();
     }
     if (event is ProductEvent) {
       yield* SearchProduct(event);
@@ -78,18 +78,18 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       yield SearchCompaniesErrorState(error: err.toString());
     }
   }
-  List<ServiceCategoryModel>? categories;
-  Stream<SearchState> _mapCategoryCompanies() async* {
-    yield CategoryCompaniesLoadingState();
-    final response =
-    await searchRepository.getCategoryCompanies();
-      if (response.data != null) {
-        final companies = response.data;
-        yield CategoryCompaniesSuccessState(companies: companies );
-      } else {
-        // yield SearchCompaniesErrorState(error: response.message.toString());
-      }
-  }
+  // List<ServiceCategoryModel>? categories;
+  // Stream<SearchState> _mapCategoryCompanies() async* {
+  //   yield CategoryCompaniesLoadingState();
+  //   final response =
+  //   await searchRepository.getCategoryCompanies();
+  //     if (response.data != null) {
+  //       final companies = response.data;
+  //       yield CategoryCompaniesSuccessState(companies: companies );
+  //     } else {
+  //       // yield SearchCompaniesErrorState(error: response.message.toString());
+  //     }
+  // }
 
 
   Stream<SearchState> _mapSearchCategories() async* {
