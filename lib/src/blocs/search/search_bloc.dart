@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hand_bill/src/blocs/category/category_state.dart';
 import 'package:hand_bill/src/blocs/search/search_event.dart';
 import 'package:hand_bill/src/blocs/search/search_state.dart';
 import 'package:hand_bill/src/repositories/search_repository.dart';
@@ -12,16 +14,16 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   int page = 1;
   bool isFetching = false;
   String num = "0";
-  SearchBloc() : super(SearchInitialState());
+  SearchBloc({required BuildContext context}) : super(SearchInitialState());
   @override
   Stream<SearchState> mapEventToState(SearchEvent event) async* {
     if (event is SearchProductEvent) {
       yield* _mapSearchProduct(event);
     }
 
-    if (event is SearchMarketEvent) {
-      yield* _mapSearchCompanies(event);
-    }
+    // if (event is SearchMarketEvent) {
+    //   yield* _mapSearchCompanies(event);
+    // }
     if (event is SearchAllCategoriesEvent) {
       yield* _mapSearchCategories();
     }
@@ -32,9 +34,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       yield* _mapSearchSubSubCategories(event);
     }
 
-    if(event is CategoryCompanyEvent){
-      // yield* _mapCategoryCompanies();
-    }
     if (event is ProductEvent) {
       yield* SearchProduct(event);
     }
@@ -60,35 +59,21 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  Stream<SearchState> _mapSearchCompanies(SearchMarketEvent event) async* {
-    yield SearchCompaniesLoadingState();
-
-    final response =
-        await searchRepository.getSearchCompanies(event.searchKey!);
-    try {
-      if (response.data != null) {
-        print(response.data!.first.name);
-        print(response.data!.first.email);
-        final companies = response.data;
-        yield SearchCompaniesSuccessState(companies: companies);
-      } else {
-        // yield SearchCompaniesErrorState(error: response.message.toString());
-      }
-    } catch (err) {
-      yield SearchCompaniesErrorState(error: err.toString());
-    }
-  }
-  // List<ServiceCategoryModel>? categories;
-  // Stream<SearchState> _mapCategoryCompanies() async* {
-  //   yield CategoryCompaniesLoadingState();
+  // Stream<SearchState> _mapSearchCompanies(SearchMarketEvent event) async* {
+  //   yield SearchCompaniesLoadingState();
+  //
   //   final response =
-  //   await searchRepository.getCategoryCompanies();
+  //       await searchRepository.getSearchCompanies(event.searchKey!);
+  //   try {
   //     if (response.data != null) {
   //       final companies = response.data;
-  //       yield CategoryCompaniesSuccessState(companies: companies );
+  //       yield SearchCompaniesSuccessState(companies: companies);
   //     } else {
   //       // yield SearchCompaniesErrorState(error: response.message.toString());
   //     }
+  //   } catch (err) {
+  //     yield SearchCompaniesErrorState(error: err.toString());
+  //   }
   // }
 
 

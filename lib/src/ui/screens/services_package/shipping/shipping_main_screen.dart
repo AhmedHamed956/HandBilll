@@ -35,7 +35,6 @@ import '../../navigation_package/categories/component/category_widget.dart';
 // import '../../navigation_package/categories/sub_category_screen.dart';
 
 class ShippingMainScreen extends StatefulWidget {
-  static const routeName = "/ShippingScreen";
 
   @override
   _ShippingMainScreenState createState() => _ShippingMainScreenState();
@@ -352,14 +351,13 @@ class _ShippingMainScreenState extends State<ShippingMainScreen>
   double offsetVisibleThreshold = 100;
 
   ServiceCategoryModel? _selectedCategory;
-  ServiceBloc? _serviceBloc;
+  ServiceBlocData? _serviceBloc;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   get categories => null;
   @override
   void initState() {
-    _serviceBloc = BlocProvider.of<ServiceBloc>(context);
-
+    _serviceBloc = BlocProvider.of<ServiceBlocData>(context);
     _serviceBloc!..add(FetchServiceEvent());
     // if (_serviceBloc!.subCategories == null ||
     //     _serviceBloc!.subCategories!.length == 0)
@@ -414,7 +412,7 @@ class _ShippingMainScreenState extends State<ShippingMainScreen>
         backgroundColor: Color(0xfff5f5f5),
         body: RefreshIndicator(
           onRefresh: () async {},
-          child: BlocListener<ServiceBloc, ServiceState>(
+          child: BlocListener<ServiceBlocData, ServiceState>(
             listener: (context, state) {
               if (state is CategoryErrorState) {
                 _categories = [];
@@ -663,18 +661,18 @@ class _ShippingMainScreenState extends State<ShippingMainScreen>
     ServiceCategoryModel serviceCategoryModel,
   ) {
     if (_serviceBloc!.categories!.first.selected == true) {
-      _serviceBloc!.categories!.first.selected = false;
+      // _serviceBloc!.categories!.first.selected = false;
     }
     // setState(() {
     if (_selectedCategory != null) {
-      _selectedCategory!.selected = false;
+      // _selectedCategory!.selected = false;
     }
     if (_subCategories != null) _subCategories!.clear();
     setState(() {
       _showRealLength = false;
       _showRealSubLengthIndex = -100;
       // _serviceBloc!.isPaginationFinished = false;
-      serviceCategoryModel.selected = !serviceCategoryModel.selected!;
+      // serviceCategoryModel.selected = !serviceCategoryModel.selected!;
       _selectedCategory = serviceCategoryModel;
       // _serviceBloc!.subCatPage = 1;
 

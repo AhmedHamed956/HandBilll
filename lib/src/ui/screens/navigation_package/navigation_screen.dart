@@ -88,6 +88,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     activeColor = mainColor;
     inactiveColor = Color(0xffABABAB);
     textColor = mainColor;

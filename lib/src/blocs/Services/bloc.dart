@@ -7,17 +7,19 @@ import 'package:hand_bill/src/blocs/Services/Event.dart';
 import 'package:hand_bill/src/blocs/Services/states.dart';
 import 'package:hand_bill/src/data/model/serviceCategories_model.dart';
 import 'package:hand_bill/src/repositories/cubit.dart';
+import 'package:hand_bill/src/repositories/search_repository.dart';
 
 import '../global_bloc/global_bloc.dart';
 
-class ServiceBloc extends Bloc<ServiceEvent, ServiceState> {
+class ServiceBlocData extends Bloc<ServiceEvent, ServiceState> {
   String tag = "ServiceBloc";
 
   final ServiceRepository serviceRepository = ServiceRepository();
+  final SearchRepository searchRepository = SearchRepository();
   late GlobalBloc globalBloc;
 
   // ServiceBloc() : super(ServiceInitialState());
-  ServiceBloc({required BuildContext context}) : super(ServiceInitialState()) {
+  ServiceBlocData({required BuildContext context}) : super(ServiceInitialState()) {
     globalBloc = BlocProvider.of<GlobalBloc>(context);
   }
 
@@ -26,24 +28,66 @@ class ServiceBloc extends Bloc<ServiceEvent, ServiceState> {
     if (event is FetchServiceEvent) {
       yield* _mapFetchCategories();
     }
+    if(event is FetchData){
+      yield* _mapFetchData();
+    }
+    if(event is SearchMarketEvent){
+      yield* _mapSearchCompanies(event);
+    }
     // if (event is FetchSubCategoriesEvent) {
     //   yield* _mapFetchSubCategories(event);
     // }
+
+  }
+  Stream<ServiceState> _mapSearchCompanies(SearchMarketEvent event) async* {
+    yield SearchCompanyLoadingState();
+
+    final response =
+    await searchRepository.getSearchCompanies(event.searchKey!);
+    try {
+      if (response.data != null) {
+        final companies = response.data;
+        yield searchSuccess(company: companies);
+      } else {
+        // yield SearchCompaniesErrorState(error: response.message.toString());
+      }
+    } catch (err) {
+      yield SearchCompaniesErrorState(errors: err.toString());
+    }
   }
 
   List<ServiceCategoryModel>? categories;
   Stream<ServiceState> _mapFetchCategories() async* {
-    yield CategoryLoadingState();
+    yield CategoriesAddLoadingState();
     final response = await serviceRepository.getServicesData();
     if (response.status!) {
       final items = response.data;
       if (categories == null) {
-        items!.first.selected = true;
         categories = items;
+        print(items!.first.name);
+        print('omniaaaaaaaaaaaaaa');
       }
-      yield CategoriesSuccessState(items: items);
+      yield CategoriesAddSuccessState(items: items);
     } else {
-      yield CategoryErrorState(errors: response.message.toString());
+      // yield CategoryErrorState(errors: response.message.toString());
+    }
+  }
+
+  List<ServiceModel>? list;
+  Stream<ServiceState> _mapFetchData() async* {
+    yield categoryLoadState();
+    final response = await serviceRepository.ServicesData();
+    if (response.status!) {
+      final items = response.data;
+      if (list == null) {
+        items!.first.selected = true;
+        list = items;
+        print(items!.first.name);
+        print('omniaaaaaaaaaaaaaa');
+      }
+      yield categorySuccessState(items: items);
+    } else {
+      // yield CategoryErrorState(errors: response.message.toString());
     }
   }
 

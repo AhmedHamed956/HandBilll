@@ -4,6 +4,8 @@ import 'package:hand_bill/src/common/constns.dart';
 import 'package:hand_bill/src/ui/screens/navigation_package/notification/notification_screen.dart';
 import 'package:hand_bill/src/ui/screens/navigation_package/search/search_screen.dart';
 
+import '../../../../screen.dart';
+
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double size = 20;
 
@@ -28,8 +30,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                             Row(children: [
                               SizedBox(width: 20),
                               InkWell(
-                                onTap: () => Navigator.pushNamed(
-                                    context, SearchCompanyScreen.routeName),
+                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> SearchSuppliers())),
                                 child: Stack(
                                     alignment: Alignment.topRight,
                                     children: [

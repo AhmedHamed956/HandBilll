@@ -44,12 +44,12 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   GlobalBloc? _globalBloc;
   CategoryBloc? _categoryBloc;
   // ProfileBloc? _profileBloc;
-  ServiceBloc? _serviceBloc;
+  ServiceBlocData? _serviceBloc;
   AuthBloc? _authBloc;
   @override
   void didChangeDependencies() {
     //Future<User?> user =
-    _serviceBloc = BlocProvider.of<ServiceBloc>(context);
+    _serviceBloc = BlocProvider.of<ServiceBlocData>(context);
     _globalBloc = BlocProvider.of<GlobalBloc>(context);
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     // _profileBloc = BlocProvider.of<ProfileBloc>(context);

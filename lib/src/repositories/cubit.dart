@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 
 import '../common/api_data.dart';
 import '../data/response/home/serviceCategory_reponse.dart';
+import '../data/response/search/search_companies_response.dart';
 
 class ServiceRepository {
   Dio _dio = Dio();
@@ -33,6 +34,29 @@ class ServiceRepository {
 
   String tag = "ServiceRepository";
 
+  Future<SearchCompaniesResponse> getSearchCompanies(String search) async {
+    Map<String, String> queryParams =
+    ({ "search": '$search'});
+
+    late SearchCompaniesResponse companyResponse;
+    try {
+      Response response =
+      await _dio.get(APIData.searchCompanies, queryParameters: queryParams);
+      log("getSearchCompanies: ${jsonEncode(response.data)}");
+
+      companyResponse = SearchCompaniesResponse.fromJson(response.data);
+      print(companyResponse.data!.first.name);
+      if (companyResponse.data != null) {
+        return companyResponse;
+      } else {
+        return companyResponse;
+      }
+    } catch (error, stackTrace) {
+      print("$tag error : $error , stackTrace:  $stackTrace");
+    }
+    return companyResponse;
+  }
+
   Future<ServiceResponse> getServicesData() async {
     var queryParameters = {"secret": APIData.secretKey};
     ServiceResponse? serviceResponse;
@@ -52,4 +76,25 @@ class ServiceRepository {
     }
     return serviceResponse!;
   }
+
+  Future<ServicecategoryResponse> ServicesData() async {
+    var queryParameters = {"secret": APIData.secretKey};
+    ServicecategoryResponse? serviceResponse;
+    Response response;
+    try {
+      response = await _dio.get(APIData.getCompanyCategories,
+          queryParameters: queryParameters);
+      serviceResponse = ServicecategoryResponse.fromJson(response.data);
+      log("dtaaaaaaaaaaaaa: ${jsonEncode(response.data)}");
+      if (serviceResponse.status!) {
+        return serviceResponse;
+      } else {
+        return serviceResponse;
+      }
+    } catch (error, stackTrace) {
+      print("$tag error : $error , stackTrace:  $stackTrace");
+    }
+    return serviceResponse!;
+  }
+
 }

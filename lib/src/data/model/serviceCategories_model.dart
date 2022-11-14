@@ -68,6 +68,122 @@
 //     return data;
 //   }
 // }
+import 'local/images.dart';
+class Images {
+  int? id;
+  String? modelId;
+  String? description;
+  String? modelType;
+  String? thump;
+  String? icon;
+  String? url;
+  String? createdAt;
+  String? updatedAt;
+
+  Images(
+      {this.id,
+        this.modelId,
+        this.description,
+        this.modelType,
+        this.thump,
+        this.icon,
+        this.url,
+        this.createdAt,
+        this.updatedAt});
+
+  Images.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    modelId = json['model_id'];
+    description = json['description'];
+    modelType = json['model_type'];
+    thump = json['thump'];
+    icon = json['icon'];
+    url = json['url'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['model_id'] = this.modelId;
+    data['description'] = this.description;
+    data['model_type'] = this.modelType;
+    data['thump'] = this.thump;
+    data['icon'] = this.icon;
+    data['url'] = this.url;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
+  }
+}
+class ServiceModel {
+  // List<SubCategoryModel>? subCategoryModel;
+  // set setSubCategories(List<SubCategoryModel>? value) {
+  //   subCategoryModel = value;
+  // }
+  //
+  // get subCategories => subCategoryModel;
+
+  dynamic? _id;
+  dynamic? _name;
+  dynamic? _description;
+  dynamic? _createdAt;
+  dynamic? _updatedAt;
+  dynamic? _deletedAt;
+  Images? _image;
+  bool? _selected;
+  dynamic? get id => _id;
+
+  dynamic? get name => _name;
+
+  dynamic? get description => _description;
+
+  dynamic? get image => _image;
+  dynamic? get createdAt => _createdAt;
+
+  dynamic? get deletedAt => _deletedAt;
+
+  dynamic? get updatedAt => _updatedAt;
+
+  ServiceModel(
+      {dynamic? id, dynamic? name, dynamic? selected, dynamic? image,dynamic? createdAt,dynamic? description,dynamic? updatedAt,dynamic? deletedAt}) {
+    _id = id;
+    _name = name;
+    _image = image;
+    _createdAt = createdAt;
+    _description = description;
+    _updatedAt = updatedAt;
+    _deletedAt = deletedAt;
+  }
+
+  ServiceModel.fromJson(dynamic json) {
+    _id = json["id"];
+    _name = json["name"];
+    // _image = json["image"];
+    _createdAt = json["created_at"];
+    _description = json["description"];
+    _updatedAt = json["updated_at"];
+    _deletedAt = json["deleted_at"];
+
+  }
+
+  Map<dynamic, dynamic> toJson() {
+    var map = <dynamic, dynamic>{};
+    map["id"] = _id;
+    map["name"] = _name;
+    // map["image"] = _image;
+    map["created_at"] =_createdAt;
+    map["description"] = _description;
+    map["updated_at"] = _updatedAt;
+    map["deleted_at"] = _deletedAt;
+    return map;
+  }
+
+  set selected(bool? value) {
+    _selected = value;
+  }
+}
 
 class ServiceCategoryModel {
   // List<SubCategoryModel>? subCategoryModel;
@@ -90,7 +206,8 @@ class ServiceCategoryModel {
 
   bool? get selected => _selected;
 
-  ServiceCategoryModel({dynamic? id, dynamic? name, dynamic? selected, dynamic? image}) {
+  ServiceCategoryModel(
+      {dynamic? id, dynamic? name, dynamic? selected, dynamic? image}) {
     _id = id;
     _name = name;
     _selected = selected;
@@ -114,7 +231,5 @@ class ServiceCategoryModel {
     return map;
   }
 
-  set selected(bool? value) {
-    _selected = value;
-  }
+
 }

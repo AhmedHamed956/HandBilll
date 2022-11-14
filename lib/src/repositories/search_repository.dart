@@ -64,16 +64,18 @@ class SearchRepository {
     return companyResponse;
   }
   Future<ServiceResponse> getCategoryCompanies() async {
+    var queryParameters = {"secret": APIData.secretKey};
+     ServiceResponse? serviceResponse;
+    Response response;
 
-    late ServiceResponse serviceResponse;
     try {
-      Response response =
-      await dio.get(APIData.getCompanyCategories);
-      log("getSearchCompanies: ${jsonEncode(response.data)}");
+       response =
+      await dio.get(APIData.getCompanyCategories,queryParameters: queryParameters);
 
       serviceResponse = ServiceResponse.fromJson(response.data);
-      print(serviceResponse.data!.first.name);
-      if (serviceResponse.data != null) {
+       log("getSearchCompanies:[ ${jsonEncode(response.data)}]");
+       print(serviceResponse.data!.first.name);
+      if (serviceResponse.status!) {
         return serviceResponse;
       } else {
         return serviceResponse;
@@ -81,7 +83,7 @@ class SearchRepository {
     } catch (error, stackTrace) {
       print("$tag error : $error , stackTrace:  $stackTrace");
     }
-    return serviceResponse;
+    return serviceResponse!;
   }
 
 

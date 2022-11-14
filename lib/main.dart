@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hand_bill/src/blocs/Companies/bloc.dart';
 import 'package:hand_bill/src/blocs/Services/bloc.dart';
 import 'package:hand_bill/src/blocs/about_us/bloc.dart';
 import 'package:hand_bill/src/blocs/assets/assets_bloc.dart';
@@ -53,13 +54,14 @@ Future<void> main() async {
         BlocProvider(create: (context) => NotificationsBloc(context: context)),
         BlocProvider(create: (context) => FavoriteBloc(context: context)),
         BlocProvider(create: (context) => HomeBloc()),
-        BlocProvider(create: (context) => ServiceBloc(context: context)),
+        BlocProvider(create: (context) => ServiceBloc(context: context),),
+        BlocProvider(create: (context) => ServiceBlocData(context: context)),
         BlocProvider(create: (context) => JobsBloc(context: context)),
         BlocProvider(create: (context) => AuctionsBloc(context: context)),
         BlocProvider(create: (context) => OffersBloc(context: context)),
         BlocProvider(create: (context) => ProductsBloc(context: context)),
         BlocProvider(create: (context) => CompanyBloc()),
-        BlocProvider(create: (context) => SearchBloc()),
+        BlocProvider(create: (context) => SearchBloc(context: context)),
         BlocProvider(create: (context) => ChatBloc()),
         BlocProvider(create: (context) => HelpBloc(context: context)),
         BlocProvider(create: (context) => OtherCompanyBloc(context: context)),

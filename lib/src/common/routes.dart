@@ -70,8 +70,8 @@ class RouteGenerator {
         return CustomPageRoute(widget: NavigationScreen());
       case AuthScreen.routeName:
         return CustomPageRoute(widget: AuthScreen());
-      case SearchCompanyScreen.routeName:
-        return CustomPageRoute(widget: SearchCompanyScreen());
+      // case SearchCompanyScreen.routeName:
+      //   return CustomPageRoute(widget: SearchCompanyScreen());
       // case ChatsScreen.routeName:
       //   return CustomPageRoute(widget: ChatsScreen());
       case EditAccountScreen.routeName:

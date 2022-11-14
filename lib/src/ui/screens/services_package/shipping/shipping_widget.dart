@@ -31,7 +31,7 @@ class ShippingWidget extends StatelessWidget {
                         height: 60,
                       ),
                     ),
-                    // model.image == ''
+                    // model.image == null
                     //     ? Container(
                     //         // height: 50,
                     //         // width: 50,

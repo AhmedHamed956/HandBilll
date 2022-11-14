@@ -98,9 +98,9 @@ class _SearchScreenState extends State<SearchScreen> {
         _searchBloc..add(SearchProductEvent(searchKey: recentSearchProduct));
       }
       if (recentSearchMarket == null) {
-        _searchBloc..add(SearchMarketEvent(searchKey: ""));
-      } else {
-        _searchBloc..add(SearchMarketEvent(searchKey: recentSearchMarket));
+        // _searchBloc..add(SearchMarketEvent(searchKey: ""));
+      // } else {
+      //   _searchBloc..add(SearchMarketEvent(searchKey: recentSearchMarket));
       }
     }catch(e){print(e.toString());}
   }
@@ -113,7 +113,7 @@ class _SearchScreenState extends State<SearchScreen> {
           _searchBloc..add(SearchProductEvent
             (searchKey: value));
         } else {
-          _searchBloc..add(SearchMarketEvent(searchKey: value));
+          // _searchBloc..add(SearchMarketEvent(searchKey: value));
         }
       }
     }

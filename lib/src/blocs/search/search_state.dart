@@ -56,15 +56,11 @@ class SearchCompaniesErrorState extends SearchState{
 //categories company
 class CategoryCompaniesLoadingState extends SearchState {}
 
-class CategoryCompaniesSuccessState extends SearchState {
-   List<ServiceCategoryModel>? companies;
-  CategoryCompaniesSuccessState({required this.companies})
-  {
-    print(companies!.first.data);
-    print('ddddddddddddd');
-  }
-}
-
+// class CategoryCompanyState extends SearchState{
+//   final List<ServiceCategoryModel>? company;
+//   CategoryCompanyState({required this.company});
+//
+// }
 
 class CategoryCompaniesErrorState extends SearchState {
   final String error;

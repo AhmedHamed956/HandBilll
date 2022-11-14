@@ -14,12 +14,16 @@ class SearchProductEvent extends SearchEvent {
   SearchProductEvent({required this.searchKey});
 }
 
-class SearchMarketEvent extends SearchEvent {
-  final String? searchKey;
-
-  SearchMarketEvent({required this.searchKey}){
-  }
-}
+// class SearchMarketEvent extends SearchEvent {
+//  class SearchMarketEvent extends SearchEvent {
+// //   final String? searchKey;
+// //
+// //   SearchMarketEvent({required this.searchKey}){
+// //   } final String? searchKey;
+//
+//   SearchMarketEvent({required this.searchKey}){
+//   }
+// }
 class CategoryCompanyEvent extends SearchEvent {
 }
 
