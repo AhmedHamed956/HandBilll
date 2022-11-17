@@ -27,8 +27,10 @@ class SearchRepository {
     try {
       response =
           await dio.get(APIData.searchProduct, queryParameters: queryParams);
-      log("getSearchProducts: ${jsonEncode(response.data)}");
+      log("sss: ${jsonEncode(response.data)}");
+      print(response.data);
       searchResponse = SearchProductResponse.fromJson(response.data);
+       print(searchResponse.products);
       if (searchResponse.status!) {
         return searchResponse;
       } else {
@@ -63,6 +65,29 @@ class SearchRepository {
     }
     return companyResponse;
   }
+  Future<SearchCompaniesResponse> getServiceCompanies(int search) async {
+    Map<String, dynamic> queryParams =
+    ({ "category_id": '$search'});
+
+    late SearchCompaniesResponse companyResponse;
+    try {
+      Response response =
+      await dio.get(APIData.searchCompanies, queryParameters: queryParams);
+      log("getSearchCompanies: ${jsonEncode(response.data)}");
+
+      companyResponse = SearchCompaniesResponse.fromJson(response.data);
+      print(companyResponse.data!.first.name);
+      if (companyResponse.data != null) {
+        return companyResponse;
+      } else {
+        return companyResponse;
+      }
+    } catch (error, stackTrace) {
+      print("$tag error : $error , stackTrace:  $stackTrace");
+    }
+    return companyResponse;
+  }
+
   Future<ServiceResponse> getCategoryCompanies() async {
     var queryParameters = {"secret": APIData.secretKey};
      ServiceResponse? serviceResponse;

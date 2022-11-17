@@ -51,6 +51,7 @@ import '../ui/screens/navigation_package/search/Search_market/Product_Details.da
 import '../ui/screens/navigation_package/search/Search_market/search_screen1.dart';
 import '../ui/screens/navigation_package/search/Search_market/sub_categoies_screen.dart';
 import '../ui/screens/navigation_package/search/Search_market/sub_sub_categorie.dart';
+import '../ui/screens/navigation_package/search/search_service/company_service_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -58,8 +59,8 @@ class RouteGenerator {
     switch (settings.name) {
       case ForgetPasswordScreen.routeName:
         return CustomPageRoute(widget: ForgetPasswordScreen());
-      case RestPasswordScreen.routeName:
-        return CustomPageRoute(widget: RestPasswordScreen());
+      case RestPasswordScreen.routeName:return CustomPageRoute(widget: RestPasswordScreen());
+      case CompanyServiceScreen.routeName:return CustomPageRoute(widget: CompanyServiceScreen(routeArgument: args!));
       case LoginScreen.routeName:
         return CustomPageRoute(widget: LoginScreen());
       case RegisterScreen.routeName:

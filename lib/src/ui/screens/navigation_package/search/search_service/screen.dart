@@ -9,14 +9,18 @@ import 'package:hand_bill/src/blocs/search/search_state.dart';
 import 'package:hand_bill/src/common/api_data.dart';
 import 'package:hand_bill/src/data/model/category/sub_sub.dart';
 import 'package:hand_bill/src/data/model/serviceCategories_model.dart';
+import 'package:hand_bill/src/ui/screens/details_package/company/company_screen.dart';
+import 'package:hand_bill/src/ui/screens/navigation_package/search/search_service/widgets/search_category_service.dart';
+import 'package:hand_bill/src/ui/screens/navigation_package/search/search_service/widgets/search_company.dart';
 
-import '../blocs/Services/Event.dart';
-import '../blocs/Services/bloc.dart';
-import '../blocs/Services/states.dart';
-import '../blocs/search/search_bloc.dart';
-import '../blocs/search/search_event.dart';
-import '../common/constns.dart';
-import '../data/model/company.dart';
+import '../../../../../blocs/Services/Event.dart';
+import '../../../../../blocs/Services/bloc.dart';
+import '../../../../../blocs/Services/states.dart';
+import '../../../../../blocs/search/search_bloc.dart';
+import '../../../../../blocs/search/search_event.dart';
+import '../../../../../common/constns.dart';
+import '../../../../../data/model/company.dart';
+import '../../../../../data/model/local/route_argument.dart';
 
 class SearchSuppliers extends StatefulWidget {
 
@@ -38,19 +42,19 @@ class _SearchSuppliersState extends State<SearchSuppliers> {
   void initState() {
     serviceBloc = BlocProvider.of<ServiceBlocData>(context);
     serviceBloc!.add(FetchData());
-    serviceBloc!.add(SearchMarketEvent(searchKey: _searchController.text));
+    // serviceBloc!.add(SearchMarketEvent(searchKey: _searchController.text));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    _onSubmitted(value) async {
-      if (_searchController.text.length >= 3) {
-        if (selectedPage == 0) {
-          serviceBloc!..add(SearchMarketEvent(searchKey: value));
-        }
-      }
-    }
+    // _onSubmitted(value) async {
+    //   if (_searchController.text.length >= 3) {
+    //     if (selectedPage == 0) {
+    //       serviceBloc!..add(SearchMarketEvent(searchKey: value));
+    //     }
+    //   }
+    // }
 
     Color borderColor = Color(0xffeeeeee);
 
@@ -72,7 +76,7 @@ class _SearchSuppliersState extends State<SearchSuppliers> {
             child: TextField(
                 textAlignVertical: TextAlignVertical.center,
                 onChanged: (value) {
-                  _onSubmitted(value.trim());
+                  // _onSubmitted(value.trim());
                   serviceBloc!
                     ..add(SearchMarketEvent(searchKey: _searchController.text));
                 },
@@ -95,7 +99,7 @@ class _SearchSuppliersState extends State<SearchSuppliers> {
                         borderSide: BorderSide(color: borderColor, width: 1))),
                 controller: _searchController,
                 textInputAction: TextInputAction.go,
-                onSubmitted: (value) => _onSubmitted(value.trim()),
+                // onSubmitted: (value) => _onSubmitted(value.trim()),
                 focusNode: focusNode),
           )),
       body: BlocConsumer<ServiceBlocData, ServiceState>(
@@ -114,7 +118,7 @@ class _SearchSuppliersState extends State<SearchSuppliers> {
           child: SafeArea(
             child: Column(children: [
               companies == null
-                  ? CircularProgressIndicator()
+                  ? Container()
                   : SizedBox(
                       height: 170,
                       child: Padding(
@@ -126,7 +130,7 @@ class _SearchSuppliersState extends State<SearchSuppliers> {
                               border: Border.all(color: Colors.black26)),
                           child: ListView.separated(
                             itemBuilder: (context, index) =>
-                                SearchCompany(companies![index]),
+                                SearchCompany(companies![index],context),
                             itemCount: companies!.length,
                             separatorBuilder:
                                 (BuildContext context, int index) => Container(
@@ -139,7 +143,10 @@ class _SearchSuppliersState extends State<SearchSuppliers> {
                       ),
                     ),
               items == null
-                  ? CircularProgressIndicator()
+                  ? Padding(
+                    padding: const EdgeInsets.all(120.0),
+                    child: Center(child: CircularProgressIndicator()),
+                  )
                   : SingleChildScrollView(
                       child: SizedBox(
                         height: 480,
@@ -152,7 +159,7 @@ class _SearchSuppliersState extends State<SearchSuppliers> {
                                 border: Border.all(color: Colors.black26)),
                             child: ListView.separated(
                               itemBuilder: (context, index) =>
-                                  ServiceCompany(items![index]),
+                                  ServiceCompany(items![index],context),
                               itemCount: items!.length,
                               separatorBuilder:
                                   (BuildContext context, int index) => SizedBox(
@@ -171,106 +178,4 @@ class _SearchSuppliersState extends State<SearchSuppliers> {
   }
 }
 
-Widget ServiceCompany(ServiceModel model) {
-  return Padding(
-    padding: const EdgeInsets.only(right: 10.0,left: 10),
-    child: InkWell(onTap: () {
-      print('omniaaaaaaaaaaaaaaa');
-      print(model.id);
-    }, child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      return Container(
-          clipBehavior: Clip.antiAlias,
-          height: 80,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30),
-              border: Border.all(color: Color(0xffeeeeee), width: 1.5),
-              boxShadow: [
-                BoxShadow(
-                    color: Color(0xfff5f5f5), blurRadius: 3, spreadRadius: 3)
-              ]),
-          child: Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.grey,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                //      child:  CachedNetworkImage(
-                // width: 370,
-                //     // height: 200,
-                //     imageUrl: model!.image!,
-                //     placeholder: (context, url) => Center(
-                //         heightFactor: 1,
-                //         widthFactor: 1,
-                //         child: CircularProgressIndicator(
-                //             color: mainColorLite,
-                //             strokeWidth: 1)),
-                //     errorWidget: (context, url, error) =>
-                //     new Icon(Icons.error,
-                //         color: mainColorLite))),
-                Expanded(
-                  child: Text(
-                    model.name,
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-                Icon(Icons.arrow_forward_ios_rounded,color: Colors.black26,)
-              ],
-            ),
-          ));
-    })),
-  );
-}
 
-Widget SearchCompany(Company model) {
-  return InkWell(
-    child: Padding(
-      padding: const EdgeInsets.all(18.0),
-      child: Row(
-        children: [
-          CircleAvatar(
-            backgroundColor: Colors.grey,
-          child:  CachedNetworkImage(
-              width: 370,
-              // height: 200,
-              imageUrl: placeholder,
-              placeholder: (context, url) => Center(
-                  heightFactor: 1,
-                  widthFactor: 1,
-                  child: CircularProgressIndicator(
-                      color: mainColorLite,
-                      strokeWidth: 1)),
-              errorWidget: (context, url, error) =>
-              new Icon(Icons.error,
-                  color: mainColorLite))),
-
-          SizedBox(
-            width: 10,
-          ),
-          //      child:  CachedNetworkImage(
-          // width: 370,
-          //     // height: 200,
-          //     imageUrl: model!.image!,
-          //     placeholder: (context, url) => Center(
-          //         heightFactor: 1,
-          //         widthFactor: 1,
-          //         child: CircularProgressIndicator(
-          //             color: mainColorLite,
-          //             strokeWidth: 1)),
-          //     errorWidget: (context, url, error) =>
-          //     new Icon(Icons.error,
-          //         color: mainColorLite))),
-          Text(
-            model.name,
-            style: TextStyle(color: Colors.black),
-          )
-        ],
-      ),
-    ),
-  );
-}

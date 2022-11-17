@@ -31,7 +31,7 @@ class APIData {
   // categories
   static const getCategories = domainLinkApi + 'user/categories';
   static const getSubCategories = domainLinkApi + 'user/sub-categories';
-  static const getSubCategory = domainLinkApi + 'user/sub-cate-by-cate';
+  static const getSubCategory = domainLinkApi + 'user/subcate-by-cate';
   static const getSubsubCategory = domainLinkApi + 'user/subsubcate-by-subcate';
 
   // notifications

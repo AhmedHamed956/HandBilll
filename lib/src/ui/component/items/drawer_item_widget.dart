@@ -95,13 +95,13 @@ class DrawerItemWidget extends StatelessWidget {
                                               ? Navigator.of(context).pushNamed(
                                                   AgentsScreen.routeName)
                                               :
-          // model.title.toString() ==
-          //                                             'About Us'
-          //                                         ? Navigator.of(context)
-          //                                             .pushNamed(AboutUsScreen
-          //                                                 .routeName)
-          //                                         :
-          Container();
+                                              model.title.toString() ==
+                                                                                          'About Us'
+                                                                                      ? Navigator.of(context)
+                                                                                          .pushNamed(AboutUsScreen
+                                                                                              .routeName)
+                                                                                      :
+                                              Container();
         },
         child: Card(
             elevation: 5,
@@ -228,19 +228,17 @@ class DrawerItemWidget extends StatelessWidget {
                                                                           fit: BoxFit
                                                                               .cover,
                                                                         )
-                                                                      :
-                      // model.title.toString() ==
-                      //                                                         'About Us'
-                      //                                                     ? SvgPicture
-                      //                                                         .asset(
-                      //                                                         'assets/icons/account/arrow.svg',
-                      //                                                         // "assets/icons/account/wishlist.svg",
-                      //                                                         height: icSize,
-                      //                                                         width: icSize,
-                      //                                                         fit: BoxFit.cover,
-                      //                                                       )
-                      //                                                     :
-                      Container(),
+                                                                      : model.title.toString() ==
+                                                                              'About Us'
+                                                                          ? SvgPicture
+                                                                              .asset(
+                                                                              'assets/icons/account/arrow.svg',
+                                                                              // "assets/icons/account/wishlist.svg",
+                                                                              height: icSize,
+                                                                              width: icSize,
+                                                                              fit: BoxFit.cover,
+                                                                            )
+                                                                          : Container(),
                       // model.icon!.endsWith(".svg")
                       //     ? SvgPicture.asset(model.icon!,
                       //         height: icSize, width: icSize)

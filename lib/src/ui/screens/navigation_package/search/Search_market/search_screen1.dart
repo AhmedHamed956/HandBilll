@@ -1,3 +1,4 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,6 +17,7 @@ import '../../../../../blocs/search/search_bloc.dart';
 import '../../../../../common/constns.dart';
 import '../../../../../common/global.dart';
 import '../../../../../data/model/local/route_argument.dart';
+import '../../../../../data/response/search/search_product_response.dart';
 import '../../../../component/custom/login_first_widget_sliver.dart';
 import '../../../../component/custom/regular_app_bar.dart';
 import '../../../details_package/product_details/product_details_screen.dart';
@@ -40,12 +42,12 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
   final double size = 20;
   int selectedPage = 0;
   FocusNode focusNode = FocusNode();
-  List<Product>? product;
+  List<SearchD>? product;
 
   @override
   void initState() {
     _searchBloc = BlocProvider.of<SearchBloc>(context);
-    _searchBloc..add(SearchProductEvent(searchKey: _searchController.text));
+    // _searchBloc..add(SearchProductEvent(searchKey: _searchController.text));
     _searchBloc..add(SearchAllCategoriesEvent());
 
     super.initState();
@@ -82,10 +84,14 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
             child: TextField(
                 textAlignVertical: TextAlignVertical.center,
                 onChanged: (value) {
-                  _onSubmitted(value.trim());
-                  _searchBloc
-                    ..add(
-                        SearchProductEvent(searchKey: _searchController.text));
+                  // _onSubmitted(value.trim());
+                  _searchBloc..add(SearchProductEvent(searchKey: _searchController.text));
+                  if(_searchController.text == null){
+                    _searchBloc..add(SearchProductEvent(searchKey: _searchController.text));
+
+                    _searchController.clear();
+                  }
+                  // _searchController.clear();
                 },
                 style: TextStyle(color: textLiteColor),
                 decoration: InputDecoration(
@@ -111,130 +117,121 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
           )),
       body: SizedBox(
         height: 900,
-        child: SingleChildScrollView(
-          child: SizedBox(
-            height: 690,
-            child: BlocConsumer<SearchBloc, SearchState>(
-                listener: (context, state) {
-              if (state is SearchProductsSuccessState) {
-                product = state.products;
+        child: SizedBox(
+          height: 690,
+          child:
+              BlocConsumer<SearchBloc, SearchState>(listener: (context, state) {
+            if (state is SearchProductsSuccessState) {
+              if (state.products!.isEmpty) {
+                product = null;
+              } else {
+                product = [];
+                product!.clear();
+                product!.addAll(state.products!);
+                _searchBloc.isFetching = false;
               }
-              if (state is SearchCategoriesSuccessState) {
-                print(state.toString());
-                if (state.products!.isEmpty) {
-                  data = null;
-                } else {
-                  data = [];
-                  data!.clear();
-                  data!.addAll(state.products!);
-                  _searchBloc.isFetching = false;
-                }
+              product = state.products;
+              print('lklklklk');
+              print(product!.first.name);
+
+            }
+            if (state is SearchCategoriesSuccessState) {
+              print(state.toString());
+              if (state.products!.isEmpty) {
+                data = null;
+              } else {
+                data = [];
+                data!.clear();
+                data!.addAll(state.products!);
+                _searchBloc.isFetching = false;
               }
-            }, builder: (context, state) {
-              return CustomScrollView(
-                  physics: BouncingScrollPhysics(),
-                  reverse: true,
-                  controller: _scrollController,
-                  slivers: [
-                    data == null
-                        ? LoadingSliver()
-                        : data!.length == 0
-                            ? CenterWidgetListSliver(label: "search is empty")
-                            : SliverToBoxAdapter(
-                                child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        'Search by Product',
-                                        style: TextStyle(
-                                            color: Colors.grey.shade500,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15),
+            }
+          }, builder: (context, state) {
+            return SingleChildScrollView(
+              child: SafeArea(
+                  child: Column(children: [
+                    product == null
+                  ? Container()
+                  : Column(
+                    children: [
+
+                      SizedBox(
+                          height: 165,
+                          child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey.shade500),
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: ListView.separated(
+                                  itemBuilder: (BuildContext context, int index) {
+                                    return SearchProduct(product![index]);
+                                  },
+                                  itemCount: product!.length,
+                                  separatorBuilder: (BuildContext context, int index) =>
+                                      Container(
+                                        height: 1,
+                                        width: double.infinity,
+                                        color: Colors.grey.shade500,
                                       ),
+                                ),
+                              ))),
+
+                    ],
+                  ),
+              data == null
+                  ? CircularProgressIndicator()
+                  : data!.length == 0
+                      ? CenterWidgetListSliver(label: "search is empty")
+                      : Column(
+                        children: [
+                          SizedBox(
+                            child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Search by Category',
+                                    style: TextStyle(
+                                        color: Colors.grey.shade500,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                ),
+                              ),
+                          ),
+                          SizedBox(
+                              height: 460,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey.shade500),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  height: 400,
+                                  width: 520,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ListView.builder(
+                                      itemBuilder: (BuildContext context, int index) {
+                                        return SearchCategories(model: data![index]);
+                                      },
+                                      itemCount: data!.length,
                                     ),
                                   ),
-                                  SizedBox(
-                                      height: 165,
-                                      child: Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color:
-                                                        Colors.grey.shade500),
-                                                borderRadius:
-                                                    BorderRadius.circular(20)),
-                                            child: ListView.separated(
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int index) {
-                                                return SearchProduct(
-                                                    product![index]);
-                                              },
-                                              itemCount: product!.length,
-                                              separatorBuilder:
-                                                  (BuildContext context,
-                                                          int index) =>
-                                                      Container(
-                                                height: 1,
-                                                width: double.infinity,
-                                                color: Colors.grey.shade500,
-                                              ),
-                                            ),
-                                          ))),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        'Search by Category',
-                                        style: TextStyle(
-                                            color: Colors.grey.shade500,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      height: 460,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.grey.shade500),
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          height: 400,
-                                          width: 520,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: ListView.builder(
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int index) {
-                                                return SearchCategories(
-                                                    model: data![index]);
-                                              },
-                                              itemCount: data!.length,
-                                            ),
-                                          ),
-                                        ),
-                                      )),
-                                ],
-                              ))
-                  ]);
-            }),
-          ),
+                                ),
+                              )),
+                        ],
+                      ),
+
+            ])));
+          }),
         ),
       ),
     );
   }
 
-  Widget SearchProduct(Product model) {
+  Widget SearchProduct(SearchD model) {
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, ProductDetails.routeName,
@@ -256,7 +253,7 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    model.name,
+                    model.name!,
                     style: TextStyle(color: Colors.black, fontSize: 15),
                   ),
                 ),

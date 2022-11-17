@@ -51,7 +51,7 @@ class ImageModel {
 
   }
 
-  Map<String, dynamic> toJson() {
+  Map<dynamic, dynamic> toJson() {
     var map = <String, dynamic>{};
     map["id"] = _id;
     map["model_id"] = _modelId;

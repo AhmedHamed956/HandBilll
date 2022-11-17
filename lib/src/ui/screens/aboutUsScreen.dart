@@ -377,7 +377,6 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
 //           //   )
 //         ],
 //       );
-}
 
 //  GridView.count(
 //                               padding: EdgeInsets.fromLTRB(10, 0, 10, 16),
@@ -390,3 +389,4 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
 //                               children: List.generate(_items.length, (index) {
 //                                 return DrawerItemWidget(model: _items[index]);
 //                               }))
+}
