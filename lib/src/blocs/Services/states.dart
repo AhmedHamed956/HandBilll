@@ -29,11 +29,24 @@ class CategoryErrorState extends ServiceState {
 
   const CategoryErrorState({required this.errors});
 }
+class getCompnyErrorState extends ServiceState {
+  final String errors;
+
+  const getCompnyErrorState({required this.errors});
+}
 class CategoriesAddSuccessState extends ServiceState{
   List<ServiceCategoryModel>? items;
   CategoriesAddSuccessState({required this.items}){
     print('ddddddddffdfdfdfdfdfdfdf');
     print(items!.first.name);
+  }
+
+}
+class getCompnySuccessState extends ServiceState{
+  List<Company>? company;
+  getCompnySuccessState({required this.company}){
+    print('ddddddddffdfdfdfdfdfdfdf');
+    print(company!.first.name);
   }
 
 }

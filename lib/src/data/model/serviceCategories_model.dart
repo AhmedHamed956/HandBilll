@@ -131,7 +131,7 @@ class ServiceModel {
   dynamic? _createdAt;
   dynamic? _updatedAt;
   dynamic? _deletedAt;
-  Images? _image;
+  List<ImageModel>? _image;
   bool? _selected;
   dynamic? get id => _id;
 
@@ -139,7 +139,7 @@ class ServiceModel {
 
   dynamic? get description => _description;
 
-  dynamic? get image => _image;
+  List<ImageModel>? get image => _image;
   dynamic? get createdAt => _createdAt;
 
   dynamic? get deletedAt => _deletedAt;
@@ -147,7 +147,7 @@ class ServiceModel {
   dynamic? get updatedAt => _updatedAt;
 
   ServiceModel(
-      {dynamic? id, dynamic? name, dynamic? selected, dynamic? image,dynamic? createdAt,dynamic? description,dynamic? updatedAt,dynamic? deletedAt}) {
+      {dynamic? id, dynamic? name, dynamic? selected, List<ImageModel>? image,dynamic? createdAt,dynamic? description,dynamic? updatedAt,dynamic? deletedAt}) {
     _id = id;
     _name = name;
     _image = image;
@@ -201,13 +201,12 @@ class ServiceCategoryModel {
   dynamic? get id => _id;
 
   dynamic? get name => _name;
-
-  dynamic? get image => _image;
+  ImageModel get image => _image;
 
   bool? get selected => _selected;
 
   ServiceCategoryModel(
-      {dynamic? id, dynamic? name, dynamic? selected, dynamic? image}) {
+      {dynamic? id, dynamic? name, dynamic? selected,ImageModel? image}) {
     _id = id;
     _name = name;
     _selected = selected;

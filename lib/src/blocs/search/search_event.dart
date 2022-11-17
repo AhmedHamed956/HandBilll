@@ -11,7 +11,9 @@ abstract class SearchEvent extends Equatable {
 class SearchProductEvent extends SearchEvent {
   final String? searchKey;
 
-  SearchProductEvent({required this.searchKey});
+  SearchProductEvent({required this.searchKey}){
+    print(searchKey);
+  }
 }
 
 // class SearchMarketEvent extends SearchEvent {

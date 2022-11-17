@@ -4,7 +4,7 @@ import 'package:hand_bill/src/common/constns.dart';
 import 'package:hand_bill/src/ui/screens/navigation_package/notification/notification_screen.dart';
 import 'package:hand_bill/src/ui/screens/navigation_package/search/search_screen.dart';
 
-import '../../../../screen.dart';
+import '../../search/search_service/screen.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double size = 20;

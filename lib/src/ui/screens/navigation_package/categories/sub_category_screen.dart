@@ -301,9 +301,11 @@ class _SubCategoriesState extends State<SubCategories>
   // CategoryModel? _selectedCategory;
   // CategoryBloc? _categoryBloc;
   // final _scaffoldKey = GlobalKey<ScaffoldState>();
-
+late String id;
   @override
   void initState() {
+    id = widget.routeArgument!.id!;
+    print(id);
     // _categoryBloc = BlocProvider.of<CategoryBloc>(context);
     // if (_categoryBloc!.categories == null ||
     //     _categoryBloc!.categories!.length == 0)
@@ -359,8 +361,7 @@ class _SubCategoriesState extends State<SubCategories>
   Widget build(BuildContext context) {
     var model;
     return BlocProvider(
-      create: ((context) => ShippingBloc()
-        ..getSubCategories(id: widget.routeArgument?.id.toString())),
+      create: ((context) => ShippingBloc()..getSubCategories(id: id)),
       child: BlocConsumer<ShippingBloc, InterState>(
         listener: (context, state) {
           if (state is ShopIntresSuccessStates) {

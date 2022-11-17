@@ -6,6 +6,11 @@ abstract class ServiceEvent extends Equatable {
 }
 
 class FetchServiceEvent extends ServiceEvent {}
+class ServiceCompanyEvent extends ServiceEvent {
+  final int searchKey;
+  ServiceCompanyEvent({required this.searchKey});
+
+}
 class SearchMarketEvent extends ServiceEvent {
     final String? searchKey;
   SearchMarketEvent({required this.searchKey}){

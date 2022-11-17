@@ -34,6 +34,10 @@ class ServiceBlocData extends Bloc<ServiceEvent, ServiceState> {
     if(event is SearchMarketEvent){
       yield* _mapSearchCompanies(event);
     }
+
+    if(event is ServiceCompanyEvent){
+      yield* _mapGetCompanies(event);
+    }
     // if (event is FetchSubCategoriesEvent) {
     //   yield* _mapFetchSubCategories(event);
     // }
@@ -53,6 +57,22 @@ class ServiceBlocData extends Bloc<ServiceEvent, ServiceState> {
       }
     } catch (err) {
       yield SearchCompaniesErrorState(errors: err.toString());
+    }
+  }
+  Stream<ServiceState> _mapGetCompanies(ServiceCompanyEvent event) async* {
+    yield SearchCompanyLoadingState();
+
+    final response =
+    await searchRepository.getServiceCompanies(event.searchKey!);
+    try {
+      if (response.data != null) {
+        final companies = response.data;
+        yield getCompnySuccessState(company: companies);
+      } else {
+        // yield SearchCompaniesErrorState(error: response.message.toString());
+      }
+    } catch (err) {
+      yield getCompnyErrorState(errors: err.toString());
     }
   }
 

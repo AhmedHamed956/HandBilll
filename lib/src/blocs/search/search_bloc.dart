@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hand_bill/src/blocs/category/category_state.dart';
@@ -35,7 +36,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
 
     if (event is ProductEvent) {
-      yield* SearchProduct(event);
+      // yield* SearchProduct(event);
     }
     if (event is isFavourite) {
       if (event.num == "1") {
@@ -46,10 +47,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   Stream<SearchState> _mapSearchProduct(SearchProductEvent event) async* {
     yield SearchProductsLoadingState();
-    final response = await searchRepository.getSearchProducts(event.searchKey!);
+    var response = await searchRepository.getSearchProducts(event.searchKey!);
     try {
+      print(response.products);
       if (response.status!) {
-        final products = response.data;
+        final products = response.products!.data;
+        print('omniaaa');
+        print(products);
+        // print(products!.data!.first.name);
         yield SearchProductsSuccessState(products: products);
       } else {
         yield SearchProductsErrorState(error: response.message.toString());
@@ -132,20 +137,20 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  Stream<SearchState> SearchProduct(ProductEvent event) async* {
-    yield ProductLoadingState();
-    final response = await searchRepository.getSearchProduct(event.id);
-    try {
-      if (response.status!) {
-        final products = response.data;
-        yield ProductSuccessState(products: products);
-      } else {
-        yield ProductErrorState(error: response.message.toString());
-      }
-    } catch (err) {
-      yield SearchProductsErrorState(error: err.toString());
-    }
-  }
+  // Stream<SearchState> SearchProduct(ProductEvent event) async* {
+  //   yield ProductLoadingState();
+  //   final response = await searchRepository.getSearchProduct(event.id);
+  //   try {
+  //     if (response.status!) {
+  //       final products = response.data;
+  //       yield ProductSuccessState(products: products);
+  //     } else {
+  //       yield ProductErrorState(error: response.message.toString());
+  //     }
+  //   } catch (err) {
+  //     yield SearchProductsErrorState(error: err.toString());
+  //   }
+  // }
 
 
 }

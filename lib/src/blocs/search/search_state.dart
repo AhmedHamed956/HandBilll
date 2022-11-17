@@ -7,6 +7,7 @@ import 'package:hand_bill/src/data/model/market.dart';
 import 'package:hand_bill/src/data/model/product.dart';
 import 'package:hand_bill/src/data/model/search_Subcategoreis_model.dart';
 import 'package:hand_bill/src/data/response/search/search_companies_response.dart';
+import 'package:hand_bill/src/data/response/search/search_product_response.dart';
 
 abstract class SearchState extends Equatable {
   const SearchState();
@@ -24,9 +25,12 @@ class SearchInitialState extends SearchState {
 class SearchProductsLoadingState extends SearchState {}
 
 class SearchProductsSuccessState extends SearchState {
-  final List<Product>? products;
+  final List<SearchD>? products;
 
-  const SearchProductsSuccessState({required this.products});
+   SearchProductsSuccessState({required this.products}){
+     print('fggfgfgfg');
+    print(products!.first.name);
+  }
 }
 
 class SearchProductsErrorState extends SearchState {

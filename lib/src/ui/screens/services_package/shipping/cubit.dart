@@ -83,7 +83,7 @@ class ShippingBloc extends Cubit<InterState> {
       // "nature_activity": "shipping",
       // "category_id": subNature
     });
-    _dio.post(APIData.getSubCategory, data: queryParams).then((value) {
+    _dio.get(APIData.getSubCategory, queryParameters: queryParams).then((value) {
       subCategoryModel = SubCategoryModel.fromJson(value.data);
       print(value.data);
       emit(GetSubCatSuccessStates());

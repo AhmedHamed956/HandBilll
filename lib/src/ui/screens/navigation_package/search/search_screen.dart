@@ -64,7 +64,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     // focusNode.requestFocus();
 
-    getRecentSearch();
+    // getRecentSearch();
     super.initState();
   }
 
@@ -146,7 +146,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 // _searchController.clear();
               });
               focusNode.unfocus();
-              getRecentSearch();
+              // getRecentSearch();
             },
             child: MultiBlocListener(
                 listeners: [BlocListener<SearchBloc, SearchState>(listener:
@@ -157,18 +157,18 @@ class _SearchScreenState extends State<SearchScreen> {
                   }
 
                   if (state is SearchProductsSuccessState) {
-                    if (state.products!.isEmpty) {
-                      _products = null;
-                    } else {
-                      _products = [];
-                      _products!.clear();
-                      _products!.addAll(state.products!);
-                      if (_searchController.text.isNotEmpty) {
-                        await storage.write(key: "recentSearchProduct",
-                            value: _searchController.text);
-                      }
-                    }
-                    _searchBloc.isFetching = false;
+                    // if (state.products!.data.first.) {
+                    //   _products = null;
+                    // } else {
+                    //   _products = [];
+                    //   _products!.clear();
+                    //   _products!.addAll(state.products!);
+                    //   if (_searchController.text.isNotEmpty) {
+                    //     await storage.write(key: "recentSearchProduct",
+                    //         value: _searchController.text);
+                    //   }
+                    // }
+                    // _searchBloc.isFetching = false;
                   }
                   if (state is SearchCompaniesSuccessState) {
                     if (state.companies!.isEmpty) {
@@ -204,7 +204,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                           textAlignVertical:
                                           TextAlignVertical.center,
                                           onChanged: (value) {
-                                            _onSubmitted(value.trim());
+                                           _searchBloc.add(SearchProductEvent(searchKey: _searchController.text));
                                           },
                                           style: TextStyle(
                                               color: textLiteColor),

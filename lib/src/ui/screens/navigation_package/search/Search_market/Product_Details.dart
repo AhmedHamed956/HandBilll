@@ -104,167 +104,169 @@ class _ProductDetailsState extends State<ProductDetails> {
           }
         },
         builder: (context, state) {
-          return SafeArea(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Container(
-                      height: 500,
-                      width: 370,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black26,
-                                spreadRadius: 3,
-                                blurRadius: 6)
-                          ]),
-                      child: Column(
-                        children: [
-                          Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: Stack(children: [
-                                Container(
-                                    height: 300,
-                                    width: 300,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(20),
-                                        border: Border.all(color: Colors.grey)),
-                                    child: CachedNetworkImage(
-                                        width: 370,
-                                        // height: 200,
-                                        imageUrl: product!.images!.isEmpty
-                                            ? placeholder
-                                            : product!.images![0].thump!,
-                                        placeholder: (context, url) => Center(
-                                            heightFactor: 1,
-                                            widthFactor: 1,
-                                            child: CircularProgressIndicator(
-                                                color: mainColorLite,
-                                                strokeWidth: 1)),
-                                        errorWidget: (context, url, error) =>
-                                            new Icon(Icons.error,
-                                                color: mainColorLite))),
-                                Positioned(
-                                    top: 12,
-                                    right: 12,
-                                    child: InkWell(
-                                        onTap: () {
-                                          if (product.isFavourite == 0) {
-                                            favoriteBloc.add(AddToFavoriteEvent(
-                                                productId: product!.id,
-                                                user: user!));
-                                            product.isFavourite = 1;
-                                          } else {
-                                            favoriteBloc.add(
-                                                RemoveFromFavoriteEvent(
-                                                    user: user!,
-                                                    favoriteId: product.id));
+          return SingleChildScrollView(
+            child: SafeArea(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Container(
+                        height: 500,
+                        width: 370,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black26,
+                                  spreadRadius: 3,
+                                  blurRadius: 6)
+                            ]),
+                        child: Column(
+                          children: [
+                            Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Stack(children: [
+                                  Container(
+                                      height: 300,
+                                      width: 300,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(20),
+                                          border: Border.all(color: Colors.grey)),
+                                      child: CachedNetworkImage(
+                                          width: 370,
+                                          // height: 200,
+                                          imageUrl: product!.images!.isEmpty
+                                              ? placeholder
+                                              : product!.images![0].thump!,
+                                          placeholder: (context, url) => Center(
+                                              heightFactor: 1,
+                                              widthFactor: 1,
+                                              child: CircularProgressIndicator(
+                                                  color: mainColorLite,
+                                                  strokeWidth: 1)),
+                                          errorWidget: (context, url, error) =>
+                                              new Icon(Icons.error,
+                                                  color: mainColorLite))),
+                                  Positioned(
+                                      top: 12,
+                                      right: 12,
+                                      child: InkWell(
+                                          onTap: () {
+                                            if (product.isFavourite == 0) {
+                                              favoriteBloc.add(AddToFavoriteEvent(
+                                                  productId: product!.id,
+                                                  user: user!));
+                                              product.isFavourite = 1;
+                                            } else {
+                                              favoriteBloc.add(
+                                                  RemoveFromFavoriteEvent(
+                                                      user: user!,
+                                                      favoriteId: product.id));
 
-                                            product.isFavourite = 0;
-                                          }
-                                        },
-                                        child: Container(
-                                            padding: EdgeInsets.all(8),
-                                            decoration: BoxDecoration(
-                                                color: Color(0x80ffffff),
-                                                borderRadius:
-                                                    BorderRadius.circular(90),
-                                                border: Border.all(
-                                                    color: Color(0x14000000))),
-                                            child: Icon(product.isFavourite == 0 ?Icons.favorite_border : Icons.favorite_rounded,
-                                                size: 16,
-                                                color: Colors.red)))),
-                              ])),
-                          Row(
-                            children: [
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 15.0),
-                                  child: Align(
+                                              product.isFavourite = 0;
+                                            }
+                                          },
+                                          child: Container(
+                                              padding: EdgeInsets.all(8),
+                                              decoration: BoxDecoration(
+                                                  color: Color(0x80ffffff),
+                                                  borderRadius:
+                                                      BorderRadius.circular(90),
+                                                  border: Border.all(
+                                                      color: Color(0x14000000))),
+                                              child: Icon(product.isFavourite == 0 ?Icons.favorite_border : Icons.favorite_rounded,
+                                                  size: 16,
+                                                  color: Colors.red)))),
+                                ])),
+                            Row(
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.only(left: 15.0),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text('Name :',
+                                          style: TextStyle(
+                                            color: Colors.grey.shade700,
+                                            fontSize: 15,
+                                          )),
+                                    )),
+                                Padding(
+                                    padding: EdgeInsets.only(left: 15),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(product.name,
+                                          style: TextStyle(
+                                            color: Colors.grey.shade800,
+                                            fontSize: 15,
+                                          )),
+                                    )),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Row(children: [
+                                Padding(
+                                    padding: const EdgeInsets.only(left: 15.0),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text('Country :',
+                                          style: TextStyle(
+                                            color: Colors.grey.shade700,
+                                            fontSize: 15,
+                                          )),
+                                    )),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: CachedNetworkImage(
+                                    width: 20,
+                                    // height: 200,
+                                    imageUrl: '${product.flag}',
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                              ]),
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15.0,top: 10),
+                              child: Row(children: [
+                                Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text('Name :',
+                                    child: Text('Price :',
                                         style: TextStyle(
                                           color: Colors.grey.shade700,
                                           fontSize: 15,
-                                        )),
-                                  )),
-                              Padding(
-                                  padding: EdgeInsets.only(left: 15),
+                                        ))),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 15.0),
                                   child: Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text(product.name,
+                                    child: Text('${product.price}\$ ',
                                         style: TextStyle(
                                           color: Colors.grey.shade800,
                                           fontSize: 15,
                                         )),
-                                  )),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: Row(children: [
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 15.0),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text('Country :',
-                                        style: TextStyle(
-                                          color: Colors.grey.shade700,
-                                          fontSize: 15,
-                                        )),
-                                  )),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: CachedNetworkImage(
-                                  width: 20,
-                                  // height: 200,
-                                  imageUrl: '${product.flag}',
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                            ]),
-                          ),
-
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15.0,top: 10),
-                            child: Row(children: [
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text('Price :',
-                                      style: TextStyle(
-                                        color: Colors.grey.shade700,
-                                        fontSize: 15,
-                                      ))),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 15.0),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text('${product.price}\$ ',
-                                      style: TextStyle(
-                                        color: Colors.grey.shade800,
-                                        fontSize: 15,
-                                      )),
+                                SizedBox(
+                                  width: 50,
                                 ),
-                              ),
-                              SizedBox(
-                                width: 50,
-                              ),
-                            ]),
-                          ),
-                          Padding(padding: EdgeInsets.only(top: 20,left: 10),
-                          child: Text(product!.company!.name!,style: TextStyle(
-                                color: Colors.grey.shade800,
-                                fontSize: 15,)
-                              ))
-                        ],
-                      )),
-                ),
-              ],
+                              ]),
+                            ),
+                            Padding(padding: EdgeInsets.only(top: 20,left: 10),
+                            child: Text(product!.company!.name!,style: TextStyle(
+                                  color: Colors.grey.shade800,
+                                  fontSize: 15,)
+                                ))
+                          ],
+                        )),
+                  ),
+                ],
+              ),
             ),
           );
         },
