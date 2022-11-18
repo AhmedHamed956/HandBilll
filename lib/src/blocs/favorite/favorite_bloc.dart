@@ -73,11 +73,11 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     yield FavoriteLoadingState();
 
     GeneralResponse response = await favoriteRepository.removeFromFavorite(
-        favoriteId: event.favoriteId, user: event.user);
+        favoriteId: event!.favoriteId!, user: event.user);
     try {
       if (response.status!) {
         yield RemoveFromFavoriteSuccessState(
-            message: response.message, productId: event.favoriteId);
+            message: response.message, productId: event!.favoriteId!);
       } else {
         yield FavoriteErrorState(error: response.message);
         Fluttertoast.showToast(msg: response.message!);

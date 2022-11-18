@@ -86,11 +86,6 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                 onChanged: (value) {
                   // _onSubmitted(value.trim());
                   _searchBloc..add(SearchProductEvent(searchKey: _searchController.text));
-                  if(_searchController.text == null){
-                    _searchBloc..add(SearchProductEvent(searchKey: _searchController.text));
-
-                    _searchController.clear();
-                  }
                   // _searchController.clear();
                 },
                 style: TextStyle(color: textLiteColor),
@@ -160,9 +155,7 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                           child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey.shade500),
-                                    borderRadius: BorderRadius.circular(20)),
+                                color: Colors.white38,
                                 child: ListView.separated(
                                   itemBuilder: (BuildContext context, int index) {
                                     return SearchProduct(product![index]);
@@ -201,14 +194,12 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                               ),
                           ),
                           SizedBox(
-                              height: 460,
+                              height: 630,
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey.shade500),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  height: 400,
+
+                                  height: 600,
                                   width: 520,
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),

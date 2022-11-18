@@ -40,7 +40,7 @@ class AddToFavoriteEvent extends FavoriteEvent {
 }
 
 class RemoveFromFavoriteEvent extends FavoriteEvent {
-  final int favoriteId;
+  final int? favoriteId;
   final User user;
   RemoveFromFavoriteEvent({required this.user,required this.favoriteId});
 
