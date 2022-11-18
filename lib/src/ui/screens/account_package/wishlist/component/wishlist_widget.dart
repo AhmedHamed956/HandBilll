@@ -52,9 +52,9 @@ class FavoriteWidget extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: Color(0x80ffffff),
                               borderRadius: BorderRadius.circular(90),
-                              border: Border.all(color: Color(0x14000000))),
+                              border: Border.all(color: Colors.red)),
                           child: Icon(Icons.favorite_rounded,
-                              size: 16, color: mainColorLite))))
+                              size: 16, color: Colors.red))))
             ]),
             Expanded(
                 child: Padding(

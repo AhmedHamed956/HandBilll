@@ -98,6 +98,7 @@ class MyApp extends StatelessWidget {
         state: LocalizationProvider.of(context).state,
         child: MaterialApp(
             title: 'Handbill',
+
             debugShowCheckedModeBanner: false,
             theme: _globalRepository.liteTheme,
             themeMode: ThemeMode.light,

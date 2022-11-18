@@ -56,9 +56,9 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     _onSubmitted(value) async {
-      if (_searchController.text.length >= 3) {
+      if (_searchController.text.length >= 2) {
         if (selectedPage == 0) {
-          _searchBloc..add(SearchProductEvent(searchKey: value));
+          _searchBloc..add(SearchProductEvent(searchKey: _searchController.text));
         }
       }
     }
@@ -84,13 +84,18 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
             child: TextField(
                 textAlignVertical: TextAlignVertical.center,
                 onChanged: (value) {
-                  // _onSubmitted(value.trim());
-                  _searchBloc..add(SearchProductEvent(searchKey: _searchController.text));
-                  if(_searchController.text == null){
-                    _searchBloc..add(SearchProductEvent(searchKey: _searchController.text));
+                   _onSubmitted(value.trim());
+                   if(_searchController.text.isEmpty){
+                     product == null ;
 
-                    _searchController.clear();
-                  }
+                   }
+
+                  // _searchBloc..add(SearchProductEvent(searchKey: _searchController.text));
+                  // if(_searchController.text == null){
+                  //   _searchBloc..add(SearchProductEvent(searchKey: _searchController.text));
+                  //
+                  //   _searchController.clear();
+                  // }
                   // _searchController.clear();
                 },
                 style: TextStyle(color: textLiteColor),
@@ -124,7 +129,8 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
             if (state is SearchProductsSuccessState) {
               if (state.products!.isEmpty) {
                 product = null;
-              } else {
+              } else if
+                (_searchController.text.isEmpty){
                 product = [];
                 product!.clear();
                 product!.addAll(state.products!);
@@ -150,7 +156,7 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
             return SingleChildScrollView(
               child: SafeArea(
                   child: Column(children: [
-                    product == null
+                    product == null || _searchController.text.isEmpty
                   ? Container()
                   : Column(
                     children: [
@@ -161,8 +167,7 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                               padding: const EdgeInsets.all(5.0),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey.shade500),
-                                    borderRadius: BorderRadius.circular(20)),
+                                               color: Colors.white38   ),
                                 child: ListView.separated(
                                   itemBuilder: (BuildContext context, int index) {
                                     return SearchProduct(product![index]);
@@ -205,9 +210,7 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey.shade500),
-                                      borderRadius: BorderRadius.circular(20)),
+                                  decoration: BoxDecoration(),
                                   height: 400,
                                   width: 520,
                                   child: Padding(
@@ -250,11 +253,11 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                     child: Container(
                         child: CachedNetworkImage(
                             imageUrl: model.images![0].thump!))),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    model.name!,
-                    style: TextStyle(color: Colors.black, fontSize: 15),
+                SizedBox(width: 20,),
+                Expanded(
+                    child: Text(
+                      model.name!,
+                      style: TextStyle(color: Colors.black54, fontSize: 15),
                   ),
                 ),
               ],

@@ -25,7 +25,7 @@ class FetchIsFavorite extends FavoriteEvent {
 }
 
 class AddToFavoriteEvent extends FavoriteEvent {
-  final int productId;
+  final int? productId;
   final User user;
 
   AddToFavoriteEvent(

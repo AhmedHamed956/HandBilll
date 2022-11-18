@@ -56,9 +56,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     _companyBloc = BlocProvider.of<CompanyBloc>(context);
     _productsBloc..add(FetchProductDetails(id: _product.id));
     _productsBloc.similarPage = 1;
-    _productsBloc
-      ..add(FetchSimilarProductsEvent(
-          subcategoryId: _product.subSubCategoryId!, user: _user));
+    // _productsBloc..add(FetchSimilarProductsEvent(subcategoryId: _product.id!, user: _user));
     super.initState();
   }
 

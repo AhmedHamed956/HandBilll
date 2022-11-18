@@ -92,7 +92,7 @@ class APIData {
   // product
   static const productBySubCategory = domainLinkApi + 'user/products/2';
   static const getFeatured = domainLinkApi + 'foods';
-  static const productDetails = domainLinkApi + 'user/products';
+  static const productDetails = domainLinkApi + 'user/products/';
 
   // company
   static const getCompanyDetails = domainLinkApi + 'user/details-company';

@@ -299,7 +299,7 @@ class _ProductDetailsBoardState extends State<ProductDetailsBoard> {
                                 height: _favSize,
                                 width: _favSize,
                                 decoration: BoxDecoration(
-                                    color: mainColorLite,
+                                    color: Colors.red,
                                     borderRadius: BorderRadius.circular(90)),
                                 child: Icon(
                                     _favorite == false

@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hand_bill/src/blocs/search/search_event.dart';
 import 'package:hand_bill/src/data/model/local/route_argument.dart';
 import 'package:hand_bill/src/data/model/product.dart';
+import 'package:hand_bill/src/data/response/search/search_product_response.dart';
 
 import '../../../../../blocs/favorite/favorite_bloc.dart';
 import '../../../../../blocs/favorite/favorite_event.dart';
@@ -30,9 +31,8 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   User? user;
   HomeBloc? _homeBloc;
-  late Product product;
+  late SearchD product;
   late FavoriteBloc favoriteBloc;
-  String? isfavourite;
 
   late SearchBloc _searchBloc;
 
@@ -72,7 +72,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             _homeBloc!.popularList.forEach((element) {
               if (element.id == state.favoriteId) {
                 setState(() {
-                  element.isFavourite = '0';
+                  element.isFavourite = true;
                 });
               }
             });
@@ -85,11 +85,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                 textColor: Colors.white,
                 fontSize: 16.0);
           }
+
           if (state is RemoveFromFavoriteSuccessState) {
             _homeBloc!.popularList.forEach((element) {
               if (element.id == state.productId) {
                 setState(() {
-                  element.isFavourite = '1';
+                  element.isFavourite = false;
                 });
               }
             });
@@ -154,18 +155,23 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       right: 12,
                                       child: InkWell(
                                           onTap: () {
-                                            if (product.isFavourite == 0) {
+                                            if (product.isFavourite == false) {
                                               favoriteBloc.add(AddToFavoriteEvent(
-                                                  productId: product!.id,
+                                                  productId: product!.id!,
                                                   user: user!));
-                                              product.isFavourite = 1;
+                                              setState(() {
+                                                product.isFavourite = true;
+
+                                              });
+                                              product.isFavourite = true;
+
                                             } else {
                                               favoriteBloc.add(
                                                   RemoveFromFavoriteEvent(
                                                       user: user!,
-                                                      favoriteId: product.id));
+                                                      favoriteId: product!.id!));
 
-                                              product.isFavourite = 0;
+                                              product.isFavourite = false;
                                             }
                                           },
                                           child: Container(
@@ -176,7 +182,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                                                       BorderRadius.circular(90),
                                                   border: Border.all(
                                                       color: Color(0x14000000))),
-                                              child: Icon(product.isFavourite == 0 ?Icons.favorite_border : Icons.favorite_rounded,
+                                              child: Icon(product.isFavourite == false
+                                                  ?Icons.favorite_border
+                                                  : Icons.favorite_rounded,
                                                   size: 16,
                                                   color: Colors.red)))),
                                 ])),
@@ -196,39 +204,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     padding: EdgeInsets.only(left: 15),
                                     child: Align(
                                       alignment: Alignment.centerLeft,
-                                      child: Text(product.name,
+                                      child: Text(product!.name!,
                                           style: TextStyle(
                                             color: Colors.grey.shade800,
                                             fontSize: 15,
                                           )),
                                     )),
                               ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: Row(children: [
-                                Padding(
-                                    padding: const EdgeInsets.only(left: 15.0),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text('Country :',
-                                          style: TextStyle(
-                                            color: Colors.grey.shade700,
-                                            fontSize: 15,
-                                          )),
-                                    )),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: CachedNetworkImage(
-                                    width: 20,
-                                    // height: 200,
-                                    imageUrl: '${product.flag}',
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                              ]),
                             ),
 
                             Padding(
