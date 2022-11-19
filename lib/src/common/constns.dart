@@ -20,8 +20,8 @@ const imageEx =
 const imageFlag =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/255px-Flag_of_the_People%27s_Republic_of_China.svg.png";
 
-const placeholder =
-    "https://firebasestorage.googleapis.com/v0/b/handbill-48ed9.appspot.com/o/hb_logo.jpeg?alt=media&token=0b24c5dc-0b16-4e4c-b393-86b6e2a6db9b";
+const placeholder = "https://firebasestorage.googleapis.com/v0/b/handbill-48ed9.appspot.com/o/hb_logo.jpeg?alt=media&token=0b24c5dc-0b16-4e4c-b393-86b6e2a6db9b";
+const placeholderLogo = "assets/images/Hbill.jpeg";
 const String fontPrime = "Courgette";
 const String fontLogo = "LilyScriptOne";
 

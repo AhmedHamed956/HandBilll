@@ -544,17 +544,27 @@ class ShippingScreen extends StatefulWidget {
 
 class _ShippingScreenState extends State<ShippingScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(widget!.routeArgument!.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
     var model;
     return BlocProvider(
       create: ((context) => ShippingBloc()
-        ..getCategory(subNature: widget.routeArgument?.id.toString())),
+        ..getCategory(subNature: widget.routeArgument!.id.toString())),
       child: BlocConsumer<ShippingBloc, InterState>(
         listener: (context, state) {
           if (state is ShopIntresSuccessStates) {
+            print('aaaaaaaaaaaaaaaaaaaaaaaa');
             print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
           }
           if (state is ShopIntresErrorStates) {
+            print(';;;;;;;;;;;;;;;;;;;;;;');
+            print(state.error);
             print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
           }
         },
@@ -563,142 +573,56 @@ class _ShippingScreenState extends State<ShippingScreen> {
           return Scaffold(
             backgroundColor: Color(0xfff5f5f5),
             appBar:
-                RegularAppBar(label: widget.routeArgument!.param.toString()),
+            RegularAppBar(label: widget.routeArgument!.param.toString()),
             body: ConditionalBuilder(
               condition: ShippingBloc.get(context).companyModel != null,
-              builder: (context) => item(
-                model,
-              ),
-              fallback: (context) => Container(
-                color: Colors.white,
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ),
+              builder: (context) =>
+                  model == null
+              ? LoadingSliver()
+
+                 : item(model,),
+              fallback: (context) =>
+                  Container(color: Colors.white,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
             ),
           );
         },
-        // builder: (context, state) {
-        //   var model = ShippingBloc.get(context).companyModel;
-        //   return Scaffold(
-        //       backgroundColor: Color(0xfff5f5f5),
-        //       appBar:
-        //           RegularAppBar(label: widget.routeArgument!.param.toString()),
-        //       body: ConditionalBuilder(
-        //         condition: ShippingBloc.get(context).companyModel != null,
-        //         builder: (context) => item(model!),
-        //         fallback: (context) => Container(
-        //           color: Colors.white,
-        //           child: Center(
-        //             child: CircularProgressIndicator(),
-        //           ),
-        //         ),
-        //       ));
 
-        //   // return Scaffold(
-        //   //   backgroundColor: Color(0xfff5f5f5),
-        //   //   appBar:
-        //   //       RegularAppBar(label: widget.routeArgument!.param.toString()),
-        //   //   body: ConditionalBuilder(
-        //   //     condition: ShippingBloc.get(context).companyModel != null,
-        //   //     // HomeCubit.get(context).showFriendsModel != null,
-        //   //     builder: (context) {
-        //   //       return ListView.separated(
-        //   //           physics: BouncingScrollPhysics(),
-        //   //           // padding: EdgeInsets.symmetric(vertical: 16),
-        //   //           primary: false,
-        //   //           shrinkWrap: true,
-        //   //           itemCount: model!.data!.length,
-        //   //           scrollDirection: Axis.vertical,
-        //   //           itemBuilder: (context, index) {
-        //   //             return ShapWidget(
-        //   //               model: model.data.firs[index],
-        //   //             );
-        //   //           },
-        //   //           separatorBuilder: (BuildContext context, int index) =>
-        //   //               Container(height: 10, color: Color(0xffeeeeee)));
-        //   //     },
-        //   //     fallback: (context) => Container(
-        //   //       color: Colors.white,
-        //   //       child: Center(
-        //   //         child: CircularProgressIndicator(),
-        //   //       ),
-        //   //     ),
-        //   //     // builder: (BuildContext context, AsyncSnapshot snapshot) {
-        //   //     //   if (HomeCubit.get(context).categoriesModel.data == null) {
-        //   //     //     return CircularProgressIndicator();
-        //   //     //   } else {
-        //   //     //     return ListView.builder(
-        //   //     //         itemBuilder: (context, index) => buildCatItem(
-        //   //     //             HomeCubit.get(context).categoriesModel.data[index]),
-        //   //     //         itemCount:
-        //   //     //             HomeCubit.get(context).categoriesModel.data.length);
-        //   //     //   }
-        //   //     // },
-        //   //   ),
-        //   // );
-        // },
       ),
     );
   }
 
-  Widget item(
-    CompanyModel model,
-  ) =>
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-            child: ListView.separated(
-                physics: BouncingScrollPhysics(),
-
-                // padding: EdgeInsets.symmetric(vertical: 16),
-                primary: false,
-                shrinkWrap: true,
-                itemCount: model.data!.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) => ShapWidget(
-                      model: model.data![index],
-                    ),
-                separatorBuilder: (BuildContext context, int index) =>
-                    Container(height: 10, color: Color(0xffeeeeee))
+  Widget item(CompanyModel model) =>
+      InkWell(
+        onTap: (){
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+              child: ListView.separated(
+                  physics: BouncingScrollPhysics(),
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  primary: false,
+                  shrinkWrap: true,
+                  itemCount: model.data!.length,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) =>
+                      ShapWidget(
+                        model: model.data![index],
+                      ),
+                  separatorBuilder: (BuildContext context, int index) =>
+                      Container(height: 10, color: Color(0xffeeeeee))
                 //  ShapWidget(
                 //   model: model.data.firs[index],
                 // );
 
                 // separatorBuilder: (BuildContext context, int index) =>
                 //     Container(height: 10, color: Color(0xffeeeeee))
-                )),
+              )),
+        ),
       );
-
-  // Widget item(CompanyModel model) => SizedBox(
-  //       child: ListView.separated(
-  //           physics: BouncingScrollPhysics(),
-  //           // padding: EdgeInsets.symmetric(vertical: 16),
-  //           primary: false,
-  //           shrinkWrap: true,
-  //           itemCount: model.data!.length,
-  //           scrollDirection: Axis.vertical,
-  //           itemBuilder: (context, index) => ShapWidget(
-  //                 model: model.data![index],
-  //               ),
-  //           //  ShapWidget(
-  //           //   model: model.data.firs[index],
-  //           // );
-
-  //           separatorBuilder: (BuildContext context, int index) =>
-  //               Container(height: 10, color: Color(0xffeeeeee))),
-  //     );
-
-  // builder: (BuildContext context, AsyncSnapshot snapshot) {
-  //   if (HomeCubit.get(context).categoriesModel.data == null) {
-  //     return CircularProgressIndicator();
-  //   } else {
-  //     return ListView.builder(
-  //         itemBuilder: (context, index) => buildCatItem(
-  //             HomeCubit.get(context).categoriesModel.data[index]),
-  //         itemCount:
-  //             HomeCubit.get(context).categoriesModel.data.length);
-  //   }
-  // },
 
 }

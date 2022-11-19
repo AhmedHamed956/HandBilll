@@ -9,7 +9,9 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:hand_bill/src/blocs/search/search_event.dart';
 import 'package:hand_bill/src/blocs/search/search_state.dart';
 import 'package:hand_bill/src/data/model/Search_data.dart';
+import 'package:hand_bill/src/data/model/company.dart';
 import 'package:hand_bill/src/data/model/product.dart';
+import 'package:hand_bill/src/ui/screens/details_package/company/company_screen.dart';
 import 'package:hand_bill/src/ui/screens/navigation_package/search/Search_market/sub_categoies_screen.dart';
 
 import '../../../../../blocs/favorite/favorite_bloc.dart';
@@ -22,6 +24,7 @@ import '../../../../component/custom/login_first_widget_sliver.dart';
 import '../../../../component/custom/regular_app_bar.dart';
 import '../../../details_package/product_details/product_details_screen.dart';
 import '../../../services_package/patented/patents_screen.dart';
+import '../search_service/company_service_screen.dart';
 import 'Product_Details.dart';
 
 class SearchByCategoriesScreen extends StatefulWidget {
@@ -42,7 +45,8 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
   final double size = 20;
   int selectedPage = 0;
   FocusNode focusNode = FocusNode();
-  List<SearchD>? product;
+  List<DataProductSearch>? product;
+   Companies? companyy;
 
   @override
   void initState() {
@@ -86,6 +90,7 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                 onChanged: (value) {
                   // _onSubmitted(value.trim());
                   _searchBloc..add(SearchProductEvent(searchKey: _searchController.text));
+                  _searchBloc..add(SearchComEvent(searchKey: _searchController.text));
                   // _searchController.clear();
                 },
                 style: TextStyle(color: textLiteColor),
@@ -130,6 +135,9 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
               print(product!.first.name);
 
             }
+            if(state is SearchcompanySuccessState){
+              companyy = state.products;
+            }
             if (state is SearchCategoriesSuccessState) {
               print(state.toString());
               if (state.products!.isEmpty) {
@@ -149,9 +157,8 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                   ? Container()
                   : Column(
                     children: [
-
                       SizedBox(
-                          height: 165,
+                          height: 130,
                           child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Container(
@@ -165,13 +172,22 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                                       Container(
                                         height: 1,
                                         width: double.infinity,
-                                        color: Colors.grey.shade500,
+                                        color: Colors.grey.shade300,
                                       ),
                                 ),
                               ))),
+                      Container(width: double.infinity,
+                      height: 1,
+                      color: Colors.grey.shade300,),]),
+                      companyy == null
+                      ? Container()
+                      :Column(
+                        children: [
+                          Text(companyy!.data!.first.name!,style: TextStyle(color: Colors.black54),),
 
-                    ],
-                  ),
+                        ],
+                      ),
+
               data == null
                   ? CircularProgressIndicator()
                   : data!.length == 0
@@ -193,6 +209,7 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                                 ),
                               ),
                           ),
+
                           SizedBox(
                               height: 630,
                               child: Padding(
@@ -222,27 +239,27 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
     );
   }
 
-  Widget SearchProduct(SearchD model) {
+  Widget SearchProduct(DataProductSearch model) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, ProductDetails.routeName,
+        Navigator.pushNamed(context, CompanyScreen.routeName,
             arguments: RouteArgument(param: model));
       },
       child: Padding(
-        padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+        padding: const EdgeInsets.only(top: 5.0, bottom: 5),
         child: Container(
-            height: 60,
+            height: 50,
             width: 200,
-            child: Row(
+            child: Column(
               children: [
                 // CachedNetworkImage(imageUrl: model.flag),
+                // Padding(
+                //     padding: EdgeInsets.all(10),
+                //     child: Container(
+                //         child: CachedNetworkImage(
+                //             imageUrl: model.images![0].thump!))),
                 Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Container(
-                        child: CachedNetworkImage(
-                            imageUrl: model.images![0].thump!))),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 15.0),
                   child: Text(
                     model.name!,
                     style: TextStyle(color: Colors.black, fontSize: 15),
@@ -253,6 +270,38 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
       ),
     );
   }
+  Widget SearchCompany(DataProductSearch model) {
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, CompanyServiceScreen.routeName,
+            arguments: RouteArgument(param: model.id));
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(top: 4.0, bottom: 4),
+        child: Container(
+            height: 60,
+            width: 200,
+            child: Row(
+              children: [
+                // CachedNetworkImage(imageUrl: model.flag),
+                // Padding(
+                //     padding: EdgeInsets.all(10),
+                //     child: Container(
+                //         child: CachedNetworkImage(
+                //             imageUrl: model.company!.images![0].thump!))),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: Text(
+                    model.name!,
+                    style: TextStyle(color: Colors.black54, fontSize: 15),
+                  ),
+                ),
+              ],
+            )),
+      ),
+    );
+  }
+
 }
 
 class SearchCategories extends StatelessWidget {

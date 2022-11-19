@@ -57,7 +57,7 @@ class _SubSubCategoriesState extends State<SubSubCategories> {
       body: BlocConsumer<SearchBloc, SearchState>(
         listener: (context, state) {
           if(state is SearchSubSubCategoriesSuccessState){
-            print(state.subSubCategories![0].name!);
+            // print(state.subSubCategories![0].name!);
             if (state.subSubCategories!.isEmpty) {
               list = null;
             } else {
@@ -69,26 +69,18 @@ class _SubSubCategoriesState extends State<SubSubCategories> {
           }
         },
         builder: (context, state) {
-          return  CustomScrollView(
-              physics: BouncingScrollPhysics(),
-              reverse: true,
-              controller: _scrollController,
-              slivers: [
-                list == null
-                    ? LoadingSliver()
-                    : list!.length == 0
-                    ? CenterWidgetListSliver(label: "search is empty")
-                    : SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 780,
+          return  SingleChildScrollView(
+              child:  list == null
+                  ? Center(child: Padding(padding: EdgeInsets.only(top: 200),child: CircularProgressIndicator(),))
+                    :  SizedBox(
+                      height: 900,
                       child: ListView.separated(
                         itemBuilder: (BuildContext context, int index) {
                           return SearchSubCategories(model: list![index]);
                         },
                         itemCount: list!.length, separatorBuilder: (BuildContext context, int index)  =>SizedBox(height: 10,)
                       ),
-                    )),
-              ]);
+                    ));
         },
       ),
     );
@@ -113,10 +105,10 @@ class SearchSubCategories extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Color(0xffeeeeee), width: 1.5),
+                   border: Border.all(color: Color(0xffeeeeee), width: 1.5),
                   boxShadow: [
                     BoxShadow(
-                        color: Color(0xfff5f5f5), blurRadius: 3, spreadRadius: 3)
+                       color: Color(0xfff5f5f5), blurRadius: 3, spreadRadius: 3)
                   ]),
               child: Row(
                 children: [
@@ -131,7 +123,7 @@ class SearchSubCategories extends StatelessWidget {
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                color: Colors.black45,
+                                // color: Colors.black45,
                                 ),
                                 child: Image.network(model.image!.thump == null ? '${Icon(Icons.error,color: Colors.black,)}' :'${model.image!.thump}',width: 70,height: 50,),
                               ),

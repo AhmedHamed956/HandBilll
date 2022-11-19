@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 
 import '../common/api_data.dart';
+import '../data/model/serviceCategories_model.dart';
 import '../data/response/home/serviceCategory_reponse.dart';
 import '../data/response/search/search_companies_response.dart';
 
@@ -57,14 +58,14 @@ class ServiceRepository {
     return companyResponse;
   }
 
-  Future<ServiceResponse> getServicesData() async {
+  Future<ServiceCategoryModel> getServicesData() async {
     var queryParameters = {"secret": APIData.secretKey};
-    ServiceResponse? serviceResponse;
+    ServiceCategoryModel? serviceResponse;
     Response response;
     try {
       response = await _dio.get(APIData.getCompanyCategories,
           queryParameters: queryParameters);
-      serviceResponse = ServiceResponse.fromJson(response.data);
+      serviceResponse = ServiceCategoryModel.fromJson(response.data);
       log("dtaaaaaaaaaaaaa: ${jsonEncode(response.data)}");
       if (serviceResponse.status!) {
         return serviceResponse;

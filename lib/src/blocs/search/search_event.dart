@@ -15,6 +15,13 @@ class SearchProductEvent extends SearchEvent {
     print(searchKey);
   }
 }
+class SearchComEvent extends SearchEvent {
+  final String? searchKey;
+
+  SearchComEvent({required this.searchKey}){
+    print(searchKey);
+  }
+}
 
 // class SearchMarketEvent extends SearchEvent {
 //  class SearchMarketEvent extends SearchEvent {
@@ -42,7 +49,9 @@ class SearchSubSubCategoriesEvent extends SearchEvent{
 }
 class ProductEvent extends SearchEvent{
   final int id;
-  ProductEvent({required this.id});
+  ProductEvent({required this.id}){
+    print(id.toString());
+  }
 
 }
 class  isFavourite extends SearchEvent{final String? num;

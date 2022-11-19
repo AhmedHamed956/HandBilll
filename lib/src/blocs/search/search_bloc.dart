@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hand_bill/src/blocs/category/category_state.dart';
 import 'package:hand_bill/src/blocs/search/search_event.dart';
 import 'package:hand_bill/src/blocs/search/search_state.dart';
+import 'package:hand_bill/src/data/model/product.dart';
 import 'package:hand_bill/src/repositories/search_repository.dart';
 
 import '../../data/model/ServiceCategory/serviceCategory.dart';
@@ -19,7 +20,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   @override
   Stream<SearchState> mapEventToState(SearchEvent event) async* {
     if (event is SearchProductEvent) {
-      yield* _mapSearchProduct(event);
+      yield* _mapSearchProduct(event);}
+    if(event is SearchComEvent){
+      yield* _mapSearchcompany(event);
     }
 
     // if (event is SearchMarketEvent) {
@@ -36,7 +39,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
 
     if (event is ProductEvent) {
-      // yield* SearchProduct(event);
+       yield* SearchProduct(event);
     }
     if (event is isFavourite) {
       if (event.num == "1") {
@@ -49,13 +52,31 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     yield SearchProductsLoadingState();
     var response = await searchRepository.getSearchProducts(event.searchKey!);
     try {
-      print(response.products);
+      print(response.data);
       if (response.status!) {
-        final products = response.products!.data;
+        final products = response.data!.products!.data;
         print('omniaaa');
         print(products);
         // print(products!.data!.first.name);
         yield SearchProductsSuccessState(products: products);
+      } else {
+        yield SearchProductsErrorState(error: response.message.toString());
+      }
+    } catch (err) {
+      yield SearchProductsErrorState(error: err.toString());
+    }
+  }
+  Stream<SearchState> _mapSearchcompany(SearchComEvent event) async* {
+    yield SearchProductsLoadingState();
+    var response = await searchRepository.getSearchProducts(event.searchKey!);
+    try {
+      print(response.data);
+      if (response.status!) {
+        final products = response.data!.companies!;
+        print('omniaaa');
+        print(products);
+        // print(products!.data!.first.name);
+        yield SearchcompanySuccessState(products: products);
       } else {
         yield SearchProductsErrorState(error: response.message.toString());
       }
@@ -136,21 +157,21 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       yield SearchSubSubCategoriesErrorState(error: err.toString());
     }
   }
-
-  // Stream<SearchState> SearchProduct(ProductEvent event) async* {
-  //   yield ProductLoadingState();
-  //   final response = await searchRepository.getSearchProduct(event.id);
-  //   try {
-  //     if (response.status!) {
-  //       final products = response.data;
-  //       yield ProductSuccessState(products: products);
-  //     } else {
-  //       yield ProductErrorState(error: response.message.toString());
-  //     }
-  //   } catch (err) {
-  //     yield SearchProductsErrorState(error: err.toString());
-  //   }
-  // }
+// final List<Product products;
+  Stream<SearchState> SearchProduct(ProductEvent event) async* {
+    yield ProductLoadingState();
+    final response = await searchRepository.getSearchProduct(event.id);
+    try {
+      if (response.status!) {
+        final products = response.data!.products!.data;
+        yield ProductSuccessState(products: products);
+      } else {
+        yield ProductErrorState(error: response.message.toString());
+      }
+    } catch (err) {
+      yield SearchProductsErrorState(error: err.toString());
+    }
+  }
 
 
 }

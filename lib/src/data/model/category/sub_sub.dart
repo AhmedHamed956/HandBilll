@@ -1,3 +1,5 @@
+import 'package:hand_bill/src/data/model/local/images.dart';
+
 class SubSubCategoryModel {
   List<SubSubCategoryModelData>? data;
   bool? status;
@@ -30,14 +32,14 @@ class SubSubCategoryModel {
 class SubSubCategoryModelData {
   int? id;
   String? name;
-  Image? image;
+  ImageModel? image;
 
   SubSubCategoryModelData({this.id, this.name, this.image});
 
   SubSubCategoryModelData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    image = json['image'] != null ? new Image.fromJson(json['image']) : null;
+    image = json['image'] != null ? new ImageModel.fromJson(json['image']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -51,7 +53,7 @@ class SubSubCategoryModelData {
   }
 }
 
-class Image {
+class Imageee {
   int? id;
   String? modelId;
   String? description;
@@ -62,7 +64,7 @@ class Image {
   String? createdAt;
   String? updatedAt;
 
-  Image(
+  Imageee(
       {this.id,
       this.modelId,
       this.description,
@@ -73,7 +75,7 @@ class Image {
       this.createdAt,
       this.updatedAt});
 
-  Image.fromJson(Map<String, dynamic> json) {
+  Imageee.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     modelId = json['model_id'];
     description = json['description'];

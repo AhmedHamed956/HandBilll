@@ -50,17 +50,14 @@ class ShippingBloc extends Cubit<InterState> {
       // "page": page.toString(),
       // "paginate": "6",
       // "nature_activity": "shipping",
-      // "category_id": subNature
+      //  "category_id": subNature
     });
     _dio
-        .get(APIData.getShippingCompanies + subNature,
-            queryParameters: queryParams)
+        .get(APIData.getShippingCompanies + subNature)
         .then((value) {
       companyModel = CompanyModel.fromJson(value.data);
-      print(value.data);
       emit(ShopIntresSuccessStates());
     }).catchError((error) {
-      print(error.toString());
       emit(ShopIntresErrorStates(error.toString()));
     });
     // DioHelper.getdata(url: gift, token: token).then((value) {
@@ -75,9 +72,11 @@ class ShippingBloc extends Cubit<InterState> {
 
   SubCategoryModel? subCategoryModel;
   Future<void> getSubCategories({required id}) async {
+    print(id.toString());
     Map<String, dynamic> queryParams = ({
       // "secret": APIData.secretKey,
       "id": id,
+      'language':'ar'
       // "page": page.toString(),
       // "paginate": "6",
       // "nature_activity": "shipping",
@@ -103,9 +102,12 @@ class ShippingBloc extends Cubit<InterState> {
 
   SubSubCategoryModel? subsubCategoryModel;
   Future<void> getSubsubCategories({required id}) async {
+    print(id);
+    print('sdsdsdsd');
     Map<String, dynamic> queryParams = ({
       // "secret": APIData.secretKey,
       "id": id,
+      'language':'ar'
       // "page": page.toString(),
       // "paginate": "6",
       // "nature_activity": "shipping",

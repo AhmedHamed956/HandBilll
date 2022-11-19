@@ -1,3 +1,5 @@
+import 'package:hand_bill/src/data/model/local/images.dart';
+
 class CompanyModel {
   List<Data>? data;
   Links? links;
@@ -38,7 +40,7 @@ class Data {
   String? phone;
   String? country;
   String? email;
-  Null? logo;
+  Logo? logo;
   String? secondEmail;
   String? website;
   String? instagram;
@@ -55,25 +57,25 @@ class Data {
 
   Data(
       {this.id,
-      this.name,
-      this.flag,
-      this.phone,
-      this.country,
-      this.email,
-      this.logo,
-      this.secondEmail,
-      this.website,
-      this.instagram,
-      this.hotLine,
-      this.facebook,
-      this.whatsApp,
-      this.firstMobile,
-      this.services,
-      this.twitter,
-      this.commercialRegister,
-      this.companyInfo,
-      this.taxCard,
-      this.address});
+        this.name,
+        this.flag,
+        this.phone,
+        this.country,
+        this.email,
+        this.logo,
+        this.secondEmail,
+        this.website,
+        this.instagram,
+        this.hotLine,
+        this.facebook,
+        this.whatsApp,
+        this.firstMobile,
+        this.services,
+        this.twitter,
+        this.commercialRegister,
+        this.companyInfo,
+        this.taxCard,
+        this.address});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -82,7 +84,7 @@ class Data {
     phone = json['phone'];
     country = json['country'];
     email = json['email'];
-    logo = json['logo'];
+    logo = json['logo'] != null ? new Logo.fromJson(json['logo']) : null;
     secondEmail = json['second_email'];
     website = json['website'];
     instagram = json['instagram'];
@@ -106,7 +108,9 @@ class Data {
     data['phone'] = this.phone;
     data['country'] = this.country;
     data['email'] = this.email;
-    data['logo'] = this.logo;
+    if (this.logo != null) {
+      data['logo'] = this.logo!.toJson();
+    }
     data['second_email'] = this.secondEmail;
     data['website'] = this.website;
     data['instagram'] = this.instagram;
@@ -123,6 +127,56 @@ class Data {
     return data;
   }
 }
+
+class Logo {
+  int? id;
+  String? modelId;
+  String? description;
+  String? modelType;
+  String? thump;
+  String? icon;
+  String? url;
+  String? createdAt;
+  String? updatedAt;
+
+  Logo(
+      {this.id,
+        this.modelId,
+        this.description,
+        this.modelType,
+        this.thump,
+        this.icon,
+        this.url,
+        this.createdAt,
+        this.updatedAt});
+
+  Logo.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    modelId = json['model_id'];
+    description = json['description'];
+    modelType = json['model_type'];
+    thump = json['thump'];
+    icon = json['icon'];
+    url = json['url'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['model_id'] = this.modelId;
+    data['description'] = this.description;
+    data['model_type'] = this.modelType;
+    data['thump'] = this.thump;
+    data['icon'] = this.icon;
+    data['url'] = this.url;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
+  }
+}
+
 
 class Links {
   String? first;

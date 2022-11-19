@@ -305,7 +305,9 @@ late String id;
   @override
   void initState() {
     id = widget.routeArgument!.id!;
+    print(widget.routeArgument!.id);
     print(id);
+    print('ddddddddddddd');
     // _categoryBloc = BlocProvider.of<CategoryBloc>(context);
     // if (_categoryBloc!.categories == null ||
     //     _categoryBloc!.categories!.length == 0)
@@ -365,10 +367,10 @@ late String id;
       child: BlocConsumer<ShippingBloc, InterState>(
         listener: (context, state) {
           if (state is ShopIntresSuccessStates) {
-            print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+            print('omniaaaaaaaaaaaaaaaaaaaaa');
           }
           if (state is ShopIntresErrorStates) {
-            print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+            print('dddddsdssdssssssss');
           }
         },
         builder: (context, state) {
@@ -455,7 +457,7 @@ late String id;
 
   Widget item(SubCategoryModel model) => ListView(children: [
         GridView.count(
-            padding: EdgeInsets.fromLTRB(10, 0, 10, 16),
+            // padding: EdgeInsets.fromLTRB(10, 0, 10, 16),
             childAspectRatio: 1 / 0.7,
             crossAxisCount: 2,
             crossAxisSpacing: 2,
@@ -465,6 +467,7 @@ late String id;
             children: List.generate(model.data!.length, (index) {
               return InkWell(
                 onTap: () {
+                  print('fdfdfdfdfdfdf');
                   print('${model.data![index].id}');
                   Navigator.pushNamed(context, SubSubCatScreen.routeName,
                       arguments: RouteArgument(
@@ -477,11 +480,10 @@ late String id;
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
                     child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                        padding:EdgeInsets.all(30),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            // crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(model.data![index].name.toString(),
                                   style: model.data![index].id.toString() ==

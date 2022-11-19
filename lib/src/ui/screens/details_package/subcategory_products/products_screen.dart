@@ -20,6 +20,8 @@ import 'package:hand_bill/src/ui/component/product/product_ver_empty_widget.dart
 import 'package:hand_bill/src/ui/component/product/product_ver_widget.dart';
 import 'package:hand_bill/src/ui/component/widgets.dart';
 
+import '../../../../data/model/category/sub_sub.dart';
+
 
 class ProductsScreen extends StatefulWidget {
 
@@ -39,7 +41,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
   late ScrollController _scrollController;
   late double offsetVisibleThreshold;
-  late SubSubCategoryModel _subCategory;
+  late SubSubCategoryModelData _subCategory;
   late ProductsBloc _productsBloc;
   bool gridOrList = true;
   User? _user;

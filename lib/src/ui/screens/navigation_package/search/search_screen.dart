@@ -23,6 +23,8 @@ import 'package:hand_bill/src/ui/component/product/product_hor_widget.dart';
 import 'package:hand_bill/src/ui/component/product/product_ver_empty_widget.dart';
 import 'package:hand_bill/src/ui/component/product/product_ver_widget.dart';
 
+import '../../../../data/response/search/search_product_response.dart';
+
 
 class SearchScreen extends StatefulWidget {
   static const routeName = "/searchScreen";
@@ -33,7 +35,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   List<Product>? _products = [];
-  List<Company>? _companies = [];
+  List<DataProductSearch>? _companies = [];
 
   User? _user;
 
@@ -170,21 +172,21 @@ class _SearchScreenState extends State<SearchScreen> {
                     // }
                     // _searchBloc.isFetching = false;
                   }
-                  if (state is SearchCompaniesSuccessState) {
-                    if (state.companies!.isEmpty) {
-                      _companies = null;
-                    } else {
-                      _companies = [];
-                      _companies!.clear();
-                      _companies!.addAll(state.companies!);
-
-                      if (_searchController.text.isNotEmpty) {
-                        await storage.write(key: "recentSearchMarket",
-                            value: _searchController.text);
-                      }
-                    }
+                  // if (state is SearchCompaniesSuccessState) {
+                  //   if (state.companies!.isEmpty) {
+                  //     _companies = null;
+                  //   } else {
+                  //     _companies = [];
+                  //     _companies!.clear();
+                  //     _companies!.addAll(state.companies!);
+                  //
+                  //     if (_searchController.text.isNotEmpty) {
+                  //       await storage.write(key: "recentSearchMarket",
+                  //           value: _searchController.text);
+                  //     }
+                  //   }
                     _searchBloc.isFetching = false;
-                  }
+                  // }
                 }),
 
                 ], child:
@@ -264,72 +266,69 @@ class _SearchScreenState extends State<SearchScreen> {
                     SliverToBoxAdapter(child: SizedBox(height: marginVertical)),
 
                     // products
-                    selectedPage == 0
-                        ? _products == null
-                        ?
-                    NoResultsWidget()
-                        :
-                    SliverToBoxAdapter(
-                        child: gridOrList == false ? ListView.separated(
-                            padding:
-                            EdgeInsets.symmetric(horizontal: 16),
-                            primary: false,
-                            shrinkWrap: true,
-                            itemCount: _products!.isNotEmpty
-                                ? _products!.length
-                                : 2,
-                            scrollDirection: Axis.vertical,
-                            itemBuilder: (context, index) {
-                              if (_products!.isNotEmpty) {
-                                return ProductVerWidget(
-                                    model: _products![index], user: _user,
-                                    favoriteBloc: _favoriteBloc);
-                              }
-                              return ProductVerEmptyWidget();
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) =>
-                                SizedBox(height: 24)) : StaggeredGridView
-                            .countBuilder(
-                            padding:
-                            EdgeInsets.symmetric(horizontal: 16),
-                            shrinkWrap: true,
-                            primary: false,
-                            crossAxisCount: 4,
-                            mainAxisSpacing: 16,
-                            crossAxisSpacing: 16,
-                            staggeredTileBuilder: (int x) =>
-                                StaggeredTile.count(
-                                    2, x.isEven ? 4 : 3),
-                            itemBuilder:
-                                (BuildContext context, int index) {
-                              return ProductHorWidget(
-                                  model: _products![index],
-                                  user: _user,
-                                  favoriteBloc: _favoriteBloc,canFav: false);
-                            },
-                            itemCount: _products!.length))
-                    // markets
-                        : _companies == null
-                        ?
-                    NoResultsWidget() : SliverToBoxAdapter(
-                        child: ListView.separated(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            primary: false,
-                            shrinkWrap: true,
-                            itemCount:
-                            _companies!.isNotEmpty ? _companies!.length : 2,
-                            scrollDirection: Axis.vertical,
-                            itemBuilder: (context, index) {
-                              if (_companies!.isNotEmpty) {
-                                return CompanySearchWidget(
-                                    model: _companies![index]);
-                              }
-                              return MarketEmptyWidget();
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) =>
-                                SizedBox(height: 24))),
+                    // selectedPage == 0
+                    //     ? _products == null
+                    //     : SliverToBoxAdapter(
+                    //     child: gridOrList == false ? ListView.separated(
+                    //         padding:
+                    //         EdgeInsets.symmetric(horizontal: 16),
+                    //         primary: false,
+                    //         shrinkWrap: true,
+                    //         itemCount: _products!.isNotEmpty
+                    //             ? _products!.length
+                    //             : 2,
+                    //         scrollDirection: Axis.vertical,
+                    //         itemBuilder: (context, index) {
+                    //           if (_products!.isNotEmpty) {
+                    //             return ProductVerWidget(
+                    //                 model: _products![index], user: _user,
+                    //                 favoriteBloc: _favoriteBloc);
+                    //           }
+                    //           return ProductVerEmptyWidget();
+                    //         },
+                    // //         separatorBuilder:
+                    // //             (BuildContext context, int index) =>
+                    // //             SizedBox(height: 24)) : StaggeredGridView
+                    // //         .countBuilder(
+                    // //         padding:
+                    // //         EdgeInsets.symmetric(horizontal: 16),
+                    // //         shrinkWrap: true,
+                    // //         primary: false,
+                    // //         crossAxisCount: 4,
+                    // //         mainAxisSpacing: 16,
+                    // //         crossAxisSpacing: 16,
+                    // //         staggeredTileBuilder: (int x) =>
+                    // //             StaggeredTile.count(
+                    // //                 2, x.isEven ? 4 : 3),
+                    // //         itemBuilder:
+                    // //             (BuildContext context, int index) {
+                    // //           return ProductHorWidget(
+                    // //               model: _products![index],
+                    // //               user: _user,
+                    // //               favoriteBloc: _favoriteBloc,canFav: false);
+                    // //         },
+                    // //         itemCount: _products!.length))
+                    // // // markets
+                    // //     : _companies == null
+                    // //     ?
+                    // // NoResultsWidget() : SliverToBoxAdapter(
+                    // //     child: ListView.separated(
+                    // //         padding: EdgeInsets.symmetric(horizontal: 16),
+                    // //         primary: false,
+                    // //         shrinkWrap: true,
+                    // //         itemCount:
+                    // //         _companies!.isNotEmpty ? _companies!.length : 2,
+                    // //         scrollDirection: Axis.vertical,
+                    // //         itemBuilder: (context, index) {
+                    // //           if (_companies!.isNotEmpty) {
+                    // //             return CompanySearchWidget(
+                    // //                 model: _companies![index]);
+                    // //           }
+                    // //           return MarketEmptyWidget();
+                    // //         },
+                    //         separatorBuilder:
+                    //             (BuildContext context, int index) =>
+                    //             SizedBox(height: 24))),
                     SliverToBoxAdapter(
                         child: SizedBox(height: marginVertical * 2))
                   ]);

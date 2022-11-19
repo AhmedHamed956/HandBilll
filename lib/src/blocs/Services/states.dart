@@ -35,7 +35,7 @@ class getCompnyErrorState extends ServiceState {
   const getCompnyErrorState({required this.errors});
 }
 class CategoriesAddSuccessState extends ServiceState{
-  List<ServiceCategoryModel>? items;
+  List<GetDataCategory>? items;
   CategoriesAddSuccessState({required this.items}){
     print('ddddddddffdfdfdfdfdfdfdf');
     print(items!.first.name);
@@ -64,11 +64,11 @@ class CategoriesAddLoadingState extends ServiceState{}
 class CategoriesAddErrorState extends ServiceState{}
 //  Categories
 class CategoriesSuccessState extends ServiceState {
-  final List<ServiceCategoryModel>? items;
+  final List<GetDataCategory>? items;
 
    CategoriesSuccessState({required this.items}){
     print('ddddddddffdfdfdfdfdfdfdf');
-    print(items!.first.name);
+    // print(items!.first.name);
   }
 }
 

@@ -25,11 +25,21 @@ class SearchInitialState extends SearchState {
 class SearchProductsLoadingState extends SearchState {}
 
 class SearchProductsSuccessState extends SearchState {
-  final List<SearchD>? products;
+  final List<DataProductSearch>? products;
 
    SearchProductsSuccessState({required this.products}){
      print('fggfgfgfg');
     print(products!.first.name);
+  }
+}
+
+
+class SearchcompanySuccessState extends SearchState {
+   final Companies? products;
+
+   SearchcompanySuccessState({required this.products}){
+    print('fggfgfgfg');
+     // print(products!.name!);
   }
 }
 
@@ -44,7 +54,7 @@ class SearchProductsErrorState extends SearchState {
 class SearchCompaniesLoadingState extends SearchState {}
 
 class SearchCompaniesSuccessState extends SearchState {
-  final List<Company>? companies;
+  final List<DataCompanySearch>? companies;
 
    SearchCompaniesSuccessState({required this.companies})
   {
@@ -107,6 +117,7 @@ class SearchSubSubCategoriesSuccessState extends SearchState {
   List<Categories>? subSubCategories;
   SearchSubSubCategoriesSuccessState({this.subSubCategories}){
     print('omniaaaaaaaaaa');
+
     print(subSubCategories);
   }
 }
@@ -121,7 +132,7 @@ class SearchSubSubCategoriesErrorState extends SearchState {
 class ProductLoadingState extends SearchState {}
 
 class ProductSuccessState extends SearchState {
-  final List<Product>? products;
+  final List<DataProductSearch>? products;
 
   const ProductSuccessState({required this.products});
 }

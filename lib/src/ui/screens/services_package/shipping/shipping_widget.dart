@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hand_bill/src/common/api_data.dart';
 import 'package:hand_bill/src/common/constns.dart';
 import 'package:hand_bill/src/data/model/serviceCategories_model.dart';
 
 class ShippingWidget extends StatelessWidget {
-  final ServiceCategoryModel model;
+  final GetDataCategory model;
   final Function onTap;
 
   ShippingWidget({required this.model, required this.onTap});
@@ -23,37 +24,35 @@ class ShippingWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      // height: 50,
-                      // width: 50,
-                      child: Image.asset(
-                        "assets/images/Hbill.jpeg",
-                        height: 60,
-                      ),
-                    ),
-                    // model.image == null
-                    //     ? Container(
-                    //         // height: 50,
-                    //         // width: 50,
-                    //         child: Image.asset(
-                    //           "assets/images/Hbill.jpeg",
-                    //           height: 60,
-                    //         ),
-                    //       )
-                    //     : Image.network(
-                    //         model.image.toString(),
-                    //         height: 40,
-                    //       ),
-                    Text(model.name.toString(),
-                        style: model.selected == true
-                            ? TextStyle(
+                    // Container(
+                    //   // height: 50,
+                    //   // width: 50,
+                    //   child: Image.asset(
+                    //     "assets/images/Hbill.jpeg",
+                    //     height: 60,
+                    //   ),
+                    // ),
+                    model.image == null
+                        ? Container(
+                            // height: 50,
+                            // width: 50,
+                            child: Image.asset(
+                              "assets/images/Hbill.jpeg",
+                              height: 60,
+                            ),
+                          )
+                        : Image.network('${APIData.domainLink}${model.image!.thump}',
+                            height: 40,
+                          ),
+                    Text(model.name.toString(),style:
+                        // style: model.selected == true
+                             TextStyle(
                                 color: mainColorLite,
                                 fontWeight: FontWeight.w500,
-                                fontSize: 12)
-                            : TextStyle(
-                                color: textDarkColor,
-                                fontWeight: FontWeight.w500,
-                              ),
+                                fontSize: 12),
+                        //     : TextStyle(
+                        //         color: textDarkColor,
+                        //         fontWeight: FontWeight.w500,
                         maxLines: 3,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis)

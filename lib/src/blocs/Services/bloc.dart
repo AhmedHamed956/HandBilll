@@ -76,15 +76,15 @@ class ServiceBlocData extends Bloc<ServiceEvent, ServiceState> {
     }
   }
 
-  List<ServiceCategoryModel>? categories;
+  List<GetDataCategory>? categories;
   Stream<ServiceState> _mapFetchCategories() async* {
     yield CategoriesAddLoadingState();
     final response = await serviceRepository.getServicesData();
     if (response.status!) {
-      final items = response.data;
+      final items = response.data!;
       if (categories == null) {
         categories = items;
-        print(items!.first.name);
+        // print(items!.first.name);
         print('omniaaaaaaaaaaaaaa');
       }
       yield CategoriesAddSuccessState(items: items);

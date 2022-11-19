@@ -22,6 +22,7 @@ class _SubSubCatScreenState extends State<SubSubCatScreen> {
   @override
   void initState() {
     super.initState();
+    print(widget.routeArgument!.id.toString());
   }
 
   @override

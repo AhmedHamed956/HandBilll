@@ -389,6 +389,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hand_bill/src/blocs/search/search_event.dart';
+import 'package:hand_bill/src/common/api_data.dart';
 import 'package:hand_bill/src/data/model/local/route_argument.dart';
 import 'package:hand_bill/src/data/model/product.dart';
 import 'package:hand_bill/src/data/response/search/search_product_response.dart';
@@ -416,7 +417,7 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   User? user;
   HomeBloc? _homeBloc;
-  late SearchD product;
+  late DataProductSearch product;
   late FavoriteBloc favoriteBloc;
   String? isfavourite;
 
@@ -451,6 +452,17 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButton(icon: Icon(Icons.arrow_back_ios,color: Colors.black,),onPressed: (){
+          Navigator.pop(context);
+
+        },),
+        title: Text('Back',style: TextStyle(
+          color: Colors.black,
+          fontSize: 25
+        ),),
+      ),
       backgroundColor: Colors.grey.shade100,
       body: BlocConsumer<FavoriteBloc, FavoriteState>(
         listener: (context, state) {
@@ -525,7 +537,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                           // height: 200,
                                           imageUrl: product!.images!.isEmpty
                                               ? placeholder
-                                              : product!.images![0].thump!,
+                                              : '${APIData.domainLink}${product.images![0].thump!}',
                                           placeholder: (context, url) => Center(
                                               heightFactor: 1,
                                               widthFactor: 1,

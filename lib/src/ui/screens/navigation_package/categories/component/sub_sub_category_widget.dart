@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hand_bill/src/common/api_data.dart';
 import 'package:hand_bill/src/common/constns.dart';
 import 'package:hand_bill/src/data/model/local/route_argument.dart';
 import 'package:hand_bill/src/ui/screens/details_package/subcategory_products/products_screen.dart';
 
+import '../../../../../data/model/category/sub_sub.dart';
+
 class SubSubCategoryWidget extends StatelessWidget {
-  final model;
+  final SubSubCategoryModelData? model;
 
   SubSubCategoryWidget({required this.model});
 
@@ -24,9 +27,9 @@ class SubSubCategoryWidget extends StatelessWidget {
                 children: [
                   Expanded(
                       flex: 4,
-                      child: model.image != null
+                      child: model!.image != null
                           ? CachedNetworkImage(
-                              imageUrl: model.image!.thump!,
+                              imageUrl: '${model!.image!.thump!}',
                               // height: 160.h,
                               // width: 210.w,
                               // fit: BoxFit.cover,
@@ -37,11 +40,6 @@ class SubSubCategoryWidget extends StatelessWidget {
                                     "assets/images/loading.gif",
                                     fit: BoxFit.cover,
                                   )),
-                              errorWidget: (context, url, error) =>
-                                  new Image.asset(
-                                "assets/images/hb_logo.jpeg",
-                                fit: BoxFit.contain,
-                              ),
                             )
                           : Image.asset(
                               "assets/images/hb_logo.jpeg",
@@ -58,7 +56,7 @@ class SubSubCategoryWidget extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(horizontal: 6),
                                 child: SizedBox(
                                   height: 24,
-                                  child: Text(model.name ?? "name",
+                                  child: Text(model!.name ?? "name",
                                       style: TextStyle(
                                           color: textDarkColor, fontSize: 11),
                                       overflow: TextOverflow.clip,

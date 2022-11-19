@@ -30,7 +30,7 @@ class SearchRepository {
       log("sss: ${jsonEncode(response.data)}");
       print(response.data);
       searchResponse = SearchProductResponse.fromJson(response.data);
-       print(searchResponse.products);
+       print(searchResponse.data);
       if (searchResponse.status!) {
         return searchResponse;
       } else {
@@ -99,7 +99,7 @@ class SearchRepository {
 
       serviceResponse = ServiceResponse.fromJson(response.data);
        log("getSearchCompanies:[ ${jsonEncode(response.data)}]");
-       print(serviceResponse.data!.first.name);
+       // print(serviceResponse.data!.first.name);
       if (serviceResponse.status!) {
         return serviceResponse;
       } else {

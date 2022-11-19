@@ -33,14 +33,7 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
   @override
   void initState() {
     id = widget!.routeArgument!.param;
-    print(id);
-    print(id);
-    print(id);
-    print(id);
-    print(id);
-    print(id);
-    print(id);
-    print(id);
+
     _searchBloc = BlocProvider.of<SearchBloc>(context);
     _searchBloc..add(SearchAllSubCategoriesEvent(id: id));
     super.initState();
@@ -69,26 +62,27 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
         }
       }
     }, builder: (context, state) {
-      return CustomScrollView(
-          physics: BouncingScrollPhysics(),
-          reverse: true,
-          controller: _scrollController,
-          slivers: [
-            list == null
-                ? LoadingSliver()
+      return SingleChildScrollView(
+        controller: _scrollController,
+            child: list == null
+                ? Padding(
+                  padding: const EdgeInsets.only(top: 200.0),
+                  child: Center(child: CircularProgressIndicator()),
+                )
                 : list!.length == 0
                     ? CenterWidgetListSliver(label: "search is empty")
-                    : SliverToBoxAdapter(
-                        child: SizedBox(
-                        height: 780,
-                        child: ListView.builder(
+                    : SizedBox(
+              height: 900,
+              child:
+                ListView.builder(
                           itemBuilder: (BuildContext context, int index) {
                             return SearchCategories(model: list![index]);
                           },
                           itemCount: list!.length,
-                        ),
-                      )),
-          ]);
+
+                      )
+            ),
+          );
     }));
   }
 }

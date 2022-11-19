@@ -343,14 +343,14 @@ class _ShippingMainScreenState extends State<ShippingMainScreen>
   //         )),
   //   );
   // }
-  List<ServiceCategoryModel>? _categories;
+  List<GetDataCategory>? _categories;
 
   List<SubCategoryModel>? _subCategories;
 
   ScrollController? _scrollController;
   double offsetVisibleThreshold = 100;
 
-  ServiceCategoryModel? _selectedCategory;
+  GetDataCategory? _selectedCategory;
   ServiceBlocData? _serviceBloc;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -658,11 +658,11 @@ class _ShippingMainScreenState extends State<ShippingMainScreen>
   }
 
   onCategoryTap(
-    ServiceCategoryModel serviceCategoryModel,
+      GetDataCategory serviceCategoryModel,
   ) {
-    if (_serviceBloc!.categories!.first.selected == true) {
+    // if (_serviceBloc!.categories!.first.data!.first.s == true) {
       // _serviceBloc!.categories!.first.selected = false;
-    }
+    // }
     // setState(() {
     if (_selectedCategory != null) {
       // _selectedCategory!.selected = false;
@@ -678,7 +678,7 @@ class _ShippingMainScreenState extends State<ShippingMainScreen>
 
       Navigator.pushNamed(context, ShippingScreen.routeName,
           arguments: RouteArgument(
-              param: serviceCategoryModel.name.toString(),
+              param: serviceCategoryModel.name,
               id: serviceCategoryModel.id.toString()));
     });
     // _categoryBloc!
