@@ -112,7 +112,7 @@ class SearchRepository {
   }
 
 
-  Future<SearchCategoriesResponse> getAllCategories() async{
+  Future<SearchCategoriesResponse>  getAllCategories() async{
    late SearchCategoriesResponse searchCategoriesResponse;
     try {
       Response response =

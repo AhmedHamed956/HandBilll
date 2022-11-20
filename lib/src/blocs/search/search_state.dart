@@ -25,17 +25,17 @@ class SearchInitialState extends SearchState {
 class SearchProductsLoadingState extends SearchState {}
 
 class SearchProductsSuccessState extends SearchState {
-  final List<DataProductSearch>? products;
+  final AllDataSearch? products;
 
    SearchProductsSuccessState({required this.products}){
-     print('fggfgfgfg');
-    print(products!.first.name);
+     print('ssssssss');
+    // print(products!.first.name);
   }
 }
 
 
 class SearchcompanySuccessState extends SearchState {
-   final Companies? products;
+   final AllDataSearch? products;
 
    SearchcompanySuccessState({required this.products}){
     print('fggfgfgfg');

@@ -922,12 +922,12 @@ class DataCompanySearch {
   String? createdAt;
   String? updatedAt;
   String? representativeAble;
-  Null? representativeNote;
+  dynamic? representativeNote;
   String? fromDate;
   String? toDate;
-  Null? emailVerifiedAt;
+  dynamic? emailVerifiedAt;
   String? categoryId;
-  Null? nameAr;
+  String? nameAr;
 
   DataCompanySearch(
       {this.id,

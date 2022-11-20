@@ -54,7 +54,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     try {
       print(response.data);
       if (response.status!) {
-        final products = response.data!.products!.data;
+        final products = response.data!;
         print('omniaaa');
         print(products);
         // print(products!.data!.first.name);
@@ -72,10 +72,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     try {
       print(response.data);
       if (response.status!) {
-        final products = response.data!.companies!;
+        final products = response.data!;
         print('omniaaa');
         print(products);
-        // print(products!.data!.first.name);
         yield SearchcompanySuccessState(products: products);
       } else {
         yield SearchProductsErrorState(error: response.message.toString());

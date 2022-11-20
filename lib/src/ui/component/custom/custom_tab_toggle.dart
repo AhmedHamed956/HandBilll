@@ -47,7 +47,7 @@ class _CustomTabToggleState extends State<CustomTabToggle> {
         margin: EdgeInsets.symmetric(horizontal: widget.marginHor),
         padding: EdgeInsets.all(4),
         clipBehavior: Clip.hardEdge,
-        height: MediaQuery.of(context).size.height * 0.08,
+        height: MediaQuery.of(context).size.height * 0.07,
         decoration: BoxDecoration(
             color: _backColor,
             border: Border.all(color: Color(0xffeeeeee)),
