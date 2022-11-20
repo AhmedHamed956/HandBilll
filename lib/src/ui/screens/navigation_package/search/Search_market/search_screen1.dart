@@ -80,7 +80,7 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
         if(product!.isEmpty){
           product!.clear();
           product = null;
-        }else if(companyy!.isEmpty){
+        }else if(companyy!.isEmpty) {
           companyy!.clear();
           companyy = null;
         }
@@ -113,8 +113,10 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                   if(_searchController!.text.isEmpty!){
                     setState(() {
                       product!.clear();
-                       companyy!.clear();
+                      companyy!.clear();
+
                     });
+
                   }
                 },
                 style: TextStyle(color: textLiteColor),
@@ -209,8 +211,8 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                               children: [
                                 selectedPage ==0
                                ? Column(children: [
-                                  _searchController.text.isEmpty && selectedPage == 0
-                                   ?Container(
+                                  _searchController.text.isEmpty
+                                      ?Container(
                                         height: 10,
                                   )
                                   :   product == null
@@ -250,13 +252,12 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                                     height: 1,
                                     color: Colors.grey.shade300,),
                       ])
-                                    : Column(children: [
-
-                                  _searchController.text.isEmpty && selectedPage == 1
+                                :Column(children: [
+                                  selectedPage == 1 && _searchController.text.isEmpty
                                       ?Container(
                                     height: 10,
                                   )
-                                      :   companyy == null
+                                  :  companyy == null
                                       ? Container(
                                     height: 100,
                                     width: 400,
@@ -269,8 +270,7 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                                       ],
                                     ),
                                   )
-                                      :
-                                  SizedBox(
+                                      : SizedBox(
                                       height: 130,
                                       child: Padding(
                                           padding: const EdgeInsets.all(5.0),

@@ -114,7 +114,7 @@ Widget CompanyServiceData(Company company,context) {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Text(
-              company.name,
+              company!.name!,
               style: TextStyle(color: Colors.black26),
             ),
           ),

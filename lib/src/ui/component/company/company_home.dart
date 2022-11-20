@@ -97,7 +97,7 @@ class CompanyHorWidget extends StatelessWidget {
                                   textAlign: TextAlign.start),
                             ),
                             Expanded(
-                                child: Text(model.country!,
+                                child: Text(model.flag!,
                                     style: TextStyle(
                                       color: textLiteColor,
                                       fontSize: 13,

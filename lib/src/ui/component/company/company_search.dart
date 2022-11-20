@@ -107,7 +107,7 @@ class CompanySearchWidget extends StatelessWidget {
                                       textAlign: TextAlign.start),
                                   SizedBox(height: 8),
                                   Expanded(
-                                      child: Text(model.country!,
+                                      child: Text(model.flag!,
                                           style: TextStyle(
                                             color: textLiteColor,
                                             fontSize: 13,

@@ -276,7 +276,7 @@ class _OfferDetailsScreenState extends State<OfferDetailsScreen> {
                                                 color: Colors.black,
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.bold)),
-                                        Text(_model.company!.country!,
+                                        Text(_model.company!.flag!,
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 14))

@@ -907,12 +907,12 @@ class DataCompanySearch {
   String? subNatureActivity;
   String? hasFirstImage;
   String? planId;
-  String? isVerified;
+  bool? isVerified;
   String? hasLogo;
   String? hasData;
   String? deviceToken;
   String? expirationDate;
-  String? active;
+  bool? active;
   String? apiToken;
   String? email;
   String? country;

@@ -99,7 +99,7 @@ class CustomsWidget extends StatelessWidget {
                                             fontWeight: FontWeight.bold),
                                         maxLines: 1),
                                     SizedBox(height: 6),
-                                    Text(model.country.toString(),
+                                    Text(model.flag.toString(),
                                         style: TextStyle(
                                             color: textDarkColor,
                                             fontSize: 14)),

@@ -256,6 +256,8 @@
 
 import 'dart:async';
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
@@ -287,6 +289,7 @@ class SubCategories extends StatefulWidget {
   late final RouteArgument? routeArgument;
 
   SubCategories({required this.routeArgument});
+
   _SubCategoriesState createState() => _SubCategoriesState();
 }
 
@@ -302,7 +305,9 @@ class _SubCategoriesState extends State<SubCategories>
   // CategoryModel? _selectedCategory;
   // CategoryBloc? _categoryBloc;
   // final _scaffoldKey = GlobalKey<ScaffoldState>();
-late String id;
+  late String id;
+  int _sliderPosition = 0;
+
   @override
   void initState() {
     id = widget.routeArgument!.id!;
@@ -333,6 +338,7 @@ late String id;
     // _scrollController = ScrollController()..addListener(_onScroll);
     super.initState();
   }
+
 
   @override
   void dispose() {
@@ -377,20 +383,63 @@ late String id;
         builder: (context, state) {
           model = ShippingBloc.get(context).subCategoryModel;
           return Scaffold(
-            backgroundColor: Color(0xfff5f5f5),
-            appBar:
-                RegularAppBar(label: widget.routeArgument!.param.toString()),
-            body: ConditionalBuilder(
-              condition: ShippingBloc.get(context).subCategoryModel != null,
-              builder: (context) => item(model),
-              fallback: (context) => Container(
-                color: Colors.white,
-                child: Center(
-                  child: CircularProgressIndicator(),
+              backgroundColor: Color(0xfff5f5f5),
+              appBar:
+                  RegularAppBar(label: widget.routeArgument!.param.toString()),
+              body: SizedBox(
+                height: 700,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 200,
+                        child: CarouselSlider.builder(
+                          itemCount: 15,
+                          itemBuilder: (BuildContext context, int itemIndex,
+                                  int pageViewIndex) =>
+                              Container(
+                                // height: 50,
+                                // width: 50,
+                                child: Image.asset(
+                                  "assets/images/Hbill.jpeg",
+                                  height: 60,
+                                  // width: 20,
+                                ),
+                              ),
+                          options: CarouselOptions(
+                              viewportFraction: 1,
+                              initialPage: 0,
+                              // enlargeCenterPage: true,
+                              scrollDirection: Axis.horizontal,
+                              autoPlay: true,
+                              enableInfiniteScroll: true,
+                              autoPlayInterval: Duration(milliseconds: 4000),
+                              autoPlayCurve: Curves.easeOutSine,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _sliderPosition = index;
+                                });
+                              }),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 600,
+                        child: ConditionalBuilder(
+                          condition:
+                              ShippingBloc.get(context).subCategoryModel != null,
+                          builder: (context) => item(model),
+                          fallback: (context) => Container(
+                            color: Colors.white,
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          );
+              ));
         },
         // builder: (context, state) {
         //   var model = ShippingBloc.get(context).companyModel;
@@ -481,23 +530,23 @@ late String id;
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
                     child: Padding(
-                        padding:EdgeInsets.all(30),
+                        padding: EdgeInsets.all(30),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             // crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               model.data![index].icon == null
                                   ? Container(
-                                child: Image.asset(
-                                  "assets/images/Hbill.jpeg",
-                                  height: 40,
-                                  // width: 20,
-                                ),
-                              )
+                                      child: Image.asset(
+                                        "assets/images/Hbill.jpeg",
+                                        height: 40,
+                                        // width: 20,
+                                      ),
+                                    )
                                   : Image.network(
-                                '${APIData.domainLink}${model.data![index].icon!.thump}',
-                                height: 30,
-                              ),
+                                      '${APIData.domainLink}${model.data![index].icon!.thump}',
+                                      height: 30,
+                                    ),
                               Text(model.data![index].name.toString(),
                                   style: model.data![index].id.toString() ==
                                           model.data!.first.id.toString()
@@ -546,259 +595,259 @@ late String id;
             })),
         SizedBox(height: 80),
       ]);
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //       appBar: RegularAppBar(label: widget.routeArgument!.id.toString()),
-  //       key: _scaffoldKey,
-  //       backgroundColor: Color(0xfff5f5f5),
-  //       body: RefreshIndicator(onRefresh: () async {
-  //         if (_categories != null) {
-  //           // _categories!.clear();
-  //           // _categories = null;
-  //         }
+// Widget build(BuildContext context) {
+//   return Scaffold(
+//       appBar: RegularAppBar(label: widget.routeArgument!.id.toString()),
+//       key: _scaffoldKey,
+//       backgroundColor: Color(0xfff5f5f5),
+//       body: RefreshIndicator(onRefresh: () async {
+//         if (_categories != null) {
+//           // _categories!.clear();
+//           // _categories = null;
+//         }
 
-  //         // _categoryBloc.allPage = 1;
-  //         // _categoryBloc.add(FetchCategoriesEvent());
-  //       }, child:
-  //           BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
-  //         if (state is CategoryErrorState) {
-  //           _categories = [];
-  //           SchedulerBinding.instance?.addPostFrameCallback((_) {
-  //             displaySnackBar(title: state.errors, scaffoldKey: _scaffoldKey);
-  //           });
-  //         }
-  //         if (state is CategoriesSuccessState) {
-  //           if (_categories == null) {
-  //             _categories = [];
-  //           } else {}
-  //         }
-  //         if (state is SubCategoriesSuccessState) {
-  //           if (_subCategories == null) {
-  //             _subCategories = [];
-  //           }
-  //           if (_selectedCategory != null &&
-  //               state.items != null &&
-  //               state.items!.length != 0) {
-  //             if (_showRealLength == false) {
-  //               SchedulerBinding.instance?.addPostFrameCallback((_) {
-  //                 setState(() {
-  //                   _showRealLength = true;
-  //                 });
-  //               });
-  //             }
-  //             if (_subCategories!.length != 0 &&
-  //                 _subCategories!.first.id != state.items!.first.id) {
-  //               _subCategories!.addAll(state.items!);
-  //             } else if (_subCategories!.length == 0) {
-  //               _subCategories!.addAll(state.items!);
-  //             }
-  //           }
-  //         }
+//         // _categoryBloc.allPage = 1;
+//         // _categoryBloc.add(FetchCategoriesEvent());
+//       }, child:
+//           BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
+//         if (state is CategoryErrorState) {
+//           _categories = [];
+//           SchedulerBinding.instance?.addPostFrameCallback((_) {
+//             displaySnackBar(title: state.errors, scaffoldKey: _scaffoldKey);
+//           });
+//         }
+//         if (state is CategoriesSuccessState) {
+//           if (_categories == null) {
+//             _categories = [];
+//           } else {}
+//         }
+//         if (state is SubCategoriesSuccessState) {
+//           if (_subCategories == null) {
+//             _subCategories = [];
+//           }
+//           if (_selectedCategory != null &&
+//               state.items != null &&
+//               state.items!.length != 0) {
+//             if (_showRealLength == false) {
+//               SchedulerBinding.instance?.addPostFrameCallback((_) {
+//                 setState(() {
+//                   _showRealLength = true;
+//                 });
+//               });
+//             }
+//             if (_subCategories!.length != 0 &&
+//                 _subCategories!.first.id != state.items!.first.id) {
+//               _subCategories!.addAll(state.items!);
+//             } else if (_subCategories!.length == 0) {
+//               _subCategories!.addAll(state.items!);
+//             }
+//           }
+//         }
 
-  //         return CustomScrollView(
-  //             controller: _scrollController,
-  //             physics: BouncingScrollPhysics(),
-  //             slivers: [
-  //               SliverToBoxAdapter(
-  //                   child: Row(
-  //                       crossAxisAlignment: CrossAxisAlignment.start,
-  //                       children: [
-  //                     // Expanded(
-  //                     //     flex: 3,
-  //                     //     child: Container(
-  //                     //         padding: EdgeInsets.only(bottom: 40),
-  //                     //         decoration: BoxDecoration(
-  //                     //             color: Color(0xffffffff),
-  //                     //             border: Border.symmetric(
-  //                     //                 vertical: BorderSide(
-  //                     //                     color: Color(0xffeeeeee)))),
-  //                     //         child: _categoryBloc!.categories == null
-  //                     //             ? ListView.builder(
-  //                     //                 shrinkWrap: true,
-  //                     //                 physics: BouncingScrollPhysics(),
-  //                     //                 itemCount: 6,
-  //                     //                 itemBuilder: (context, index) {
-  //                     //                   return CategoryEmptyWidget();
-  //                     //                 })
-  //                     //             : ListView.builder(
-  //                     //                 shrinkWrap: true,
-  //                     //                 physics: BouncingScrollPhysics(),
-  //                     //                 itemCount:
-  //                     //                     _categoryBloc!.categories!.length,
-  //                     //                 itemBuilder: (context, index) {
-  //                     //                   if (_categoryBloc!
-  //                     //                       .categories!.isNotEmpty) {
-  //                     //                     return CategoryWidget(
-  //                     //                         model: _categoryBloc!
-  //                     //                             .categories![index],
-  //                     //                         onTap: () => onCategoryTap(
-  //                     //                             _categoryBloc!
-  //                     //                                 .categories![index]));
-  //                     //                   }
-  //                     //                   return CategoryEmptyWidget();
-  //                     //                 }))),
-  //                     // Expanded(
-  //                     //     flex: 3,
-  //                     //     child: Container(
-  //                     //         padding: EdgeInsets.only(bottom: 40),
-  //                     //         decoration: BoxDecoration(
-  //                     //             color: Color(0xffffffff),
-  //                     //             border: Border.symmetric(
-  //                     //                 vertical: BorderSide(
-  //                     //                     color: Color(0xffeeeeee)))),
-  //                     //         child: _categoryBloc!.categories == null
-  //                     //             ? ListView.builder(
-  //                     //                 shrinkWrap: true,
-  //                     //                 physics: BouncingScrollPhysics(),
-  //                     //                 itemCount: 6,
-  //                     //                 itemBuilder: (context, index) {
-  //                     //                   return CategoryEmptyWidget();
-  //                     //                 })
-  //                     //             : ListView.builder(
-  //                     //                 shrinkWrap: true,
-  //                     //                 physics: BouncingScrollPhysics(),
-  //                     //                 itemCount:
-  //                     //                     _categoryBloc!.categories!.length,
-  //                     //                 itemBuilder: (context, index) {
-  //                     //                   if (_categoryBloc!
-  //                     //                       .categories!.isNotEmpty) {
-  //                     //                     return CategoryWidget(
-  //                     //                         model: _categoryBloc!
-  //                     //                             .categories![index],
-  //                     //                         onTap: () => onCategoryTap(
-  //                     //                             _categoryBloc!
-  //                     //                                 .categories![index]));
-  //                     //                   }
-  //                     //                   return CategoryEmptyWidget();
-  //                     //                 }))),
-  //                     Expanded(
-  //                         flex: 7,
-  //                         child: Container(
-  //                           padding: EdgeInsets.only(bottom: 30),
-  //                           margin: EdgeInsets.only(left: 6, right: 8),
-  //                           child: Column(children: [
-  //                             _subCategories == null ||
-  //                                     _subCategories!.length == 0
-  //                                 ? ListView.separated(
-  //                                     padding:
-  //                                         EdgeInsets.symmetric(vertical: 12),
-  //                                     primary: false,
-  //                                     shrinkWrap: true,
-  //                                     itemCount: 4,
-  //                                     itemBuilder:
-  //                                         (BuildContext context, int index) {
-  //                                       return SubCategoryEmptyWidget();
-  //                                     },
-  //                                     separatorBuilder:
-  //                                         (BuildContext context, int index) =>
-  //                                             SizedBox(height: 8))
-  //                                 : ListView.separated(
-  //                                     padding:
-  //                                         EdgeInsets.symmetric(vertical: 12),
-  //                                     primary: false,
-  //                                     shrinkWrap: true,
-  //                                     itemCount: _showRealLength == true
-  //                                         ? _subCategories!.length
-  //                                         : (_subCategories!.first
-  //                                                     .subSubCategory!.length >
-  //                                                 6
-  //                                             ? 1
-  //                                             : 2),
-  //                                     itemBuilder:
-  //                                         (BuildContext context, int index) {
-  //                                       return Stack(
-  //                                         alignment: Alignment.bottomRight,
-  //                                         children: [
-  //                                           SubCategoryWidget(
-  //                                               realLength: _showRealSubLengthIndex !=
-  //                                                           null &&
-  //                                                       _showRealSubLengthIndex ==
-  //                                                           index
-  //                                                   ? _subCategories![index]
-  //                                                       .subSubCategory!
-  //                                                       .length
-  //                                                   : (_subCategories![index]
-  //                                                               .subSubCategory!
-  //                                                               .length >
-  //                                                           10
-  //                                                       ? 10
-  //                                                       : (_subCategories![
-  //                                                                       index]
-  //                                                                   .subSubCategory!
-  //                                                                   .length >=
-  //                                                               5
-  //                                                           ? 5
-  //                                                           : 1)),
-  //                                               model: _subCategories![index]),
-  //                                           if (_subCategories![index]
-  //                                                       .subSubCategory!
-  //                                                       .length !=
-  //                                                   0 &&
-  //                                               _subCategories![index]
-  //                                                       .subSubCategory!
-  //                                                       .length >
-  //                                                   3)
-  //                                             Align(
-  //                                               alignment:
-  //                                                   Alignment.bottomRight,
-  //                                               child: GestureDetector(
-  //                                                   onTap: () async {
-  //                                                     setState(() {
-  //                                                       _showRealSubLengthIndex =
-  //                                                           index;
-  //                                                     });
-  //                                                   },
-  //                                                   child: Container(
-  //                                                     color: Colors.white,
-  //                                                     margin:
-  //                                                         EdgeInsets.symmetric(
-  //                                                             horizontal: 15.w,
-  //                                                             vertical: 20.h),
-  //                                                     child: RichText(
-  //                                                       softWrap: true,
-  //                                                       maxLines: 2,
-  //                                                       textAlign:
-  //                                                           TextAlign.center,
-  //                                                       text:
-  //                                                           TextSpan(children: [
-  //                                                         if (_showRealSubLengthIndex !=
-  //                                                             index)
-  //                                                           TextSpan(
-  //                                                             text: translate(
-  //                                                                 "button.show_more"),
-  //                                                             style: TextStyle(
-  //                                                               color: Colors
-  //                                                                   .blue
-  //                                                                   .withOpacity(
-  //                                                                       0.5),
-  //                                                               fontWeight:
-  //                                                                   FontWeight
-  //                                                                       .bold,
-  //                                                               decoration:
-  //                                                                   TextDecoration
-  //                                                                       .underline,
-  //                                                               fontSize: 25.sp,
-  //                                                             ),
-  //                                                           ),
-  //                                                         TextSpan(text: " "),
-  //                                                       ]),
-  //                                                     ),
-  //                                                   )),
-  //                                             ),
-  //                                         ],
-  //                                       );
-  //                                     },
-  //                                     separatorBuilder:
-  //                                         (BuildContext context, int index) =>
-  //                                             SizedBox(height: 8)),
-  //                           ]),
-  //                         )),
-  //                   ])),
-  //             ]);
-  //       })));
-  // }
+//         return CustomScrollView(
+//             controller: _scrollController,
+//             physics: BouncingScrollPhysics(),
+//             slivers: [
+//               SliverToBoxAdapter(
+//                   child: Row(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                     // Expanded(
+//                     //     flex: 3,
+//                     //     child: Container(
+//                     //         padding: EdgeInsets.only(bottom: 40),
+//                     //         decoration: BoxDecoration(
+//                     //             color: Color(0xffffffff),
+//                     //             border: Border.symmetric(
+//                     //                 vertical: BorderSide(
+//                     //                     color: Color(0xffeeeeee)))),
+//                     //         child: _categoryBloc!.categories == null
+//                     //             ? ListView.builder(
+//                     //                 shrinkWrap: true,
+//                     //                 physics: BouncingScrollPhysics(),
+//                     //                 itemCount: 6,
+//                     //                 itemBuilder: (context, index) {
+//                     //                   return CategoryEmptyWidget();
+//                     //                 })
+//                     //             : ListView.builder(
+//                     //                 shrinkWrap: true,
+//                     //                 physics: BouncingScrollPhysics(),
+//                     //                 itemCount:
+//                     //                     _categoryBloc!.categories!.length,
+//                     //                 itemBuilder: (context, index) {
+//                     //                   if (_categoryBloc!
+//                     //                       .categories!.isNotEmpty) {
+//                     //                     return CategoryWidget(
+//                     //                         model: _categoryBloc!
+//                     //                             .categories![index],
+//                     //                         onTap: () => onCategoryTap(
+//                     //                             _categoryBloc!
+//                     //                                 .categories![index]));
+//                     //                   }
+//                     //                   return CategoryEmptyWidget();
+//                     //                 }))),
+//                     // Expanded(
+//                     //     flex: 3,
+//                     //     child: Container(
+//                     //         padding: EdgeInsets.only(bottom: 40),
+//                     //         decoration: BoxDecoration(
+//                     //             color: Color(0xffffffff),
+//                     //             border: Border.symmetric(
+//                     //                 vertical: BorderSide(
+//                     //                     color: Color(0xffeeeeee)))),
+//                     //         child: _categoryBloc!.categories == null
+//                     //             ? ListView.builder(
+//                     //                 shrinkWrap: true,
+//                     //                 physics: BouncingScrollPhysics(),
+//                     //                 itemCount: 6,
+//                     //                 itemBuilder: (context, index) {
+//                     //                   return CategoryEmptyWidget();
+//                     //                 })
+//                     //             : ListView.builder(
+//                     //                 shrinkWrap: true,
+//                     //                 physics: BouncingScrollPhysics(),
+//                     //                 itemCount:
+//                     //                     _categoryBloc!.categories!.length,
+//                     //                 itemBuilder: (context, index) {
+//                     //                   if (_categoryBloc!
+//                     //                       .categories!.isNotEmpty) {
+//                     //                     return CategoryWidget(
+//                     //                         model: _categoryBloc!
+//                     //                             .categories![index],
+//                     //                         onTap: () => onCategoryTap(
+//                     //                             _categoryBloc!
+//                     //                                 .categories![index]));
+//                     //                   }
+//                     //                   return CategoryEmptyWidget();
+//                     //                 }))),
+//                     Expanded(
+//                         flex: 7,
+//                         child: Container(
+//                           padding: EdgeInsets.only(bottom: 30),
+//                           margin: EdgeInsets.only(left: 6, right: 8),
+//                           child: Column(children: [
+//                             _subCategories == null ||
+//                                     _subCategories!.length == 0
+//                                 ? ListView.separated(
+//                                     padding:
+//                                         EdgeInsets.symmetric(vertical: 12),
+//                                     primary: false,
+//                                     shrinkWrap: true,
+//                                     itemCount: 4,
+//                                     itemBuilder:
+//                                         (BuildContext context, int index) {
+//                                       return SubCategoryEmptyWidget();
+//                                     },
+//                                     separatorBuilder:
+//                                         (BuildContext context, int index) =>
+//                                             SizedBox(height: 8))
+//                                 : ListView.separated(
+//                                     padding:
+//                                         EdgeInsets.symmetric(vertical: 12),
+//                                     primary: false,
+//                                     shrinkWrap: true,
+//                                     itemCount: _showRealLength == true
+//                                         ? _subCategories!.length
+//                                         : (_subCategories!.first
+//                                                     .subSubCategory!.length >
+//                                                 6
+//                                             ? 1
+//                                             : 2),
+//                                     itemBuilder:
+//                                         (BuildContext context, int index) {
+//                                       return Stack(
+//                                         alignment: Alignment.bottomRight,
+//                                         children: [
+//                                           SubCategoryWidget(
+//                                               realLength: _showRealSubLengthIndex !=
+//                                                           null &&
+//                                                       _showRealSubLengthIndex ==
+//                                                           index
+//                                                   ? _subCategories![index]
+//                                                       .subSubCategory!
+//                                                       .length
+//                                                   : (_subCategories![index]
+//                                                               .subSubCategory!
+//                                                               .length >
+//                                                           10
+//                                                       ? 10
+//                                                       : (_subCategories![
+//                                                                       index]
+//                                                                   .subSubCategory!
+//                                                                   .length >=
+//                                                               5
+//                                                           ? 5
+//                                                           : 1)),
+//                                               model: _subCategories![index]),
+//                                           if (_subCategories![index]
+//                                                       .subSubCategory!
+//                                                       .length !=
+//                                                   0 &&
+//                                               _subCategories![index]
+//                                                       .subSubCategory!
+//                                                       .length >
+//                                                   3)
+//                                             Align(
+//                                               alignment:
+//                                                   Alignment.bottomRight,
+//                                               child: GestureDetector(
+//                                                   onTap: () async {
+//                                                     setState(() {
+//                                                       _showRealSubLengthIndex =
+//                                                           index;
+//                                                     });
+//                                                   },
+//                                                   child: Container(
+//                                                     color: Colors.white,
+//                                                     margin:
+//                                                         EdgeInsets.symmetric(
+//                                                             horizontal: 15.w,
+//                                                             vertical: 20.h),
+//                                                     child: RichText(
+//                                                       softWrap: true,
+//                                                       maxLines: 2,
+//                                                       textAlign:
+//                                                           TextAlign.center,
+//                                                       text:
+//                                                           TextSpan(children: [
+//                                                         if (_showRealSubLengthIndex !=
+//                                                             index)
+//                                                           TextSpan(
+//                                                             text: translate(
+//                                                                 "button.show_more"),
+//                                                             style: TextStyle(
+//                                                               color: Colors
+//                                                                   .blue
+//                                                                   .withOpacity(
+//                                                                       0.5),
+//                                                               fontWeight:
+//                                                                   FontWeight
+//                                                                       .bold,
+//                                                               decoration:
+//                                                                   TextDecoration
+//                                                                       .underline,
+//                                                               fontSize: 25.sp,
+//                                                             ),
+//                                                           ),
+//                                                         TextSpan(text: " "),
+//                                                       ]),
+//                                                     ),
+//                                                   )),
+//                                             ),
+//                                         ],
+//                                       );
+//                                     },
+//                                     separatorBuilder:
+//                                         (BuildContext context, int index) =>
+//                                             SizedBox(height: 8)),
+//                           ]),
+//                         )),
+//                   ])),
+//             ]);
+//       })));
+// }
 
-  // onCategoryTap(int index) {
-  //   selectedIndex = false;
-  // }
+// onCategoryTap(int index) {
+//   selectedIndex = false;
+// }
 }

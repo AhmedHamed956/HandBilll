@@ -53,7 +53,7 @@ Widget SearchCompany(Company model ,context) {
           //     new Icon(Icons.error,
           //         color: mainColorLite))),
           Text(
-            model.name,
+            model.name!,
             style: TextStyle(color: Colors.black,),
           )
         ],

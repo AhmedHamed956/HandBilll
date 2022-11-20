@@ -40,14 +40,7 @@ class _CompanyBoardState extends State<CompanyBoard>
 
   double radius = 12, marginHorizontail = 16, marginTop = 16, heartSize = 42;
 
-  String? name ,
-      description,
-      information  ,
-      address ,
-      phone ,
-      mobile ,
-      image ,
-      rate ;
+  String? name, description, information, address, phone, mobile, image, rate;
 
   Company? _company;
   late TabController _tabController;
@@ -63,7 +56,6 @@ class _CompanyBoardState extends State<CompanyBoard>
     _getData();
     super.initState();
   }
-
 
   Future<void> initializePlayer(String url) async {
     _videoPlayerController1 = VideoPlayerController.network(url);
@@ -81,19 +73,20 @@ class _CompanyBoardState extends State<CompanyBoard>
         looping: true,
         showOptions: false);
   }
+
   @override
   void dispose() {
-    if(_videoPlayerController1!=null)_videoPlayerController1!.dispose();
+    if (_videoPlayerController1 != null) _videoPlayerController1!.dispose();
     super.dispose();
   }
+
   @override
   void didUpdateWidget(covariant CompanyBoard oldWidget) {
-
     super.didUpdateWidget(oldWidget);
   }
 
   _getData() async {
-     _company = Company();
+    _company = Company();
     _company = widget.model;
     print(_company!.name!);
     print('ddddddddddddddddddd');
@@ -105,19 +98,20 @@ class _CompanyBoardState extends State<CompanyBoard>
         image = _company!.logo!.thump;
       }
       if (_company!.images != null && _addVideo == false) {
-         initializePlayer(_company!.video!.url! == null ?'Vedio is empty' :_company!.video!.url! );
+        initializePlayer(_company!.video!.url! == null
+            ? 'Vedio is empty'
+            : _company!.video!.url!);
         _addVideo = true;
       }
     }
   }
 
-
   Color textColor = Colors.black;
 
   @override
   Widget build(BuildContext context) {
-     // Helper.chaneStatusBarColor(
-     //     statusBarColor: Colors.transparent, brightness: Brightness.light);
+    // Helper.chaneStatusBarColor(
+    //     statusBarColor: Colors.transparent, brightness: Brightness.light);
     Size size = MediaQuery.of(context).size;
     return CustomScrollView(physics: BouncingScrollPhysics(), slivers: [
       SliverToBoxAdapter(
@@ -155,7 +149,8 @@ class _CompanyBoardState extends State<CompanyBoard>
                                   child: CircularProgressIndicator(
                                       color: mainColorLite, strokeWidth: 2)),
                               errorWidget: (context, url, error) =>
-                                  new Image.asset("assets/images/loading.gif")));
+                                  new Image.asset(
+                                      "assets/images/loading.gif")));
                     }
                   })),
           Positioned(
@@ -173,14 +168,14 @@ class _CompanyBoardState extends State<CompanyBoard>
                         borderRadius: BorderRadius.circular(12),
                         color: Color(0xffffffff)),
                     child: CachedNetworkImage(
-                        imageUrl: image!,
+                        imageUrl: image == null ? placeholderLogo : image!,
                         fit: BoxFit.cover,
                         placeholder: (context, url) => Transform.scale(
                             scale: 0.4,
                             child: CircularProgressIndicator(
                                 color: mainColorLite, strokeWidth: 2)),
                         errorWidget: (context, url, error) =>
-                        new Image.asset("assets/images/loading.gif")),
+                            new Image.asset("assets/images/loading.gif")),
                   ))),
           _images.isEmpty
               ? SizedBox()
@@ -222,8 +217,8 @@ class _CompanyBoardState extends State<CompanyBoard>
                   featuredList: widget.featuredList,
                   categories: widget.categories,
                   products: widget.products),
-              CompanyProfile(
-                  leftDataOfCompanies: widget.model.leftDataOfCompanies!),
+              // CompanyProfile(
+              //   leftDataOfCompanies: widget!.model!.leftDataOfCompanies!, ),
             ]))
       ])),
       SliverToBoxAdapter(child: SizedBox(height: 80))

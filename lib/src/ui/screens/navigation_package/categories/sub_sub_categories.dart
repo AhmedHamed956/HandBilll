@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +20,7 @@ class SubSubCatScreen extends StatefulWidget {
 }
 
 class _SubSubCatScreenState extends State<SubSubCatScreen> {
+  int _sliderPosition = 0;
   @override
   void initState() {
     super.initState();
@@ -45,17 +47,57 @@ class _SubSubCatScreenState extends State<SubSubCatScreen> {
             backgroundColor: Color(0xfff5f5f5),
             appBar:
                 RegularAppBar(label: widget.routeArgument!.param.toString()),
-            body: ConditionalBuilder(
-              condition: ShippingBloc.get(context).subsubCategoryModel != null,
-              builder: (context) => item(model!),
-              fallback: (context) => Container(
-                color: Colors.white,
-                child: Center(
-                  child: CircularProgressIndicator(),
+            body:
+          SizedBox(
+          height: 700,
+          child: SingleChildScrollView(
+          child: Column(
+          children: [
+          SizedBox(
+          height: 200,
+          child: CarouselSlider.builder(
+          itemCount: 15,
+          itemBuilder: (BuildContext context, int itemIndex,
+          int pageViewIndex) =>
+          Container(
+          // height: 50,
+          // width: 50,
+          child: Image.asset(
+          "assets/images/Hbill.jpeg",
+          height: 60,
+          // width: 20,
+          ),
+          ),
+          options: CarouselOptions(
+          viewportFraction: 1,
+          initialPage: 0,
+          // enlargeCenterPage: true,
+          scrollDirection: Axis.horizontal,
+          autoPlay: true,
+          enableInfiniteScroll: true,
+          autoPlayInterval: Duration(milliseconds: 4000),
+          autoPlayCurve: Curves.easeOutSine,
+          onPageChanged: (index, reason) {
+          setState(() {
+          _sliderPosition = index;
+          });
+          }),
+          ),
+          ),
+            SizedBox(height: 20,),
+            SizedBox(height: 600,
+              child: ConditionalBuilder(
+                condition: ShippingBloc.get(context).subsubCategoryModel != null,
+                builder: (context) => item(model!),
+                fallback: (context) => Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
               ),
             ),
-          );
+         ]))) );
         },
         // bui
       ),

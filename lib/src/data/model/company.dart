@@ -146,7 +146,7 @@ class Company {
         _images?.add(ImageModel.fromJson(v));
       });
     }
-    _video = json["video"] != null ? VideoModel.fromJson(json["video"]) : null;
+    _video = json["videos"] != null ? VideoModel.fromJson(json["videos"]) : null;
     _logo = json["logo"] != null ? ImageModel.fromJson(json["logo"]) : null;
     _phone = json["phone"];
     _country = json["country"];
