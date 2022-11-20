@@ -76,7 +76,7 @@ class ShippingBloc extends Cubit<InterState> {
     Map<String, dynamic> queryParams = ({
       // "secret": APIData.secretKey,
       "id": id,
-      'language':'ar'
+      // 'language':'ar'
       // "page": page.toString(),
       // "paginate": "6",
       // "nature_activity": "shipping",

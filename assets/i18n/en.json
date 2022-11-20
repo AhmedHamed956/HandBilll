@@ -67,9 +67,11 @@
 		"market": " Market's ",
 		"product": " Product's ",
 		"search": " search",
-        "text": "search products ",
-        "products": "Products",
-        "suppliers": "search Suppliers"
+        "text": "search products or suppliers ",
+		"products": "Products",
+		"supplier": "Supplier",
+
+		"suppliers": "search Suppliers"
 	},
 	"rules":{
 		"check": " you accepted the Licenses and Terms ",

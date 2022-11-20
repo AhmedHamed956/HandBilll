@@ -28,6 +28,8 @@ import '../../../details_package/product_details/product_details_screen.dart';
 import '../../../services_package/patented/patents_screen.dart';
 import '../search_service/company_service_screen.dart';
 import 'Product_Details.dart';
+import 'Widgets/SearchCompany_widget.dart';
+import 'Widgets/SearchProduct_widget.dart';
 
 class SearchByCategoriesScreen extends StatefulWidget {
   const SearchByCategoriesScreen({Key? key}) : super(key: key);
@@ -45,7 +47,7 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
   final _searchController = TextEditingController();
   List<TabToggleModel> labelList = [
     TabToggleModel(label: translate("search.products")),
-    TabToggleModel(label: translate("search.suppliers"))
+    TabToggleModel(label: translate("search.supplier"))
   ];
   bool gridOrList = true;
 
@@ -55,27 +57,10 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
   FocusNode focusNode = FocusNode();
   List<DataProductSearch>? product;
   List<DataCompanySearch>? companyy;
-  getRecentSearch() async {
-    try{
-      recentSearchProduct = await storage.read(key: "recentSearchProduct");
-      recentSearchMarket = await storage.read(key: "recentSearchMarket");
-      if (recentSearchProduct == null) {
-        _searchBloc..add(SearchProductEvent(searchKey: ""));
-      } else {
-        _searchBloc..add(SearchProductEvent(searchKey: recentSearchProduct));
-      }
-      if (recentSearchMarket == null) {
-        // _searchBloc..add(SearchMarketEvent(searchKey: ""));
-        // } else {
-        //   _searchBloc..add(SearchMarketEvent(searchKey: recentSearchMarket));
-      }
-    }catch(e){print(e.toString());}
-  }
 
   @override
   void initState() {
     _searchBloc = BlocProvider.of<SearchBloc>(context);
-    // _searchBloc..add(SearchProductEvent(searchKey: _searchController.text));
     _searchBloc..add(SearchAllCategoriesEvent());
 
     super.initState();
@@ -158,15 +143,19 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomTabToggle(
-                  items: labelList,
-                  initIndex: selectedPage,
-                  onIndexChanged: (index) {
-                    setState(() {
-                      selectedPage = index;
-                      print(selectedPage);
-                    });
-                  }),
+
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0,right: 20,left: 20),
+                child: CustomTabToggle(
+                    items: labelList,
+                    initIndex: selectedPage,
+                    onIndexChanged: (index) {
+                      setState(() {
+                        selectedPage = index;
+                        print(selectedPage);
+                      });
+                    }),
+              ),
               SizedBox(
                 height: 600,
                 child:
@@ -220,7 +209,6 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                               children: [
                                 selectedPage ==0
                                ? Column(children: [
-
                                   _searchController.text.isEmpty && selectedPage == 0
                                    ?Container(
                                         height: 10,
@@ -247,7 +235,7 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                                               color: Colors.white38,
                                               child: ListView.separated(
                                                 itemBuilder: (BuildContext context, int index) {
-                                                  return SearchProduct(product![index]);
+                                                  return SearchProduct(product![index],context);
                                                 },
                                                 itemCount: product!.length,
                                                 separatorBuilder: (BuildContext context, int index) =>
@@ -290,7 +278,7 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
                                             color: Colors.white38,
                                             child: ListView.separated(
                                               itemBuilder: (BuildContext context, int index) {
-                                                return SearchCompany(companyy![index]);
+                                                return SearchCompanyData(companyy![index],context);
                                               },
                                               itemCount: companyy!.length,
                                               separatorBuilder: (BuildContext context, int index) =>
@@ -363,63 +351,6 @@ class _SearchByCategoriesScreenState extends State<SearchByCategoriesScreen> {
     );
   }
 
-  Widget SearchProduct(DataProductSearch model) {
-    return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, CompanyScreen.routeName,
-            arguments: RouteArgument(param: model));
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(top: 15.0, bottom: 5,left: 20),
-        child: Container(
-            height: 30,
-            width: 200,
-            child:
-                // CachedNetworkImage(imageUrl: model.flag),
-                // Padding(
-                //     padding: EdgeInsets.all(10),
-                //     child: Container(
-                //         child: CachedNetworkImage(
-                //             imageUrl: model.images![0].thump!))),
-                Text(
-                    model.name!,
-                    style: TextStyle(color: Colors.black54, fontSize: 15),
-
-            )),
-      ),
-    );
-  }
-  Widget SearchCompany(DataCompanySearch model) {
-    return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, CompanyServiceScreen.routeName,
-            arguments: RouteArgument(param: model.id));
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(top: 4.0, bottom: 4),
-        child: Container(
-            height: 60,
-            width: 200,
-            child: Row(
-              children: [
-                // CachedNetworkImage(imageUrl: model.flag),
-                // Padding(
-                //     padding: EdgeInsets.all(10),
-                //     child: Container(
-                //         child: CachedNetworkImage(
-                //             imageUrl: model.company!.images![0].thump!))),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: Text(
-                    model.name!,
-                    style: TextStyle(color: Colors.black54, fontSize: 15),
-                  ),
-                ),
-              ],
-            )),
-      ),
-    );
-  }
 
 }
 

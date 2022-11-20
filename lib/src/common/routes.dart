@@ -46,6 +46,7 @@ import 'package:hand_bill/src/ui/screens/account_package/wishlist/wishlist_scree
 
 import '../ui/screens/aboutUsScreen.dart';
 import '../ui/screens/navigation_package/categories/component/sub_cat.dart';
+import '../ui/screens/navigation_package/search/Search_market/CompanySearchScreen.dart';
 import '../ui/screens/navigation_package/search/Search_market/all_products.dart';
 import '../ui/screens/navigation_package/search/Search_market/Product_Details.dart';
 import '../ui/screens/navigation_package/search/Search_market/search_screen1.dart';
@@ -94,8 +95,8 @@ class RouteGenerator {
             widget: ProductDetailsScreen(routeArgument: args!));
       case CompanyScreen.routeName:
         return CustomPageRoute(widget: CompanyScreen(routeArgument: args!));
-      case ProductsScreen.routeName:
-        return CustomPageRoute(widget: ProductsScreen(routeArgument: args!));
+      case ProductsScreen.routeName:return CustomPageRoute(widget: ProductsScreen(routeArgument: args!));
+      case CompanySearchScreen.routeName:return CustomPageRoute(widget: CompanySearchScreen(routeArgument: args!));
       case SearchScreen.routeName:
         return CustomPageRoute(widget: SearchByCategoriesScreen());
       // case InboxScreen.routeName:

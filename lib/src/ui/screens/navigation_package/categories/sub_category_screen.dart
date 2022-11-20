@@ -265,6 +265,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:hand_bill/src/blocs/category/category_bloc.dart';
 import 'package:hand_bill/src/blocs/category/category_event.dart';
 import 'package:hand_bill/src/blocs/category/category_state.dart';
+import 'package:hand_bill/src/common/api_data.dart';
 import 'package:hand_bill/src/common/global.dart';
 import 'package:hand_bill/src/data/model/category/category.dart';
 import 'package:hand_bill/src/ui/component/widgets.dart';
@@ -485,6 +486,18 @@ late String id;
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             // crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              model.data![index].icon == null
+                                  ? Container(
+                                child: Image.asset(
+                                  "assets/images/Hbill.jpeg",
+                                  height: 40,
+                                  // width: 20,
+                                ),
+                              )
+                                  : Image.network(
+                                '${APIData.domainLink}${model.data![index].icon!.thump}',
+                                height: 30,
+                              ),
                               Text(model.data![index].name.toString(),
                                   style: model.data![index].id.toString() ==
                                           model.data!.first.id.toString()

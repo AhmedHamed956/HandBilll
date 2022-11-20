@@ -123,7 +123,6 @@ class _CompanyScreenState extends State<CompanyScreen> {
                             if (state is AddToFavoriteSuccessState) {
                               Fluttertoast.showToast(msg: state.message!);
                             }
-
                             if (state is RemoveFromFavoriteSuccessState) {
                               Fluttertoast.showToast(msg: state.message!);
                             }

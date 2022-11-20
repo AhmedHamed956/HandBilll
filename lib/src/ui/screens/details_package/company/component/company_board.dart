@@ -93,7 +93,7 @@ class _CompanyBoardState extends State<CompanyBoard>
   }
 
   _getData() async {
-    // _company = Company();
+     _company = Company();
     _company = widget.model;
     print(_company!.name!);
     print('ddddddddddddddddddd');
@@ -105,7 +105,7 @@ class _CompanyBoardState extends State<CompanyBoard>
         image = _company!.logo!.thump;
       }
       if (_company!.images != null && _addVideo == false) {
-        // initializePlayer(_company!.video!.url! == null ?'Vedio is empty' :_company!.video!.url! );
+         initializePlayer(_company!.video!.url! == null ?'Vedio is empty' :_company!.video!.url! );
         _addVideo = true;
       }
     }
@@ -116,8 +116,8 @@ class _CompanyBoardState extends State<CompanyBoard>
 
   @override
   Widget build(BuildContext context) {
-    // Helper.chaneStatusBarColor(
-    //     statusBarColor: Colors.transparent, brightness: Brightness.light);
+     // Helper.chaneStatusBarColor(
+     //     statusBarColor: Colors.transparent, brightness: Brightness.light);
     Size size = MediaQuery.of(context).size;
     return CustomScrollView(physics: BouncingScrollPhysics(), slivers: [
       SliverToBoxAdapter(

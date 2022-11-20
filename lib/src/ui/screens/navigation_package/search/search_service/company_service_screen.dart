@@ -29,6 +29,7 @@ class _CompanyServiceScreenState extends State<CompanyServiceScreen> {
   void initState() {
     companyId = widget.routeArgument.param;
     print(companyId);
+    print('aaaaaaaaaaaaaaaa');
     serviceBloc = BlocProvider.of<ServiceBlocData>(context);
     serviceBloc!.add(ServiceCompanyEvent(searchKey: companyId));
     super.initState();
