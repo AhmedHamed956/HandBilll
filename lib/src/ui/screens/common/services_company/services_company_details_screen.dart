@@ -421,7 +421,7 @@ class _ServicesCompanyDetailsScreenState
                             ]),
                             SizedBox(height: 16),
                             Row(children: [
-                              Icon(Icons.whatsapp),
+                              Icon(Icons.phone_locked),
                               SizedBox(width: 12),
                               Expanded(
                                   child: widget.whatsapp.toString() != 'null'
