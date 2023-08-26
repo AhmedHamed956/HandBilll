@@ -30,8 +30,7 @@ import 'package:hand_bill/src/blocs/search/search_bloc.dart';
 import 'package:hand_bill/src/common/routes.dart';
 import 'package:hand_bill/src/helper/helpers.dart';
 import 'package:hand_bill/src/repositories/global_repository.dart';
-import 'package:hand_bill/src/ui/screens/auth/login_screen.dart';
-import 'package:hand_bill/src/ui/screens/auth/register_screen.dart';
+
 import 'package:hand_bill/src/ui/screens/auth/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
